@@ -1,0 +1,68 @@
+{
+  "name": "@atomsit/sdm-pack-node",
+  "version": "0.1.0",
+  "description": "Node-related accoutrement for an Atomist SDM",
+  "author": "Jessica Kerr",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/atomist/sdm-pack-node#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/atomist/sdm-pack-node.git"
+  },
+  "keywords": [
+    "atomist",
+    "automation",
+    "sdm",
+    "extension",
+    "pack"
+  ],
+  "bugs": {
+    "url": "https://github.com/atomist/sdm-pack-node/issues"
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "@atomist/automation-client": "^0.18.x",
+    "@atomist/sdm": "^0.3.1",
+    "@atomist/sdm-core": "^0.3.2"
+  },
+  "devDependencies": {
+    "@atomist/automation-client": "^0.18.0-20180705162739",
+    "@atomist/sdm": "0.3.1",
+    "@atomist/sdm-core": "0.3.2",
+    "@types/lodash": "^4.14.109",
+    "@types/mocha": "^2.2.48",
+    "@types/node": "^9.4.1",
+    "mocha": "^5.2.0",
+    "npm-run-all": "^4.1.2",
+    "rimraf": "^2.6.2",
+    "ts-node": "^7.0.0",
+    "tslint": "^5.9.1",
+    "typedoc": "^0.11.1",
+    "typescript": "^2.9.2",
+    "typescript-formatter": "^7.2.0"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "build": "npm-run-all lint compile test",
+    "clean": "npm-run-all clean:js clean:build",
+    "clean:build": "rimraf *-v8.log profile.txt dist",
+    "clean:dist": "npm-run-all clean clean:npm",
+    "clean:js": "rimraf \"{src,test}/**/*.js\"",
+    "clean:npm": "rimraf node_modules",
+    "compile": "npm-run-all compile:ts",
+    "compile:ts": "tsc --project .",
+    "fmt": "tsfmt --replace",
+    "lint": "tslint --format verbose --project . --exclude \"{build,node_modules}/**\" \"**/*.ts\"",
+    "lint:fix": "npm run lint -- --fix",
+    "test": "mocha --require ts-node/register --exit \"test/**/*.ts\"",
+    "test:one": "mocha --require ts-node/register \"test/**/${TEST:-*.ts}\"",
+    "typedoc": "typedoc --mode modules --excludeExternals --out build/typedoc src"
+  },
+  "main": "dist/index.js",
+  "engines": {
+    "node": "9.x.x",
+    "npm": "6.x.x"
+  }
+}
