@@ -1,6 +1,6 @@
-# @atomist/sdm-pack-seed
+# @atomsit/sdm-pack-node
 
-This page details all runtime OSS dependencies of `@atomist/sdm-pack-seed`.
+This page details all runtime OSS dependencies of `@atomsit/sdm-pack-node`.
 
 ## Licenses
 
