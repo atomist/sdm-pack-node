@@ -15,7 +15,7 @@
  */
 
 import * as assert from "assert";
-import { gitBranchToNpmTag } from "../../../../../../src/internal/delivery/build/local/npm/executePublish";
+import { gitBranchToNpmTag } from "../../../src/support/build/executePublish";
 
 describe("git branch to npm tag", () => {
 

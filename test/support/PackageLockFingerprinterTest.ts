@@ -18,8 +18,8 @@ import { Fingerprint } from "@atomist/automation-client/project/fingerprint/Fing
 import { InMemoryFile } from "@atomist/automation-client/project/mem/InMemoryFile";
 import { InMemoryProject } from "@atomist/automation-client/project/mem/InMemoryProject";
 import { PushImpactListenerInvocation } from "@atomist/sdm/api/listener/PushImpactListener";
-import * as assert from "power-assert";
-import { PackageLockFingerprinter } from "../../../src/pack/node/PackageLockFingerprinter";
+import { PackageLockFingerprinter } from "../../src/support/PackageLockFingerprinter";
+import * as assert from "assert";
 
 describe("package-lock.json", () => {
 
