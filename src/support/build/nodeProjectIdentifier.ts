@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-
 import { ProjectIdentifier } from "@atomist/sdm-core";
 
 export const NodeProjectIdentifier: ProjectIdentifier = async p => {

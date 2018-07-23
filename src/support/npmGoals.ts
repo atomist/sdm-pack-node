@@ -14,6 +14,11 @@
  * limitations under the License.
  */
 
+import {
+    DockerBuildGoal,
+    TagGoal,
+    VersionGoal,
+} from "@atomist/sdm-core";
 import { GoalWithPrecondition } from "@atomist/sdm/api/goal/Goal";
 import { Goals } from "@atomist/sdm/api/goal/Goals";
 import {
@@ -29,11 +34,6 @@ import {
     StagingDeploymentGoal,
     StagingEndpointGoal,
 } from "@atomist/sdm/api/machine/wellKnownGoals";
-import {
-    DockerBuildGoal,
-    TagGoal,
-    VersionGoal,
-} from "@atomist/sdm-core";
 
 export const NpmPublishGoal = new GoalWithPrecondition({
     uniqueName: "Publish",

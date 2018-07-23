@@ -26,18 +26,18 @@ import {
     GoalInvocation,
     PrepareForGoalExecution,
 } from "@atomist/sdm";
+import {
+    createStatus,
+    ProjectIdentifier,
+} from "@atomist/sdm-core";
 import { LoggingProgressLog } from "@atomist/sdm/api-helper/log/LoggingProgressLog";
 import { spawnAndWatch } from "@atomist/sdm/api-helper/misc/spawned";
+import { projectConfigurationValue } from "@atomist/sdm/api-helper/project/configuration/projectConfiguration";
 import { ExecuteGoalResult } from "@atomist/sdm/api/goal/ExecuteGoalResult";
 import { ProjectLoader } from "@atomist/sdm/spi/project/ProjectLoader";
 import * as fs from "fs-extra";
 import * as p from "path";
 import { NpmPreparations } from "./npmBuilder";
-import {
-    createStatus,
-    ProjectIdentifier,
-} from "@atomist/sdm-core";
-import { projectConfigurationValue } from "@atomist/sdm/api-helper/project/configuration/projectConfiguration";
 
 /**
  * Execute npm publish
@@ -113,19 +113,19 @@ export function executePublish(
     };
 }
 
-export async function deleteBranchTag(branch: string, p: GitProject, options: NpmOptions): Promise<HandlerResult> {
-    const pj = await p.getFile("package.json");
+export async function deleteBranchTag(branch: string, project: GitProject, options: NpmOptions): Promise<HandlerResult> {
+    const pj = await project.getFile("package.json");
     if (pj) {
         const tag = gitBranchToNpmTag(branch);
         const name = JSON.parse(await pj.getContent()).name;
 
-        await configure(options, p);
+        await configure(options, project);
         const result = await spawnAndWatch({
                 command: "npm",
                 args: ["dist-tags", "rm", name, tag],
             },
             {
-                cwd: p.baseDir,
+                cwd: project.baseDir,
             },
             new LoggingProgressLog("npm dist-tag rm"),
             {
