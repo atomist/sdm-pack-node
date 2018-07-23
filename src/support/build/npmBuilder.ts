@@ -25,12 +25,12 @@ import {
 } from "@atomist/sdm/api-helper/misc/spawned";
 import { ExecuteGoalResult } from "@atomist/sdm/api/goal/ExecuteGoalResult";
 import { AppInfo } from "@atomist/sdm/spi/deploy/Deployment";
-import { readSdmVersion } from "../projectVersioner";
+import { NpmLogInterpreter } from "./npmLogInterpreter";
 import {
     SpawnBuilder,
     SpawnBuilderOptions,
-} from "../SpawnBuilder";
-import { NpmLogInterpreter } from "./npmLogInterpreter";
+} from "@atomist/sdm-core/internal/delivery/build/local/SpawnBuilder";
+import { readSdmVersion } from "@atomist/sdm-core";
 
 /**
  * Options to use when running node commands like npm run compile that require dev dependencies to be installed

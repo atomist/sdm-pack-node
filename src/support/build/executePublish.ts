@@ -37,6 +37,7 @@ import {
     createStatus,
     ProjectIdentifier,
 } from "@atomist/sdm-core";
+import { projectConfigurationValue } from "@atomist/sdm/api-helper/project/configuration/projectConfiguration";
 
 /**
  * Execute npm publish

@@ -16,7 +16,7 @@
 
 import { spawnAndWatch } from "@atomist/sdm/api-helper/misc/spawned";
 import * as df from "dateformat";
-import { ProjectVersioner } from "../projectVersioner";
+import { ProjectVersioner } from "@atomist/sdm-core/internal/delivery/build/local/projectVersioner";
 
 export const NodeProjectVersioner: ProjectVersioner = async (sdmGoal, p, log) => {
     const pjFile = await p.getFile("package.json");

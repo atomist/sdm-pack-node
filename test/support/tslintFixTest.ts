@@ -25,6 +25,7 @@ import { SingleProjectLoader } from "@atomist/sdm/api-helper/test/SingleProjectL
 import * as assert from "assert";
 import { tslintFix } from "../../src/support/tslintFix";
 import { DefaultRepoRefResolver } from "@atomist/sdm-core";
+import { fakeGoalInvocation } from "@atomist/sdm/api-helper/test/fakeGoalInvocation";
 
 describe("tsLintFix", () => {
 

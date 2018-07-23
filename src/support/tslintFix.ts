@@ -19,12 +19,12 @@ import { asSpawnCommand } from "@atomist/sdm/api-helper/misc/spawned";
 import { hasFile } from "@atomist/sdm/api/mapping/support/commonPushTests";
 import { allSatisfied } from "@atomist/sdm/api/mapping/support/pushTestUtils";
 import { AutofixRegistration } from "@atomist/sdm/api/registration/AutofixRegistration";
+import { IsNode } from "./nodePushTests";
+import { IsTypeScript } from "./tsPushTests";
 import {
     DevelopmentEnvOptions,
     Install,
-} from "../../internal/delivery/build/local/npm/npmBuilder";
-import { IsNode } from "./nodePushTests";
-import { IsTypeScript } from "./tsPushTests";
+} from "./build/npmBuilder";
 
 export const tslintFix: AutofixRegistration = spawnedCommandAutofix(
     "tslint",

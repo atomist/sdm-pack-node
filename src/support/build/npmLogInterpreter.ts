@@ -16,7 +16,7 @@
 
 import { logger } from "@atomist/automation-client";
 import { InterpretLog } from "@atomist/sdm/spi/log/InterpretedLog";
-import * as strip_ansi from "strip-ansi";
+import strip_ansi = require("strip-ansi");
 
 export const NpmLogInterpreter: InterpretLog = log => {
     if (!log) {
@@ -25,7 +25,7 @@ export const NpmLogInterpreter: InterpretLog = log => {
     const lines = removeBlanksFromEnd(
         removeNpmFooter(
         log.split("\n")
-        .map(strip_ansi)
+        .map(a => strip_ansi(a))
         .map(stripLogPrefix)));
 
     const defaultMessage = lastOccurrenceOf(/^ERROR:/, lines) || "Error";

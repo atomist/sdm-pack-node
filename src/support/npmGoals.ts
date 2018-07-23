@@ -33,7 +33,7 @@ import {
     DockerBuildGoal,
     TagGoal,
     VersionGoal,
-} from "../well-known-goals/commonGoals";
+} from "@atomist/sdm-core";
 
 export const NpmPublishGoal = new GoalWithPrecondition({
     uniqueName: "Publish",

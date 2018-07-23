@@ -19,19 +19,24 @@
   "bugs": {
     "url": "https://github.com/atomist/sdm-pack-node/issues"
   },
-  "dependencies": {},
+  "dependencies": {
+    "dateformat": "^3.0.3",
+    "strip-ansi": "^4.0.0"
+  },
   "peerDependencies": {
     "@atomist/automation-client": "^0.18.x",
-    "@atomist/sdm": "^0.3.1",
-    "@atomist/sdm-core": "^0.3.2"
+    "@atomist/sdm": "^0.3.2",
+    "@atomist/sdm-core": "^0.3.3"
   },
   "devDependencies": {
     "@atomist/automation-client": "^0.18.0-20180705162739",
-    "@atomist/sdm": "0.3.1",
-    "@atomist/sdm-core": "0.3.2",
+    "@atomist/sdm": "^0.3.2-20180723055531",
+    "@atomist/sdm-core": "^0.3.2-20180718062204",
+    "@types/dateformat": "^1.0.1",
     "@types/lodash": "^4.14.109",
     "@types/mocha": "^2.2.48",
     "@types/node": "^9.4.1",
+    "@types/strip-ansi": "^3.0.0",
     "mocha": "^5.2.0",
     "npm-run-all": "^4.1.2",
     "rimraf": "^2.6.2",
