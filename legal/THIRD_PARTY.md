@@ -8,8 +8,16 @@ This page details all runtime OSS dependencies of `@atomsit/sdm-pack-node`.
 
 | License | Count |
 |---------|-------|
+|[MIT](#mit)|3|
 
+#### MIT
+MIT License - [http://www.opensource.org/licenses/MIT](http://www.opensource.org/licenses/MIT)
 
+| Name | Version | Publisher | Repository |
+|------|---------|-----------|------------|
+|`ansi-regex`|`3.0.0`|Sindre Sorhus|[https://github.com/chalk/ansi-regex](https://github.com/chalk/ansi-regex)|
+|`dateformat`|`3.0.3`|Steven Levithan|[https://github.com/felixge/node-dateformat](https://github.com/felixge/node-dateformat)|
+|`strip-ansi`|`4.0.0`|Sindre Sorhus|[https://github.com/chalk/strip-ansi](https://github.com/chalk/strip-ansi)|
 
 ## Contact
 
