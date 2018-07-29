@@ -22,7 +22,7 @@ import {
     FingerprinterRegistration,
     FingerprinterResult,
 } from "@atomist/sdm/api/registration/FingerprinterRegistration";
-import { IsNode } from "./nodePushTests";
+import { IsNode } from "./pushtest/nodePushTests";
 
 /**
  * Compute a fingerprint from a package-lock.json file.

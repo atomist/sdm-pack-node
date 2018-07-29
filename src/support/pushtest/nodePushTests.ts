@@ -19,7 +19,7 @@ import {
     PredicatePushTest,
 } from "@atomist/sdm/api/mapping/PushTest";
 import { hasFile } from "@atomist/sdm/api/mapping/support/commonPushTests";
-import { AtomistBuildFile } from "./build/NpmDetectBuildMapping";
+import { AtomistBuildFile } from "../build/NpmDetectBuildMapping";
 
 export const IsNode: PredicatePushTest = predicatePushTest("Is Node", async p => {
     const f = await p.getFile("package.json");
