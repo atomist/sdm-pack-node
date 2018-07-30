@@ -20,6 +20,12 @@ import { CodeTransform } from "@atomist/sdm";
 import { NodeProjectCreationParameters } from "../generator/NodeProjectCreationParameters";
 import { findAuthorName } from "./findAuthorName";
 
+/**
+ * Code transform to update identification fields of package.json
+ * @param project
+ * @param context
+ * @param params
+ */
 export const UpdatePackageJsonIdentification: CodeTransform<NodeProjectCreationParameters> =
     async (project, context, params) => {
         logger.info("Updating JSON: params=%j", params);

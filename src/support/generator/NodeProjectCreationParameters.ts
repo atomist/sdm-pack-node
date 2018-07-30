@@ -23,12 +23,19 @@ import {
 import { MappedParameters } from "@atomist/automation-client";
 import { SeedDrivenGeneratorParameters } from "@atomist/automation-client/operations/generate/SeedDrivenGeneratorParameters";
 
+/**
+ * Parameters for creating Node projects
+ */
 export interface NodeProjectCreationParameters extends SeedDrivenGeneratorParameters {
     appName: string;
     screenName: string;
     version: string;
 }
 
+/**
+ * Corresponding parameter definitions
+ * @type {{appName: {displayName: string; description: string; pattern: RegExp; validInput: string; minLength: number; maxLength: number; required: boolean; order: number}; version: {pattern?: RegExp; required?: boolean; description?: string; displayName?: string; validInput?: string; displayable?: boolean; maxLength?: number; minLength?: number; type?: ParameterType; order?: number; group?: Group; control?: "input" | "textarea"; defaultValue: string}; screenName: {type: DeclarationType; uri: string}}}
+ */
 export const NodeProjectCreationParametersDefinition: ParametersObject = {
 
     appName: {
