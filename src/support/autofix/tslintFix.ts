@@ -26,10 +26,11 @@ import {
 import { IsNode } from "../pushtest/nodePushTests";
 import { IsTypeScript } from "../pushtest/tsPushTests";
 
+// TODO: do not expect that everyone has named this task "lint:fix"
+// or at least check whether they have
 export const tslintFix: AutofixRegistration = spawnedCommandAutofix(
     "tslint",
-    // this should verify that it depends on tslint
     allSatisfied(IsTypeScript, IsNode, hasFile("tslint.json")),
     {ignoreFailure: true, considerOnlyChangedFiles: false},
     Install,
-    asSpawnCommand("node_modules/.bin/tslint --fix", DevelopmentEnvOptions));
+    asSpawnCommand("npm run lint:fix", DevelopmentEnvOptions));

@@ -17,8 +17,8 @@
 import { InMemoryProject } from "@atomist/automation-client/project/mem/InMemoryProject";
 
 import { PushListenerInvocation } from "@atomist/sdm/api/listener/PushListener";
-import { IsTypeScript } from "../../src/support/pushtest/tsPushTests";
 import * as assert from "assert";
+import { IsTypeScript } from "../../../src/support/pushtest/tsPushTests";
 
 describe("tsPushTests", () => {
 

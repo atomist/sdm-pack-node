@@ -23,9 +23,9 @@ import { GitCommandGitProject } from "@atomist/automation-client/project/git/Git
 import { executeAutofixes } from "@atomist/sdm/api-helper/listener/executeAutofixes";
 import { SingleProjectLoader } from "@atomist/sdm/api-helper/test/SingleProjectLoader";
 import * as assert from "assert";
-import { tslintFix } from "../../src/support/tslintFix";
 import { DefaultRepoRefResolver } from "@atomist/sdm-core";
 import { fakeGoalInvocation } from "@atomist/sdm/api-helper/test/fakeGoalInvocation";
+import { tslintFix } from "../../../src";
 
 describe("tsLintFix", () => {
 
@@ -42,12 +42,12 @@ describe("tsLintFix", () => {
         const pl = new SingleProjectLoader(p);
         // Now mess it up with a lint error
         await p.addFile(f.path, f.content);
-        assert(!!p.findFileSync(f.path));
 
         await executeAutofixes(pl, [tslintFix], new DefaultRepoRefResolver())(fakeGoalInvocation(p.id as RemoteRepoRef));
         const fileNow = p.findFileSync(f.path);
-        assert(!!fileNow);
-        assert(fileNow.getContentSync().startsWith("const foo;"));
+        assert(!!fileNow, "Did not find file: " + f.path);
+        const contentNow = fileNow.getContentSync();
+        assert(contentNow.startsWith("const foo;"), contentNow);
     }).timeout(90000);
 
 });
