@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 import {
-    allSatisfied,
-    BuildGoal,
     ExtensionPack,
     SoftwareDeliveryMachine,
     ToDefaultBranch,
@@ -23,17 +21,17 @@ import {
 
 import * as build from "@atomist/sdm/api-helper/dsl/buildDsl";
 
-import { tslintFix } from "@atomist/sdm-core";
-import { nodeBuilder } from "@atomist/sdm-core";
-import { PackageLockFingerprinter } from "@atomist/sdm-core";
-import { IsNode } from "@atomist/sdm-core";
-import { executeBuild } from "@atomist/sdm/api-helper/goal/executeBuild";
 import { metadata } from "@atomist/sdm/api-helper/misc/extensionPack";
 import { AddBuildScript } from "./support/autofix/addBuildScript";
-import { NpmLogInterpreter } from "./support/build/npmLogInterpreter";
-import { HasPackageLock } from "./support/pushtest/nodePushTests";
+import {
+    HasPackageLock,
+    IsNode,
+} from "./support/pushtest/nodePushTests";
 import { CommonTypeScriptErrors } from "./support/reviewer/typescript/commonTypeScriptErrors";
 import { DontImportOwnIndex } from "./support/reviewer/typescript/dontImportOwnIndex";
+import { tslintFix } from "./support/autofix/tslintFix";
+import { PackageLockFingerprinter } from "./support/fingerprint/PackageLockFingerprinter";
+import { nodeBuilder } from "./support/build/npmBuilder";
 
 /**
  * This shows how to add a Node generator to your SDM.

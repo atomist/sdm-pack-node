@@ -24,14 +24,14 @@
     "strip-ansi": "^4.0.0"
   },
   "peerDependencies": {
-    "@atomist/automation-client": "^0.18.x",
-    "@atomist/sdm": "^0.3.2",
-    "@atomist/sdm-core": "^0.3.3"
+    "@atomist/automation-client": "*",
+    "@atomist/sdm": "*",
+    "@atomist/sdm-core": "*"
   },
   "devDependencies": {
-    "@atomist/automation-client": "^0.18.0-20180705162739",
-    "@atomist/sdm": "^0.3.2-20180723055531",
-    "@atomist/sdm-core": "^0.3.2-nortissej.extract-node-pack.20180724002610",
+    "@atomist/automation-client": "0.18.1-20180728225753",
+    "@atomist/sdm": "0.3.2-20180730003728",
+    "@atomist/sdm-core": "0.3.2-nortissej.extract-node-pack.20180730003032",
     "@types/dateformat": "^1.0.1",
     "@types/lodash": "^4.14.109",
     "@types/mocha": "^2.2.48",
