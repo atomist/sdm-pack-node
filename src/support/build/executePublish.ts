@@ -69,7 +69,7 @@ export function executePublish(
             await configure(options, project);
 
             const args: string[] = [
-                p.join(__dirname, "..", "..", "..", "..", "..", "scripts", "npm-publish.bash"),
+                p.join(__dirname, "..", "..", "scripts", "npm-publish.bash"),
             ];
             if (options.registry) {
                 args.push("--registry", options.registry);

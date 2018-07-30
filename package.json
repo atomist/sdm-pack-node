@@ -59,11 +59,12 @@
     "clean:dist": "npm-run-all clean clean:npm",
     "clean:js": "rimraf \"{src,test}/**/*.js\"",
     "clean:npm": "rimraf node_modules",
-    "compile": "npm-run-all compile:ts",
+    "compile": "npm-run-all compile:ts package:scripts",
     "compile:ts": "tsc --project .",
     "fmt": "tsfmt --replace",
     "lint": "tslint --format verbose --project . --exclude \"{build,node_modules}/**\" \"**/*.ts\"",
     "lint:fix": "npm run lint -- --fix",
+    "package:scripts": "copyfiles \"src/scripts/*\" dist/scripts/ -f",
     "test": "mocha --require ts-node/register --exit \"test/**/*.ts\"",
     "test:one": "mocha --require ts-node/register \"test/**/${TEST:-*.ts}\"",
     "typedoc": "typedoc --mode modules --excludeExternals --out build/typedoc src"
