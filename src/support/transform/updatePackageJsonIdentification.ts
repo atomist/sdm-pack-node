@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-import {logger} from "@atomist/automation-client";
-import {doWithJson} from "@atomist/automation-client/project/util/jsonUtils";
-import {CodeTransform} from "@atomist/sdm";
-import {findAuthorName} from "../../../commands/generators/common/findAuthorName";
-import {NodeProjectCreationParameters} from "../generator/nodeSupport";
+import { logger } from "@atomist/automation-client";
+import { doWithJson } from "@atomist/automation-client/project/util/jsonUtils";
+import { CodeTransform } from "@atomist/sdm";
+import { NodeProjectCreationParameters } from "../generator/NodeProjectCreationParameters";
+import { findAuthorName } from "./findAuthorName";
 
-export const UpdatePackageJsonIdentification: CodeTransform =
-    async (project, context, params: NodeProjectCreationParameters) => {
+export const UpdatePackageJsonIdentification: CodeTransform<NodeProjectCreationParameters> =
+    async (project, context, params) => {
         logger.info("Updating JSON: params=%j", params);
         const author = await findAuthorName(context, params.screenName)
             .then(authorName => authorName || params.screenName,
-                err => {
+                (err: Error) => {
                     logger.warn("Cannot query for author name: %s", err.message);
                     return params.screenName;
                 });

@@ -14,12 +14,15 @@
  * limitations under the License.
  */
 
-import { ExtensionPack } from "@atomist/sdm";
-import { metadata } from "@atomist/sdm/api-helper/misc/extensionPack";
+import { ReviewerRegistration } from "@atomist/sdm";
+import { patternMatchReviewer } from "@atomist/sdm/api-helper/code/review/patternMatchReviewer";
 
-export const SeedSupport: ExtensionPack = {
-    ...metadata(),
-    configure: sdm => {
-        return sdm;
+export const CommonTypeScriptErrors: ReviewerRegistration = patternMatchReviewer(
+    "Dangerous TypeScript Errors of the Past",
+    {globPattern: "**/*.ts", severity: "error"},
+    {
+        name: "sprintf",
+        antiPattern: /^import sprintf from "sprintf-js"/m,
+        comment: `import { sprintf } from "sprintf-js"`,
     },
-};
+);

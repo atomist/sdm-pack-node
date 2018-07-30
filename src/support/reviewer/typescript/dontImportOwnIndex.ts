@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-import {
-    predicatePushTest,
-    PredicatePushTest,
-} from "@atomist/sdm/api/mapping/PushTest";
-import { hasFile } from "@atomist/sdm/api/mapping/support/commonPushTests";
-import { AtomistBuildFile } from "../build/NpmDetectBuildMapping";
+import { ReviewerRegistration } from "@atomist/sdm";
+import { patternMatchReviewer } from "@atomist/sdm/api-helper/code/review/patternMatchReviewer";
 
-export const IsNode: PredicatePushTest = predicatePushTest("Is Node", async p => {
-    const f = await p.getFile("package.json");
-    return !!f;
-});
-
-export const IsAtomistAutomationClient = hasFile("src/atomist.config.ts");
-
-export const HasPackageLock = hasFile("package-lock.json");
+/**
+ * Importing a project's index file is a recipe for circular import hell
+ */
+export const DontImportOwnIndex: ReviewerRegistration = patternMatchReviewer(
+    "Don't import own index.ts",
+    {globPattern: "**/*.ts", severity: "error"},
+    {
+        name: "import from index",
+        antiPattern: /^import.*from ".*index"/,
+        comment: `import from relevant file, not index"`,
+    },
+);
