@@ -1,8 +1,8 @@
 {
   "name": "@atomist/sdm-pack-node",
   "version": "0.1.0",
-  "description": "Node-related accoutrement for an Atomist SDM",
-  "author": "Jessica Kerr",
+  "description": "Extension pack for an Atomist SDM to work with Node.JS projects",
+  "author": "Atomist, Inc.",
   "license": "Apache-2.0",
   "homepage": "https://github.com/atomist/sdm-pack-node#readme",
   "repository": {
@@ -14,7 +14,10 @@
     "automation",
     "sdm",
     "extension",
-    "pack"
+    "pack",
+    "node",
+    "npm",
+    "typescript"
   ],
   "bugs": {
     "url": "https://github.com/atomist/sdm-pack-node/issues"
@@ -31,7 +34,7 @@
   "devDependencies": {
     "@atomist/automation-client": "0.18.1-20180728225753",
     "@atomist/sdm": "0.3.2-20180730003728",
-    "@atomist/sdm-core": "0.3.2-nortissej.extract-node-pack.20180730003032",
+    "@atomist/sdm-core": "0.3.2-20180730060046",
     "@types/dateformat": "^1.0.1",
     "@types/lodash": "^4.14.109",
     "@types/mocha": "^2.2.48",

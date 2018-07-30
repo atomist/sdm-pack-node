@@ -40,7 +40,7 @@ import { DontImportOwnIndex } from "./support/reviewer/typescript/dontImportOwnI
  * @param options config options
  */
 export const NodeSupport: ExtensionPack = {
-    ...metadata("node"),
+    ...metadata(),
     configure: (sdm: SoftwareDeliveryMachine) => {
         sdm
             .addAutofix(tslintFix)
