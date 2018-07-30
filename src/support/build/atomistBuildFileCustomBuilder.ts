@@ -14,11 +14,16 @@
  * limitations under the License.
  */
 
-import { SoftwareDeliveryMachine } from "@atomist/sdm";
+import {
+    hasFile,
+    SoftwareDeliveryMachine,
+} from "@atomist/sdm";
 import { SpawnBuilder } from "@atomist/sdm-core/internal/delivery/build/local/SpawnBuilder";
 import { npmBuilderOptionsFromFile } from "./npmBuilder";
 
 export const AtomistBuildFile = ".atomist/build.sh";
+
+export const HasAtomistBuildFile = hasFile(AtomistBuildFile);
 
 export function npmCustomBuilder(sdm: SoftwareDeliveryMachine) {
     return new SpawnBuilder({ sdm, options: npmBuilderOptionsFromFile(AtomistBuildFile) });
