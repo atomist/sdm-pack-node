@@ -1,10 +1,8 @@
-# @atomsit/sdm-pack-node
+# @atomist/sdm-pack-node
 
-Node-related accoutrement for an Atomist SDM
+[![atomist sdm goals](http://badge.atomist.com/T29E48P34/atomist/sdm-pack-node/61ed77f3-f393-4003-abcb-f871bc79d09a)](https://app.atomist.com/workspace/T29E48P34)
 
-A starting point for an extension pack for an Atomist software delivery machine
-
-Extension Pack for an Atomist SDM to automate delivery of Spring and Spring Boot applications.
+Extension pack for an Atomist SDM to work with Node.JS projects.
 
 ## Usage
 
