@@ -7,7 +7,7 @@ export {
     NodeProjectCreationParameters,
 } from "./support/generator/NodeProjectCreationParameters";
 export { PackageLockFingerprinter } from "./support/fingerprint/PackageLockFingerprinter";
-export { npmCustomBuilder } from "./support/build/NpmDetectBuildMapping";
+export { npmCustomBuilder, HasAtomistBuildFile } from "./support/build/atomistBuildFileCustomBuilder";
 export { nodeBuilder } from "./support/build/npmBuilder";
 export {
     IsNode,
