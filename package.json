@@ -1,6 +1,6 @@
 {
-  "name": "@atomsit/sdm-pack-node",
-  "version": "0.1.1",
+  "name": "@atomist/sdm-pack-node",
+  "version": "0.1.0",
   "description": "Node-related accoutrement for an Atomist SDM",
   "author": "Jessica Kerr",
   "license": "Apache-2.0",
