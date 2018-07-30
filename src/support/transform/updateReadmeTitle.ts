@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-import { doWithFileMatches } from "@atomist/automation-client/project/util/parseUtils";
-
 import { logger } from "@atomist/automation-client";
+import { doWithFileMatches } from "@atomist/automation-client/project/util/parseUtils";
 import { RestOfLine } from "@atomist/microgrammar/matchers/skip/Skip";
 import { Microgrammar } from "@atomist/microgrammar/Microgrammar";
 import { CodeTransform } from "@atomist/sdm";

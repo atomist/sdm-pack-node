@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
+import { MappedParameters } from "@atomist/automation-client";
+import { SeedDrivenGeneratorParameters } from "@atomist/automation-client/operations/generate/SeedDrivenGeneratorParameters";
 import {
     DeclarationType,
     ParametersObject,
     SemVerRegExp,
 } from "@atomist/sdm";
-
-import { MappedParameters } from "@atomist/automation-client";
-import { SeedDrivenGeneratorParameters } from "@atomist/automation-client/operations/generate/SeedDrivenGeneratorParameters";
 
 /**
  * Parameters for creating Node projects

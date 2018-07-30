@@ -18,9 +18,7 @@ import {
     SoftwareDeliveryMachine,
     ToDefaultBranch,
 } from "@atomist/sdm";
-
 import * as build from "@atomist/sdm/api-helper/dsl/buildDsl";
-
 import { metadata } from "@atomist/sdm/api-helper/misc/extensionPack";
 import { AddBuildScript } from "./support/autofix/addBuildScript";
 import { tslintFix } from "./support/autofix/tslintFix";

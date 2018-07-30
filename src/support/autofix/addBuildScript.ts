@@ -18,7 +18,7 @@ import { Project } from "@atomist/automation-client/project/Project";
 import { doWithJson } from "@atomist/automation-client/project/util/jsonUtils";
 import { AutofixRegistration } from "@atomist/sdm";
 import * as _ from "lodash";
-import {IsNode} from "../pushtest/nodePushTests";
+import { IsNode } from "../pushtest/nodePushTests";
 
 export const AddBuildScript: AutofixRegistration = {
     name: "Make sure there is a build script",

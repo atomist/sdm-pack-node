@@ -17,7 +17,10 @@
 import { RemoteRepoRef } from "@atomist/automation-client/operations/common/RepoId";
 import { GitProject } from "@atomist/automation-client/project/git/GitProject";
 import { Project } from "@atomist/automation-client/project/Project";
-import { GoalInvocation, SoftwareDeliveryMachine } from "@atomist/sdm";
+import {
+    GoalInvocation,
+    SoftwareDeliveryMachine,
+} from "@atomist/sdm";
 import { readSdmVersion } from "@atomist/sdm-core";
 import {
     SpawnBuilder,
