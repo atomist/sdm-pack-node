@@ -23,15 +23,15 @@ import * as build from "@atomist/sdm/api-helper/dsl/buildDsl";
 
 import { metadata } from "@atomist/sdm/api-helper/misc/extensionPack";
 import { AddBuildScript } from "./support/autofix/addBuildScript";
+import { tslintFix } from "./support/autofix/tslintFix";
+import { nodeBuilder } from "./support/build/npmBuilder";
+import { PackageLockFingerprinter } from "./support/fingerprint/PackageLockFingerprinter";
 import {
     HasPackageLock,
     IsNode,
 } from "./support/pushtest/nodePushTests";
 import { CommonTypeScriptErrors } from "./support/reviewer/typescript/commonTypeScriptErrors";
 import { DontImportOwnIndex } from "./support/reviewer/typescript/dontImportOwnIndex";
-import { tslintFix } from "./support/autofix/tslintFix";
-import { PackageLockFingerprinter } from "./support/fingerprint/PackageLockFingerprinter";
-import { nodeBuilder } from "./support/build/npmBuilder";
 
 /**
  * This shows how to add a Node generator to your SDM.
