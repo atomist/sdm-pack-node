@@ -1,16 +1,12 @@
 .idea/
 .npmrc*
 config/
-graphql/
-src/
 test/
 tmp/
-build/
 release/
 scripts/
 .travis.yml
 *.bash
-tsconfig.*
 tslint.json
 yarn.lock
 .vscode
