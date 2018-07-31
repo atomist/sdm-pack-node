@@ -24,6 +24,7 @@ export { NodeProjectIdentifier } from "./support/build/nodeProjectIdentifier";
 export {
     NpmOptions,
     executePublish,
+    gitBranchToNpmTag,
 } from "./support/build/executePublish";
 export { IsAtomistAutomationClient } from "./support/pushtest/nodePushTests";
 export { NodeProjectVersioner } from "./support/build/nodeProjectVersioner";
