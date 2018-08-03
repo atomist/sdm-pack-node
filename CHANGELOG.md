@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/atomist/sdm-pack-node/compare/0.2.0...HEAD)
 
+### Fixed
+
+-   Added missing exports to index.
+
 ## [0.2.0](https://github.com/atomist/sdm-pack-node/compare/0.1.0...0.2.0) - 2018-08-03
 
 ### Changed

@@ -39,6 +39,7 @@ export { tslintFix } from "./lib/autofix/tslintFix";
 export { NodeProjectIdentifier } from "./lib/build/nodeProjectIdentifier";
 export {
     NpmOptions,
+    deleteBranchTag,
     executePublish,
     gitBranchToNpmTag,
 } from "./lib/build/executePublish";
@@ -48,3 +49,6 @@ export {
     DevelopmentEnvOptions,
     NpmPreparations,
 } from "./lib/build/npmBuilder";
+export {
+    NpmProgressReporter,
+} from "./lib/build/npmProgressReporter";
