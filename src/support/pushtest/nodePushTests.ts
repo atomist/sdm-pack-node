@@ -20,11 +20,22 @@ import {
 } from "@atomist/sdm/api/mapping/PushTest";
 import { hasFile } from "@atomist/sdm/api/mapping/support/commonPushTests";
 
-export const IsNode: PredicatePushTest = predicatePushTest("Is Node", async p => {
-    const f = await p.getFile("package.json");
-    return !!f;
-});
+export const IsNode: PredicatePushTest = hasFile("package.json");
 
-export const IsAtomistAutomationClient = hasFile("src/atomist.config.ts");
+export const IsAtomistAutomationClient: PredicatePushTest = predicatePushTest("Is Automation Client", async p => {
+    try {
+        const pjFile = await p.getFile("package.json");
+        const pjString = await pjFile.getContent();
+        interface PJ {
+            dependencies: {
+                [key: string]: string;
+            };
+        }
+        const pj: PJ = JSON.parse(pjString);
+        return !!(pj && pj.dependencies && pj.dependencies["@atomist/automation-client"]);
+    } catch (e) {
+        return false;
+    }
+});
 
 export const HasPackageLock = hasFile("package-lock.json");
