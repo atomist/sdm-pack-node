@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-import { InMemoryProject } from "@atomist/automation-client/project/mem/InMemoryProject";
+import * as assert from "power-assert";
 
+import { InMemoryProject } from "@atomist/automation-client/project/mem/InMemoryProject";
 import { PushListenerInvocation } from "@atomist/sdm/api/listener/PushListener";
-import * as assert from "assert";
-import { IsAtomistAutomationClient } from "../../../src/support/pushtest/nodePushTests";
+
+import { IsAtomistAutomationClient } from "../../lib/pushtest/nodePushTests";
 
 describe("nodePushTests", () => {
 

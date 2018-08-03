@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-import { InMemoryProject } from "@atomist/automation-client/project/mem/InMemoryProject";
+import * as assert from "power-assert";
 
+import { InMemoryProject } from "@atomist/automation-client/project/mem/InMemoryProject";
 import { PushListenerInvocation } from "@atomist/sdm/api/listener/PushListener";
-import * as assert from "assert";
-import { IsTypeScript } from "../../../src/support/pushtest/tsPushTests";
+
+import { IsTypeScript } from "../../lib/pushtest/tsPushTests";
 
 describe("tsPushTests", () => {
 
@@ -26,19 +27,19 @@ describe("tsPushTests", () => {
 
         it("should not find ts in empty repo", async () => {
             const project = InMemoryProject.of();
-            const r = await IsTypeScript.mapping({project} as any as PushListenerInvocation);
+            const r = await IsTypeScript.mapping({ project } as any as PushListenerInvocation);
             assert(!r);
         });
 
         it("should find ts in repo with ts file", async () => {
-            const project = InMemoryProject.of({ path: "src/Thing.ts", content: "export class Thing {}"});
-            const r = await IsTypeScript.mapping({project} as any as PushListenerInvocation);
+            const project = InMemoryProject.of({ path: "src/Thing.ts", content: "export class Thing {}" });
+            const r = await IsTypeScript.mapping({ project } as any as PushListenerInvocation);
             assert(r);
         });
 
         it("should not find ts in repo with no ts file", async () => {
-            const project = InMemoryProject.of({ path: "src/main/java/Thing.kt", content: "public class Thing {}"});
-            const r = await IsTypeScript.mapping({project} as any as PushListenerInvocation);
+            const project = InMemoryProject.of({ path: "src/main/java/Thing.kt", content: "public class Thing {}" });
+            const r = await IsTypeScript.mapping({ project } as any as PushListenerInvocation);
             assert(!r);
         });
     });

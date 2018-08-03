@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
+import * as assert from "power-assert";
 
-import { NpmLogInterpreter } from "../../../src/support/build/npmLogInterpreter";
-import * as assert from "assert";
+import { NpmLogInterpreter } from "../../lib/build/npmLogInterpreter";
 
 describe("NpmLogInterpreter", () => {
 

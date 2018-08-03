@@ -1,7 +1,7 @@
 {
   "name": "@atomist/sdm-pack-node",
-  "version": "0.1.1",
-  "description": "Extension pack for an Atomist SDM to work with Node.JS projects",
+  "version": "0.2.0",
+  "description": "Extension pack for an Atomist SDM to work with Node.js projects",
   "author": "Atomist, Inc.",
   "license": "Apache-2.0",
   "homepage": "https://github.com/atomist/sdm-pack-node#readme",
@@ -22,8 +22,12 @@
   "bugs": {
     "url": "https://github.com/atomist/sdm-pack-node/issues"
   },
+  "main": "./index.js",
+  "types": "./index.d.ts",
   "dependencies": {
     "dateformat": "^3.0.3",
+    "fs-extra": "^7.0.0",
+    "lodash": "^4.17.10",
     "strip-ansi": "^4.0.0"
   },
   "peerDependencies": {
@@ -32,44 +36,50 @@
     "@atomist/sdm-core": "*"
   },
   "devDependencies": {
-    "@atomist/automation-client": "0.18.1-20180728225753",
-    "@atomist/sdm": "0.3.2-20180730003728",
-    "@atomist/sdm-core": "0.3.2-20180730060046",
+    "@atomist/automation-client": "^0.19.4",
+    "@atomist/sdm": "^0.4.0-20180803134505",
+    "@atomist/sdm-core": "^0.4.0-20180803134335",
     "@types/dateformat": "^1.0.1",
-    "@types/lodash": "^4.14.109",
-    "@types/mocha": "^2.2.48",
+    "@types/fs-extra": "^5.0.4",
+    "@types/lodash": "^4.14.116",
+    "@types/mocha": "^5.2.5",
     "@types/node": "^9.4.1",
+    "@types/power-assert": "^1.5.0",
     "@types/strip-ansi": "^3.0.0",
+    "espower-typescript": "^9.0.0",
     "mocha": "^5.2.0",
     "npm-run-all": "^4.1.2",
+    "power-assert": "^1.6.0",
     "rimraf": "^2.6.2",
+    "supervisor": "^0.12.0",
     "ts-node": "^7.0.0",
-    "tslint": "^5.9.1",
+    "tslint": "^5.11.0",
     "typedoc": "^0.11.1",
     "typescript": "^2.9.2",
-    "typescript-formatter": "^7.2.0"
+    "typescript-formatter": "^7.2.2"
   },
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "build": "npm-run-all lint compile test",
-    "clean": "npm-run-all clean:js clean:build",
-    "clean:build": "rimraf *-v8.log profile.txt dist",
+    "autotest": "supervisor --watch index.ts,lib,test --extensions ts --no-restart-on exit --quiet --exec npm -- test",
+    "build": "npm-run-all compile test lint doc",
+    "clean": "npm-run-all clean:compile clean:doc clean:run",
+    "clean:compile": "rimraf build dist git-info.json \"index.{d.ts,js*}\" \"{lib,test}/**/*.{d.ts,js*}\" lib/typings/types.ts",
     "clean:dist": "npm-run-all clean clean:npm",
-    "clean:js": "rimraf \"{src,test}/**/*.js\"",
+    "clean:doc": "rimraf doc",
     "clean:npm": "rimraf node_modules",
-    "compile": "npm-run-all compile:ts package:scripts",
+    "clean:run": "rimraf *-v8.log profile.txt log",
+    "compile": "npm-run-all compile:ts",
     "compile:ts": "tsc --project .",
+    "doc": "typedoc --mode modules --exclude \"**/*.d.ts\" --out doc index.ts lib",
     "fmt": "tsfmt --replace",
-    "lint": "tslint --format verbose --project . --exclude \"{build,node_modules}/**\" \"**/*.ts\"",
+    "lint": "tslint --format verbose --project . --exclude \"{build,node_modules}/**\" --exclude \"**/*.d.ts\" \"**/*.ts\"",
     "lint:fix": "npm run lint -- --fix",
-    "package:scripts": "copyfiles \"src/scripts/*\" dist/scripts/ -f",
-    "test": "mocha --require ts-node/register --exit \"test/**/*.ts\"",
-    "test:one": "mocha --require ts-node/register \"test/**/${TEST:-*.ts}\"",
-    "typedoc": "typedoc --mode modules --excludeExternals --out build/typedoc src"
+    "test": "mocha --require espower-typescript/guess \"test/**/*.test.ts\"",
+    "test:one": "mocha --require espower-typescript/guess \"test/**/${TEST:-*.test.ts}\"",
+    "typedoc": "npm run doc"
   },
-  "main": "dist/index.js",
   "engines": {
     "node": "9.x.x",
     "npm": "6.x.x"

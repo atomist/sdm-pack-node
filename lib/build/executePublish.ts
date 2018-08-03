@@ -69,7 +69,7 @@ export function executePublish(
             await configure(options, project);
 
             const args: string[] = [
-                p.join(__dirname, "..", "..", "scripts", "npm-publish.bash"),
+                p.join(__dirname, "..", "..", "assets", "scripts", "npm-publish.bash"),
             ];
             if (options.registry) {
                 args.push("--registry", options.registry);
@@ -113,7 +113,12 @@ export function executePublish(
     };
 }
 
-export async function deleteBranchTag(branch: string, project: GitProject, options: NpmOptions): Promise<HandlerResult> {
+export async function deleteBranchTag(
+    branch: string,
+    project: GitProject,
+    options: NpmOptions,
+): Promise<HandlerResult> {
+
     const pj = await project.getFile("package.json");
     if (pj) {
         const tag = gitBranchToNpmTag(branch);
@@ -121,9 +126,9 @@ export async function deleteBranchTag(branch: string, project: GitProject, optio
 
         await configure(options, project);
         const result = await spawnAndWatch({
-                command: "npm",
-                args: ["dist-tags", "rm", name, tag],
-            },
+            command: "npm",
+            args: ["dist-tags", "rm", name, tag],
+        },
             {
                 cwd: project.baseDir,
             },

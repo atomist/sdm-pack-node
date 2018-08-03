@@ -1,31 +1,39 @@
 {
-  "compilerOptions": {
-    "newLine": "LF",
-    "target": "ES2017",
-    "module": "CommonJS",
-    "moduleResolution": "Node",
-    "resolveJsonModule": true,
-    "declaration": true,
-    "sourceMap": true,
-    "outDir": "dist",
-    "lib": [
-      "DOM",
-      "ES2017",
-      "esnext.asynciterable"
+    "compilerOptions": {
+        "newLine": "LF",
+        "target": "ES6",
+        "module": "CommonJS",
+        "moduleResolution": "Node",
+        "jsx": "React",
+        "declaration": true,
+        "sourceMap": true,
+        "rootDir": ".",
+        "lib": [
+            "DOM",
+            "ES2017",
+            "DOM.Iterable",
+            "ScriptHost",
+            "esnext.asynciterable"
+        ],
+        "strict": true,
+        "strictNullChecks": false,
+        "noImplicitReturns": true,
+        "noUnusedLocals": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true
+    },
+    "exclude": [
+        "assets",
+        "build",
+        "doc",
+        "legal",
+        "log",
+        "node_modules",
+        ".#*"
     ],
-    "strict": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "strictNullChecks": false,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
-  },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "compileOnSave": true,
-  "buildOnSave": false,
-  "atom": {
-    "rewriteTsconfig": false
-  }
+    "compileOnSave": true,
+    "buildOnSave": false,
+    "atom": {
+        "rewriteTsconfig": false
+    }
 }

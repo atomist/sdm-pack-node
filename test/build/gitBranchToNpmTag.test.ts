@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-import * as assert from "assert";
-import { gitBranchToNpmTag } from "../../../src/support/build/executePublish";
+import * as assert from "power-assert";
+
+import { gitBranchToNpmTag } from "../../lib/build/executePublish";
 
 describe("git branch to npm tag", () => {
 

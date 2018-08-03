@@ -14,8 +14,12 @@
  * limitations under the License.
  */
 
-import { MappedParameters } from "@atomist/automation-client";
-import { SeedDrivenGeneratorParameters } from "@atomist/automation-client/operations/generate/SeedDrivenGeneratorParameters";
+import {
+    MappedParameters,
+} from "@atomist/automation-client";
+import {
+    SeedDrivenGeneratorParameters,
+} from "@atomist/automation-client/operations/generate/SeedDrivenGeneratorParameters";
 import {
     DeclarationType,
     ParametersObject,
@@ -41,7 +45,7 @@ export const NodeProjectCreationParametersDefinition: ParametersObject = {
         description: "Application name",
         pattern: /^(@?[A-Za-z][-A-Za-z0-9_]*)$/,
         validInput: "a valid package.json application name, which starts with a lower-case letter and contains only " +
-        " alphanumeric, -, and _ characters, or `${projectName}` to use the project name",
+            " alphanumeric, -, and _ characters, or `${projectName}` to use the project name",
         minLength: 1,
         maxLength: 50,
         required: true,
@@ -53,5 +57,5 @@ export const NodeProjectCreationParametersDefinition: ParametersObject = {
         order: 52,
         defaultValue: "0.1.0",
     },
-    screenName: { type: DeclarationType.mapped, uri: MappedParameters.SlackUserName},
+    screenName: { type: DeclarationType.mapped, uri: MappedParameters.SlackUserName },
 };

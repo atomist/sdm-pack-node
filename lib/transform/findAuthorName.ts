@@ -31,7 +31,8 @@ export async function findAuthorName(ctx: HandlerContext, screenName: string): P
     try {
         const personResult: PersonByChatId.Query = await ctx.graphClient.query(
             { name: "PersonQuery", variables: { screenName } });
-        if (!personResult || !personResult.ChatId || personResult.ChatId.length === 0 || !personResult.ChatId[0].person) {
+        if (!personResult || !personResult.ChatId || personResult.ChatId.length === 0 ||
+            !personResult.ChatId[0].person) {
             logger.info("No person; defaulting author to screenName");
             return screenName;
         }
@@ -47,6 +48,6 @@ export async function findAuthorName(ctx: HandlerContext, screenName: string): P
         }
     } catch (err) {
         logger.info(" defaulting author to screenName");
-        return screenName;
     }
+    return screenName;
 }

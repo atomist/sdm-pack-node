@@ -24,9 +24,9 @@ export const NpmLogInterpreter: InterpretLog = log => {
     }
     const lines = removeBlanksFromEnd(
         removeNpmFooter(
-        log.split("\n")
-        .map(a => strip_ansi(a))
-        .map(stripLogPrefix)));
+            log.split("\n")
+                .map(a => strip_ansi(a))
+                .map(stripLogPrefix)));
 
     const defaultMessage = lastOccurrenceOf(/^ERROR:/, lines) || "Error";
     const defaultLines = lines.slice(-15);
@@ -57,7 +57,7 @@ function recognizeNpmRunError(lines: string[]): RecognizedLog {
     if (lastBreakBeforeCommand < 0) {
         return undefined;
     }
-    return { relevantLines: lines.slice(- Math.min(lastBreakBeforeCommand, 20))};
+    return { relevantLines: lines.slice(- Math.min(lastBreakBeforeCommand, 20)) };
 }
 
 function recognizeMochaTest(lines: string[]): RecognizedLog | undefined {
@@ -82,7 +82,8 @@ function stripLogPrefix(line: string): string {
 }
 
 function removeNpmFooter(lines: string[]) {
-    if (lines.includes("npm ERR! This is probably not a problem with npm. There is likely additional logging output above.")) {
+    const npmErr = "npm ERR! This is probably not a problem with npm. There is likely additional logging output above.";
+    if (lines.includes(npmErr)) {
         logger.info("Filtering npm error footer");
         return lines.filter(s => !NpmFooterPrefix.test(s));
     }

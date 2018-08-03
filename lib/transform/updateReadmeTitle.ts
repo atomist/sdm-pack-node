@@ -15,25 +15,20 @@
  */
 
 import { logger } from "@atomist/automation-client";
-import { doWithFileMatches } from "@atomist/automation-client/project/util/parseUtils";
-import { RestOfLine } from "@atomist/microgrammar/matchers/skip/Skip";
-import { Microgrammar } from "@atomist/microgrammar/Microgrammar";
 import { CodeTransform } from "@atomist/sdm";
+
 import { NodeProjectCreationParameters } from "../generator/NodeProjectCreationParameters";
 
 export const UpdateReadmeTitle: CodeTransform<NodeProjectCreationParameters> =
-    (project, ctx, params: NodeProjectCreationParameters) => {
+    async (project, ctx, params: NodeProjectCreationParameters) => {
         logger.info("UpdateReadmeTitle: params=%j", params);
-        return doWithFileMatches(project, "README.md", h1Grammar, fm => {
-            if (fm.matches.length > 0) {
-                fm.matches[0].value = params.appName + "\n\n" + params.target.description;
-            }
-        });
+        try {
+            const readmeFile = await project.getFile("README.md");
+            const content = await readmeFile.getContent();
+            const newContent = content.replace(/^\s*#.*/, `# ${params.appName}\n\n${params.target.description}`);
+            await readmeFile.setContent(newContent);
+        } catch (e) {
+            logger.warn(`Did not update README for ${params.appName}: ${e.message}`);
+        }
+        return project;
     };
-
-const headingGrammar: (start: string) => Microgrammar<{ value: string }> = start => Microgrammar.fromDefinitions({
-    _start: start,
-    value: RestOfLine,
-});
-
-const h1Grammar = headingGrammar("#");
