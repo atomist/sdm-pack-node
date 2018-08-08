@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/atomist/sdm-pack-node/compare/0.2.1...HEAD)
 
+### Changed
+
+-   Updated dependencies.
+-   Move types for dependencies from devDependencies to dependencies.
+
 ### Removed
 
 -   Do not put TypeScript source in NPM package.
