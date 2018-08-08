@@ -18,3 +18,5 @@
 /Dockerfile
 *.log
 *.txt
+*.ts
+!*.d.ts
