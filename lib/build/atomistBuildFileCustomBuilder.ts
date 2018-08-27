@@ -16,6 +16,7 @@
 
 import {
     hasFile,
+    PredicatePushTest,
     SoftwareDeliveryMachine,
 } from "@atomist/sdm";
 import { SpawnBuilder } from "@atomist/sdm-core/internal/delivery/build/local/SpawnBuilder";
@@ -23,7 +24,7 @@ import { npmBuilderOptionsFromFile } from "./npmBuilder";
 
 export const AtomistBuildFile = ".atomist/build.sh";
 
-export const HasAtomistBuildFile = hasFile(AtomistBuildFile);
+export const HasAtomistBuildFile: PredicatePushTest = hasFile(AtomistBuildFile);
 
 export function npmCustomBuilder(sdm: SoftwareDeliveryMachine) {
     return new SpawnBuilder({ sdm, options: npmBuilderOptionsFromFile(AtomistBuildFile) });
