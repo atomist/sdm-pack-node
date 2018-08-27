@@ -1,6 +1,6 @@
 {
   "name": "@atomist/sdm-pack-node",
-  "version": "0.2.2",
+  "version": "1.0.0",
   "description": "Extension pack for an Atomist SDM to work with Node.js projects",
   "author": "Atomist, Inc.",
   "license": "Apache-2.0",
