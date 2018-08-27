@@ -20,15 +20,15 @@ import { spawnAndWatch } from "@atomist/sdm/api-helper/misc/spawned";
 import { projectConfigurationValue } from "@atomist/sdm/api-helper/project/configuration/projectConfiguration";
 import * as df from "dateformat";
 
-const TagMasterConfigKey = "npm.publish.tag.master";
+const TagDefaultBranchConfigKey = "npm.publish.tag.defaultBranch";
 
 export const NodeProjectVersioner: ProjectVersioner = async (sdmGoal, p, log) => {
     const pjFile = await p.getFile("package.json");
     const pj = JSON.parse(await pjFile.getContent());
     const branch = sdmGoal.branch.split("/").join(".");
 
-    const tagMaster = await projectConfigurationValue<boolean>(TagMasterConfigKey,p,
-        configurationValue<boolean>(`sdm.${TagMasterConfigKey}`, false));
+    const tagMaster = await projectConfigurationValue<boolean>(TagDefaultBranchConfigKey,p,
+        configurationValue<boolean>(`sdm.${TagDefaultBranchConfigKey}`, false));
 
     let branchSuffix = "";
     if (tagMaster) {
