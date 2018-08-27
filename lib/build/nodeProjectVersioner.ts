@@ -14,15 +14,29 @@
  * limitations under the License.
  */
 
+import { configurationValue } from "@atomist/automation-client";
 import { ProjectVersioner } from "@atomist/sdm-core/internal/delivery/build/local/projectVersioner";
 import { spawnAndWatch } from "@atomist/sdm/api-helper/misc/spawned";
+import { projectConfigurationValue } from "@atomist/sdm/api-helper/project/configuration/projectConfiguration";
 import * as df from "dateformat";
+
+const TagMasterConfigKey = "npm.publish.tag.master";
 
 export const NodeProjectVersioner: ProjectVersioner = async (sdmGoal, p, log) => {
     const pjFile = await p.getFile("package.json");
     const pj = JSON.parse(await pjFile.getContent());
     const branch = sdmGoal.branch.split("/").join(".");
-    const branchSuffix = branch !== sdmGoal.push.repo.defaultBranch ? `${branch}.` : "";
+
+    const tagMaster = await projectConfigurationValue<boolean>(TagMasterConfigKey,p,
+        configurationValue<boolean>(`sdm.${TagMasterConfigKey}`, false));
+
+    let branchSuffix = "";
+    if (tagMaster) {
+        branchSuffix = `${branch}.`;
+    } else {
+        branchSuffix = branch !== sdmGoal.push.repo.defaultBranch ? `${branch}.` : "";
+    }
+
     const version = `${pj.version}-${branchSuffix}${df(new Date(), "yyyymmddHHMMss")}`;
 
     await spawnAndWatch({
