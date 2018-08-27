@@ -27,7 +27,7 @@ export const NodeProjectVersioner: ProjectVersioner = async (sdmGoal, p, log) =>
     const pj = JSON.parse(await pjFile.getContent());
     const branch = sdmGoal.branch.split("/").join(".");
 
-    const tagMaster = await projectConfigurationValue<boolean>(TagDefaultBranchConfigKey,p,
+    const tagMaster = await projectConfigurationValue<boolean>(TagDefaultBranchConfigKey, p,
         configurationValue<boolean>(`sdm.${TagDefaultBranchConfigKey}`, false));
 
     let branchSuffix = "";
