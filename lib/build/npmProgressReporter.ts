@@ -57,6 +57,9 @@ export const NpmProgressTests: ProgressTest[] = [{
 }, {
     test: /npm-publish.bash --registry/g,
     phase: "npm publish",
+}, {
+    test: /> tslint/g,
+    phase: "tslint",
 }];
 
 /**
