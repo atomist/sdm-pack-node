@@ -57,6 +57,9 @@ export const NpmProgressTests: ProgressTest[] = [{
 }, {
     test: /> tslint/g,
     phase: "tslint",
+}, {
+    test: /> typedoc/g,
+    phase: "typedoc",
 }];
 
 /**
