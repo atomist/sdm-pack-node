@@ -31,9 +31,6 @@ export const NpmProgressTests: ProgressTest[] = [{
     test: /> atomist git/g,
     phase: "generating",
 }, {
-    test: /> tslint\./g,
-    phase: "tslint",
-}, {
     test: /> tsc --project \./g,
     phase: "tsc",
 }, {
