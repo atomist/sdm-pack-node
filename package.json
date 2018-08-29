@@ -2,7 +2,11 @@
   "name": "@atomist/sdm-pack-node",
   "version": "1.0.0",
   "description": "Extension pack for an Atomist SDM to work with Node.js projects",
-  "author": "Atomist, Inc.",
+  "author": {
+    "name": "Atomist",
+    "email": "support@atomist.com",
+    "url": "https://atomist.com/"
+  },
   "license": "Apache-2.0",
   "homepage": "https://github.com/atomist/sdm-pack-node#readme",
   "repository": {
