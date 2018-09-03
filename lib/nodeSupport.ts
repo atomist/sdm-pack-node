@@ -16,45 +16,11 @@
 import {
     ExtensionPack,
     SoftwareDeliveryMachine,
-    ToDefaultBranch,
 } from "@atomist/sdm";
-import * as build from "@atomist/sdm/api-helper/dsl/buildDsl";
 import { metadata } from "@atomist/sdm/api-helper/misc/extensionPack";
 
-import { AddBuildScript } from "./autofix/addBuildScript";
-import { tslintFix } from "./autofix/tslintFix";
-import { nodeBuilder } from "./build/npmBuilder";
-import { PackageLockFingerprinter } from "./fingerprint/PackageLockFingerprinter";
-import {
-    HasPackageLock,
-    IsNode,
-} from "./pushtest/nodePushTests";
-import { CommonTypeScriptErrors } from "./reviewer/typescript/commonTypeScriptErrors";
-import { DontImportOwnIndex } from "./reviewer/typescript/dontImportOwnIndex";
-
-/**
- * This shows how to add a Node generator to your SDM.
- * We recommend that you add your own, with a startingPoint of your choice.
- * @param {SoftwareDeliveryMachine} sdm
- * @param options config options
- */
 export const NodeSupport: ExtensionPack = {
     ...metadata(),
     configure: (sdm: SoftwareDeliveryMachine) => {
-        sdm
-            .addAutofix(tslintFix)
-            .addAutofix(AddBuildScript)
-            .addReviewerRegistration(CommonTypeScriptErrors)
-
-            .addReviewerRegistration(DontImportOwnIndex)
-            .addFingerprinterRegistration(new PackageLockFingerprinter())
-            .addBuildRules(
-                build.when(IsNode, ToDefaultBranch, HasPackageLock)
-                    .itMeans("npm run build")
-                    .set(nodeBuilder(sdm, "npm ci", "npm run build")),
-                build.when(IsNode, HasPackageLock)
-                    .itMeans("npm run compile")
-                    .set(nodeBuilder(sdm, "npm ci", "npm run compile")));
-
     },
 };
