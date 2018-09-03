@@ -14,11 +14,6 @@
  * limitations under the License.
  */
 
-import {
-    DockerBuildGoal,
-    TagGoal,
-    VersionGoal,
-} from "@atomist/sdm-core";
 import { GoalWithPrecondition } from "@atomist/sdm/api/goal/Goal";
 import { Goals } from "@atomist/sdm/api/goal/Goals";
 import {
@@ -30,10 +25,15 @@ import {
     ArtifactGoal,
     AutofixGoal,
     BuildGoal,
-    ReviewGoal,
+    CodeInspectionGoal,
     StagingDeploymentGoal,
     StagingEndpointGoal,
 } from "@atomist/sdm/api/machine/wellKnownGoals";
+import {
+    DockerBuildGoal,
+    TagGoal,
+    VersionGoal,
+} from "@atomist/sdm/pack/well-known-goals/commonGoals";
 
 export const NpmPublishGoal = new GoalWithPrecondition({
     uniqueName: "Publish",
@@ -68,7 +68,7 @@ export const ProductionDockerDeploymentGoal = new GoalWithPrecondition({
 
 export const NpmDeployGoals = new Goals(
     "Node.js Deploy",
-    ReviewGoal,
+    CodeInspectionGoal,
     AutofixGoal,
     BuildGoal,
     ArtifactGoal,
@@ -79,7 +79,7 @@ export const NpmDeployGoals = new Goals(
 export const NpmBuildGoals = new Goals(
     "Node.js Build",
     VersionGoal,
-    ReviewGoal,
+    CodeInspectionGoal,
     AutofixGoal,
     BuildGoal,
     NpmPublishGoal,
@@ -89,7 +89,7 @@ export const NpmBuildGoals = new Goals(
 export const NpmDockerGoals = new Goals(
     "Node.js Docker Build",
     VersionGoal,
-    ReviewGoal,
+    CodeInspectionGoal,
     AutofixGoal,
     BuildGoal,
     NpmPublishGoal,
@@ -100,7 +100,7 @@ export const NpmDockerGoals = new Goals(
 export const NpmKubernetesDeployGoals = new Goals(
     "Node.js Kubernetes Build and Deploy",
     VersionGoal,
-    ReviewGoal,
+    CodeInspectionGoal,
     AutofixGoal,
     BuildGoal,
     NpmPublishGoal,

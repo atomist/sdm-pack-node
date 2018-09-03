@@ -1,11 +1,12 @@
 {
     "compilerOptions": {
         "newLine": "LF",
-        "target": "ES6",
+        "target": "ES2016",
         "module": "CommonJS",
         "moduleResolution": "Node",
         "jsx": "React",
         "declaration": true,
+        "declarationMap": true,
         "sourceMap": true,
         "rootDir": ".",
         "lib": [
@@ -15,10 +16,11 @@
             "ScriptHost",
             "esnext.asynciterable"
         ],
-        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "noImplicitReturns": false,
+        "noUnusedLocals": false,
+        "strict": false,
         "strictNullChecks": false,
-        "noImplicitReturns": true,
-        "noUnusedLocals": true,
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true
     },

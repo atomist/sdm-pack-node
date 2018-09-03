@@ -19,7 +19,7 @@ import { patternMatchReviewer } from "@atomist/sdm/api-helper/code/review/patter
 
 export const CommonTypeScriptErrors: ReviewerRegistration = patternMatchReviewer(
     "Dangerous TypeScript Errors of the Past",
-    {globPattern: "**/*.ts", severity: "error"},
+    { globPattern: "**/*.ts", severity: "error" },
     {
         name: "sprintf",
         antiPattern: /^import sprintf from "sprintf-js"/m,

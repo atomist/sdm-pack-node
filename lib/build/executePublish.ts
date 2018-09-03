@@ -34,7 +34,6 @@ import { LoggingProgressLog } from "@atomist/sdm/api-helper/log/LoggingProgressL
 import { spawnAndWatch } from "@atomist/sdm/api-helper/misc/spawned";
 import { projectConfigurationValue } from "@atomist/sdm/api-helper/project/configuration/projectConfiguration";
 import { ExecuteGoalResult } from "@atomist/sdm/api/goal/ExecuteGoalResult";
-import { ProjectLoader } from "@atomist/sdm/spi/project/ProjectLoader";
 import * as fs from "fs-extra";
 import * as p from "path";
 import { NpmPreparations } from "./npmBuilder";
@@ -50,15 +49,14 @@ import { NpmPreparations } from "./npmBuilder";
  * @return {ExecuteGoal}
  */
 export function executePublish(
-    projectLoader: ProjectLoader,
     projectIdentifier: ProjectIdentifier,
     preparations: PrepareForGoalExecution[] = NpmPreparations,
     options: NpmOptions,
 ): ExecuteGoal {
 
     return async (goalInvocation: GoalInvocation): Promise<ExecuteGoalResult> => {
-        const { credentials, id, context } = goalInvocation;
-        return projectLoader.doWithProject({ credentials, id, context, readOnly: false }, async project => {
+        const { configuration, credentials, id, context } = goalInvocation;
+        return configuration.sdm.projectLoader.doWithProject({ credentials, id, context, readOnly: false }, async project => {
             for (const preparation of preparations) {
                 const pResult = await preparation(project, goalInvocation);
                 if (pResult.code !== 0) {

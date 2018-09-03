@@ -45,8 +45,10 @@ describe("tsLintFix", () => {
         // Now mess it up with a lint error
         await p.addFile(f.path, f.content);
 
-        await executeAutofixes(pl, [tslintFix],
-            new DefaultRepoRefResolver())(fakeGoalInvocation(p.id as RemoteRepoRef));
+        await executeAutofixes([tslintFix])(fakeGoalInvocation(p.id as RemoteRepoRef, {
+            projectLoader: pl,
+            repoRefResolver: new DefaultRepoRefResolver(),
+        } as any));
         const fileNow = p.findFileSync(f.path);
         assert(!!fileNow, "Did not find file: " + f.path);
         const contentNow = fileNow.getContentSync();

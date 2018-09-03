@@ -29,8 +29,8 @@ import { findAuthorName } from "./findAuthorName";
 export const UpdatePackageJsonIdentification: CodeTransform<NodeProjectCreationParameters> =
     async (project, context, params) => {
         logger.info("Updating JSON: params=%j", params);
-        const author = await findAuthorName(context, params.screenName)
-            .then(authorName => authorName || params.screenName,
+        const author = await findAuthorName(context.context, params.screenName)
+            .then((authorName: string) => authorName || params.screenName,
                 (err: Error) => {
                     logger.warn("Cannot query for author name: %s", err.message);
                     return params.screenName;
