@@ -56,58 +56,59 @@ export function executePublish(
 
     return async (goalInvocation: GoalInvocation): Promise<ExecuteGoalResult> => {
         const { configuration, credentials, id, context } = goalInvocation;
-        return configuration.sdm.projectLoader.doWithProject({ credentials, id, context, readOnly: false }, async project => {
-            for (const preparation of preparations) {
-                const pResult = await preparation(project, goalInvocation);
-                if (pResult.code !== 0) {
-                    return pResult;
+        return configuration.sdm.projectLoader.doWithProject(
+            { credentials, id, context, readOnly: false }, async project => {
+                for (const preparation of preparations) {
+                    const pResult = await preparation(project, goalInvocation);
+                    if (pResult.code !== 0) {
+                        return pResult;
+                    }
                 }
-            }
 
-            await configure(options, project);
+                await configure(options, project);
 
-            const args: string[] = [
-                p.join(__dirname, "..", "..", "assets", "scripts", "npm-publish.bash"),
-            ];
-            if (options.registry) {
-                args.push("--registry", options.registry);
-            }
-            const access = await projectConfigurationValue("npm.publish.access", project, options.access);
-            if (access) {
-                args.push("--access", access);
-            }
-            if (options.tag) {
-                args.push("--tag", options.tag);
-            } else {
-                args.push("--tag", gitBranchToNpmTag(id.branch));
-            }
-
-            const result: ExecuteGoalResult = await spawnAndWatch(
-                { command: "bash", args },
-                { cwd: project.baseDir },
-                goalInvocation.progressLog,
-            );
-
-            if (result.code === 0) {
-                const pi = await projectIdentifier(project);
-                const url = `${options.registry}/${pi.name}/-/${pi.name}-${pi.version}.tgz`;
-                result.targetUrl = url;
-
-                if (options.status) {
-                    await createStatus(
-                        credentials,
-                        id as GitHubRepoRef,
-                        {
-                            context: "npm/atomist/package",
-                            description: "NPM package",
-                            target_url: url,
-                            state: "success",
-                        });
+                const args: string[] = [
+                    p.join(__dirname, "..", "..", "assets", "scripts", "npm-publish.bash"),
+                ];
+                if (options.registry) {
+                    args.push("--registry", options.registry);
                 }
-            }
+                const access = await projectConfigurationValue("npm.publish.access", project, options.access);
+                if (access) {
+                    args.push("--access", access);
+                }
+                if (options.tag) {
+                    args.push("--tag", options.tag);
+                } else {
+                    args.push("--tag", gitBranchToNpmTag(id.branch));
+                }
 
-            return result;
-        });
+                const result: ExecuteGoalResult = await spawnAndWatch(
+                    { command: "bash", args },
+                    { cwd: project.baseDir },
+                    goalInvocation.progressLog,
+                );
+
+                if (result.code === 0) {
+                    const pi = await projectIdentifier(project);
+                    const url = `${options.registry}/${pi.name}/-/${pi.name}-${pi.version}.tgz`;
+                    result.targetUrl = url;
+
+                    if (options.status) {
+                        await createStatus(
+                            credentials,
+                            id as GitHubRepoRef,
+                            {
+                                context: "npm/atomist/package",
+                                description: "NPM package",
+                                target_url: url,
+                                state: "success",
+                            });
+                    }
+                }
+
+                return result;
+            });
     };
 }
 
@@ -124,9 +125,9 @@ export async function deleteBranchTag(
 
         await configure(options, project);
         const result = await spawnAndWatch({
-            command: "npm",
-            args: ["dist-tags", "rm", name, tag],
-        },
+                command: "npm",
+                args: ["dist-tags", "rm", name, tag],
+            },
             {
                 cwd: project.baseDir,
             },

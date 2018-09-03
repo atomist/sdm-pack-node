@@ -22,7 +22,7 @@ import { patternMatchReviewer } from "@atomist/sdm/api-helper/code/review/patter
  */
 export const DontImportOwnIndex: ReviewerRegistration = patternMatchReviewer(
     "Don't import own index.ts",
-    {globPattern: "**/*.ts", severity: "error"},
+    { globPattern: "**/*.ts", severity: "error" },
     {
         name: "import from index",
         antiPattern: /^import.*from ".*index"/,

@@ -32,7 +32,7 @@ export async function addBuildScriptTransform(p: Project): Promise<Project> {
                 return;
             }
             // todo: what would work on both linuxy and windows?
-            return _.merge(packageJson, {scripts: {build: "echo 'The build goes here'"}});
+            return _.merge(packageJson, { scripts: { build: "echo 'The build goes here'" } });
         }
     ));
 }

@@ -49,7 +49,10 @@ const NpmFooterPrefix = /^npm ERR!/;
 const StackTraceLine = /^\W*at /;
 const BeginMochaFailingTests = /^\W*\d* failing$/;
 
-interface RecognizedLog { message?: string; relevantLines?: string[]; }
+interface RecognizedLog {
+    message?: string;
+    relevantLines?: string[];
+}
 
 function recognizeNpmRunError(lines: string[]): RecognizedLog {
     const reversedLines = lines.slice().reverse();
@@ -57,7 +60,7 @@ function recognizeNpmRunError(lines: string[]): RecognizedLog {
     if (lastBreakBeforeCommand < 0) {
         return undefined;
     }
-    return { relevantLines: lines.slice(- Math.min(lastBreakBeforeCommand, 20)) };
+    return { relevantLines: lines.slice(-Math.min(lastBreakBeforeCommand, 20)) };
 }
 
 function recognizeMochaTest(lines: string[]): RecognizedLog | undefined {

@@ -26,11 +26,13 @@ export const IsAtomistAutomationClient: PredicatePushTest = predicatePushTest("I
     try {
         const pjFile = await p.getFile("package.json");
         const pjString = await pjFile.getContent();
+
         interface PJ {
             dependencies: {
                 [key: string]: string;
             };
         }
+
         const pj: PJ = JSON.parse(pjString);
         return !!(pj && pj.dependencies && pj.dependencies["@atomist/automation-client"]);
     } catch (e) {

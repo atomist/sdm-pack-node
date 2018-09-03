@@ -93,9 +93,9 @@ export const NpmPreparations = [npmInstallPreparation, npmVersionPreparation, np
 export async function npmInstallPreparation(p: GitProject, goalInvocation: GoalInvocation): Promise<ExecuteGoalResult> {
     const hasPackageLock = p.fileExistsSync("package-lock.json");
     return spawnAndWatch({
-        command: "npm",
-        args: [hasPackageLock ? "ci" : "install"],
-    }, {
+            command: "npm",
+            args: [hasPackageLock ? "ci" : "install"],
+        }, {
             cwd: p.baseDir,
             ...DevelopmentEnvOptions,
         }, goalInvocation.progressLog,
@@ -128,9 +128,9 @@ export async function npmVersionPreparation(p: GitProject, goalInvocation: GoalI
 
 export async function npmCompilePreparation(p: GitProject, goalInvocation: GoalInvocation): Promise<ExecuteGoalResult> {
     return spawnAndWatch({
-        command: "npm",
-        args: ["run", "compile"],
-    }, {
+            command: "npm",
+            args: ["run", "compile"],
+        }, {
             cwd: p.baseDir,
             ...DevelopmentEnvOptions,
         }, goalInvocation.progressLog,
