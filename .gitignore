@@ -15,3 +15,6 @@ node_modules/
 /doc/
 /log/
 git-info.json
+
+coverage/
+.nyc_output/
