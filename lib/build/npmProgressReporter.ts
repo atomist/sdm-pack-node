@@ -25,40 +25,40 @@ import { ReportProgress } from "@atomist/sdm/api/goal/progress/ReportProgress";
  * @type {{test: RegExp; phase: string}[]}
  */
 export const NpmProgressTests: ProgressTest[] = [{
-    test: /Invoking goal hook: pre/g,
+    test: /Invoking goal hook: pre/i,
     phase: "pre-hook",
 }, {
-    test: /> atomist git/g,
+    test: /> atomist git/i,
     phase: "generating",
 }, {
-    test: /> tsc --project \./g,
+    test: /> tsc --project \./i,
     phase: "tsc",
 }, {
-    test: /> nyc mocha/g,
+    test: /> nyc mocha/i,
     phase: "mocha",
 }, {
-    test: /> mocha --exit/g,
+    test: /> mocha --exit/i,
     phase: "mocha",
 }, {
-    test: /> mocha --require/g,
+    test: /> mocha --require/i,
     phase: "mocha",
 }, {
-    test: /Sending build context to Docker daemon/g,
+    test: /Sending build context to Docker daemon/i,
     phase: "docker build",
 }, {
-    test: /The push refers to a repository/g,
+    test: /The push refers to .* repository/i, // This used to have 'a repository'; now it is without it.
     phase: "docker push",
 }, {
-    test: /Invoking goal hook: post/g,
+    test: /Invoking goal hook: post/i,
     phase: "post-hook",
 }, {
-    test: /npm-publish.bash --registry/g,
+    test: /npm-publish.bash --registry/i,
     phase: "npm publish",
 }, {
-    test: /> tslint/g,
+    test: /> tslint/i,
     phase: "tslint",
 }, {
-    test: /> typedoc/g,
+    test: /> typedoc/i,
     phase: "typedoc",
 }];
 
