@@ -15,12 +15,12 @@
  */
 
 import {
+    GitHubRepoRef,
     HandlerResult,
     Success,
+    SuccessIsReturn0ErrorFinder,
 } from "@atomist/automation-client";
-import { GitHubRepoRef } from "@atomist/automation-client/operations/common/GitHubRepoRef";
 import { GitProject } from "@atomist/automation-client/project/git/GitProject";
-import { SuccessIsReturn0ErrorFinder } from "@atomist/automation-client/util/spawned";
 import {
     ExecuteGoal,
     GoalInvocation,

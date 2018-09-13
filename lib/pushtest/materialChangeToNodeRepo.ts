@@ -24,7 +24,6 @@ import {
     anyFileChangedWithExtension,
     filesChangedSince,
 } from "@atomist/sdm/api-helper/misc/git/filesChangedSince";
-import * as _ from "lodash";
 
 const FilesWithExtensionToWatch = ["js", "ts", "json", "yml", "xml", "html", "graphql", "jsx", "tsx", "sh"];
 const FilesToWatch = ["Dockerfile"];
@@ -34,8 +33,7 @@ const FilesToWatch = ["Dockerfile"];
  * build and deploy
  */
 export const MaterialChangeToNodeRepo: PushTest = pushTest("Material change to Node repo", async pci => {
-    const beforeSha: string = _.get(pci, "push.before.sha");
-    const changedFiles = await filesChangedSince(pci.project, beforeSha);
+    const changedFiles = await filesChangedSince(pci.project, pci.push);
     if (!changedFiles) {
         logger.info("Cannot determine if change is material on %j: can't enumerate changed files", pci.id);
         return true;
