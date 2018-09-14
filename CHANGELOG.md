@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/atomist/sdm-pack-node/compare/1.0.0-M.3...HEAD)
 
+### Changed
+
+-   Update from src to lib in dependencies. [#7](https://github.com/atomist/sdm-pack-node/issues/7)
+
 ## [1.0.0-M.3](https://github.com/atomist/sdm-pack-node/compare/1.0.0-M.1...1.0.0-M.3) - 2018-09-04
 
 ## [1.0.0-M.1](https://github.com/atomist/sdm-pack-node/compare/0.2.1...1.0.0-M.1) - 2018-08-27
@@ -31,12 +35,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 
 -   **BREAKING** Reorganize package to have more standard Node.js
-    layout.  Only import from the main index.
 
 ### Fixed
 
 -   Fix automation client push test. [#2](https://github.com/atomist/sdm-pack-node/issues/2)
 
 ## [0.1.0](https://github.com/atomist/sdm-pack-node/tree/0.1.0) - 2018-07-31
-
-Initial release
