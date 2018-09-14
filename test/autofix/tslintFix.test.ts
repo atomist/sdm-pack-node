@@ -20,12 +20,12 @@ import {
     InMemoryFile,
     RemoteRepoRef,
 } from "@atomist/automation-client";
-import { DefaultRepoRefResolver } from "@atomist/sdm-core";
 import {
     executeAutofixes,
     fakeGoalInvocation,
     SingleProjectLoader,
 } from "@atomist/sdm";
+import { DefaultRepoRefResolver } from "@atomist/sdm-core";
 import * as assert from "power-assert";
 import { tslintFix } from "../../lib/autofix/tslintFix";
 

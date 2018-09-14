@@ -15,11 +15,11 @@
  */
 
 import { configurationValue } from "@atomist/automation-client";
-import { ProjectVersioner } from "@atomist/sdm-core";
 import {
     projectConfigurationValue,
     spawnAndWatch,
 } from "@atomist/sdm";
+import { ProjectVersioner } from "@atomist/sdm-core";
 import * as df from "dateformat";
 
 const TagDefaultBranchConfigKey = "npm.publish.tag.defaultBranch";
