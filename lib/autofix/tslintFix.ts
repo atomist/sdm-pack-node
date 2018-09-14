@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
-import { spawnedCommandAutofix } from "@atomist/sdm/api-helper/code/autofix/spawnedCommandAutofix";
-import { asSpawnCommand } from "@atomist/sdm/api-helper/misc/spawned";
-import { hasFile } from "@atomist/sdm/api/mapping/support/commonPushTests";
-import { allSatisfied } from "@atomist/sdm/api/mapping/support/pushTestUtils";
-import { AutofixRegistration } from "@atomist/sdm/api/registration/AutofixRegistration";
+import { asSpawnCommand } from "@atomist/automation-client";
+import {
+    allSatisfied,
+    AutofixRegistration,
+    hasFile,
+    spawnedCommandAutofix,
+} from "@atomist/sdm";
 import {
     DevelopmentEnvOptions,
     Install,

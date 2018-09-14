@@ -19,7 +19,7 @@ import {
     PredicatePushTest,
     SoftwareDeliveryMachine,
 } from "@atomist/sdm";
-import { SpawnBuilder } from "@atomist/sdm-core/internal/delivery/build/local/SpawnBuilder";
+import { SpawnBuilder } from "@atomist/sdm-core";
 import { npmBuilderOptionsFromFile } from "./npmBuilder";
 
 export const AtomistBuildFile = ".atomist/build.sh";

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import { GitHubRepoRef } from "@atomist/automation-client/operations/common/GitHubRepoRef";
+import { GitHubRepoRef } from "@atomist/automation-client";
 import {
     ExtensionPack,
+    metadata,
     SoftwareDeliveryMachine,
 } from "@atomist/sdm";
-import { metadata } from "@atomist/sdm/api-helper/misc/extensionPack";
 import { UpdatePackageJsonIdentification } from "../transform/updatePackageJsonIdentification";
 import { UpdateReadmeTitle } from "../transform/updateReadmeTitle";
 import { NodeProjectCreationParametersDefinition } from "./NodeProjectCreationParameters";

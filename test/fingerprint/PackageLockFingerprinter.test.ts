@@ -16,10 +16,12 @@
 
 import * as assert from "power-assert";
 
-import { Fingerprint } from "@atomist/automation-client/project/fingerprint/Fingerprint";
-import { InMemoryFile } from "@atomist/automation-client/project/mem/InMemoryFile";
-import { InMemoryProject } from "@atomist/automation-client/project/mem/InMemoryProject";
-import { PushImpactListenerInvocation } from "@atomist/sdm/api/listener/PushImpactListener";
+import {
+    Fingerprint,
+    InMemoryFile,
+    InMemoryProject,
+} from "@atomist/automation-client";
+import { PushImpactListenerInvocation } from "@atomist/sdm";
 
 import { PackageLockFingerprinter } from "../../lib/fingerprint/PackageLockFingerprinter";
 

@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
-import { configurationValue } from "@atomist/automation-client";
-import { ProjectVersioner } from "@atomist/sdm-core/internal/delivery/build/local/projectVersioner";
-import { spawnAndWatch } from "@atomist/sdm/api-helper/misc/spawned";
-import { projectConfigurationValue } from "@atomist/sdm/api-helper/project/configuration/projectConfiguration";
+import {
+    configurationValue,
+    spawnAndWatch,
+} from "@atomist/automation-client";
+import { projectConfigurationValue } from "@atomist/sdm";
+import { ProjectVersioner } from "@atomist/sdm-core";
 import * as df from "dateformat";
 
 const TagDefaultBranchConfigKey = "npm.publish.tag.defaultBranch";

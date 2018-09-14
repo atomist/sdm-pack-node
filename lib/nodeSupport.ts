@@ -15,9 +15,9 @@
  */
 import {
     ExtensionPack,
+    metadata,
     SoftwareDeliveryMachine,
 } from "@atomist/sdm";
-import { metadata } from "@atomist/sdm/api-helper/misc/extensionPack";
 import { AddBuildScript } from "./autofix/addBuildScript";
 import { tslintFix } from "./autofix/tslintFix";
 import { PackageLockFingerprinter } from "./fingerprint/PackageLockFingerprinter";

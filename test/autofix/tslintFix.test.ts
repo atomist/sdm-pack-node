@@ -14,14 +14,18 @@
  * limitations under the License.
  */
 
-import { GitHubRepoRef } from "@atomist/automation-client/operations/common/GitHubRepoRef";
-import { RemoteRepoRef } from "@atomist/automation-client/operations/common/RepoId";
-import { GitCommandGitProject } from "@atomist/automation-client/project/git/GitCommandGitProject";
-import { InMemoryFile } from "@atomist/automation-client/project/mem/InMemoryFile";
+import {
+    GitCommandGitProject,
+    GitHubRepoRef,
+    InMemoryFile,
+    RemoteRepoRef,
+} from "@atomist/automation-client";
+import {
+    executeAutofixes,
+    fakeGoalInvocation,
+    SingleProjectLoader,
+} from "@atomist/sdm";
 import { DefaultRepoRefResolver } from "@atomist/sdm-core";
-import { executeAutofixes } from "@atomist/sdm/api-helper/listener/executeAutofixes";
-import { fakeGoalInvocation } from "@atomist/sdm/api-helper/test/fakeGoalInvocation";
-import { SingleProjectLoader } from "@atomist/sdm/api-helper/test/SingleProjectLoader";
 import * as assert from "power-assert";
 import { tslintFix } from "../../lib/autofix/tslintFix";
 

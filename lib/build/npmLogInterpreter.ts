@@ -15,7 +15,7 @@
  */
 
 import { logger } from "@atomist/automation-client";
-import { InterpretLog } from "@atomist/sdm/spi/log/InterpretedLog";
+import { InterpretLog } from "@atomist/sdm";
 import strip_ansi = require("strip-ansi");
 
 export const NpmLogInterpreter: InterpretLog = log => {

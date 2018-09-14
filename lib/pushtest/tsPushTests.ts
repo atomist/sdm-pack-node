@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import { fileExists } from "@atomist/automation-client/project/util/projectUtils";
-import { PushListenerInvocation } from "@atomist/sdm/api/listener/PushListener";
+import { fileExists } from "@atomist/automation-client";
 import {
-    PushTest,
+    PushListenerInvocation,
     pushTest,
-} from "@atomist/sdm/api/mapping/PushTest";
+    PushTest,
+} from "@atomist/sdm";
 
 export const IsTypeScript: PushTest = pushTest(
     "Is TypeScript",
