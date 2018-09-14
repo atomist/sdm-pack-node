@@ -17,6 +17,7 @@
 import {
     GitHubRepoRef,
     HandlerResult,
+    spawnAndWatch,
     Success,
     SuccessIsReturn0ErrorFinder,
 } from "@atomist/automation-client";
@@ -28,12 +29,11 @@ import {
     LoggingProgressLog,
     PrepareForGoalExecution,
     projectConfigurationValue,
-    spawnAndWatch,
 } from "@atomist/sdm";
 import {
-    createStatus,
     ProjectIdentifier,
 } from "@atomist/sdm-core";
+import { github } from "@atomist/sdm-core";
 import * as fs from "fs-extra";
 import * as p from "path";
 import { NpmPreparations } from "./npmBuilder";
@@ -95,7 +95,7 @@ export function executePublish(
                     result.targetUrl = url;
 
                     if (options.status) {
-                        await createStatus(
+                        await github.createStatus(
                             credentials,
                             id as GitHubRepoRef,
                             {

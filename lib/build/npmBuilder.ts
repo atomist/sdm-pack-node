@@ -15,18 +15,18 @@
  */
 
 import {
+    asSpawnCommand,
     GitProject,
     Project,
     RemoteRepoRef,
+    spawnAndWatch,
+    SpawnCommand,
 } from "@atomist/automation-client";
 import {
     AppInfo,
-    asSpawnCommand,
     ExecuteGoalResult,
     GoalInvocation,
     SoftwareDeliveryMachine,
-    spawnAndWatch,
-    SpawnCommand,
 } from "@atomist/sdm";
 import {
     readSdmVersion,

@@ -19,7 +19,6 @@ import {
     AutofixGoal,
     BuildGoal,
     CodeInspectionGoal,
-    DockerBuildGoal,
     Goals,
     GoalWithPrecondition,
     IndependentOfEnvironment,
@@ -27,9 +26,12 @@ import {
     StagingDeploymentGoal,
     StagingEndpointGoal,
     StagingEnvironment,
+} from "@atomist/sdm";
+import {
+    DockerBuildGoal,
     TagGoal,
     VersionGoal,
-} from "@atomist/sdm";
+} from "@atomist/sdm/lib/pack/well-known-goals/commonGoals";
 
 export const NpmPublishGoal = new GoalWithPrecondition({
     uniqueName: "Publish",
