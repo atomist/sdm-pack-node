@@ -16,8 +16,8 @@
 
 import * as assert from "power-assert";
 
-import { InMemoryProject } from "@atomist/automation-client/project/mem/InMemoryProject";
-import { PushListenerInvocation } from "@atomist/sdm/api/listener/PushListener";
+import { InMemoryProject } from "@atomist/automation-client";
+import { PushListenerInvocation } from "@atomist/sdm";
 
 import { IsTypeScript } from "../../lib/pushtest/tsPushTests";
 

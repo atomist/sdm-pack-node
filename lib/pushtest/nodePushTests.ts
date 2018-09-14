@@ -15,10 +15,10 @@
  */
 
 import {
+    hasFile,
     predicatePushTest,
     PredicatePushTest,
-} from "@atomist/sdm/api/mapping/PushTest";
-import { hasFile } from "@atomist/sdm/api/mapping/support/commonPushTests";
+} from "@atomist/sdm";
 
 export const IsNode: PredicatePushTest = hasFile("package.json");
 

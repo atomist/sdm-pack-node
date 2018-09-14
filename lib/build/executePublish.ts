@@ -20,20 +20,20 @@ import {
     Success,
     SuccessIsReturn0ErrorFinder,
 } from "@atomist/automation-client";
-import { GitProject } from "@atomist/automation-client/project/git/GitProject";
+import { GitProject } from "@atomist/automation-client";
 import {
     ExecuteGoal,
+    ExecuteGoalResult,
     GoalInvocation,
+    LoggingProgressLog,
     PrepareForGoalExecution,
+    projectConfigurationValue,
+    spawnAndWatch,
 } from "@atomist/sdm";
 import {
     createStatus,
     ProjectIdentifier,
 } from "@atomist/sdm-core";
-import { LoggingProgressLog } from "@atomist/sdm/api-helper/log/LoggingProgressLog";
-import { spawnAndWatch } from "@atomist/sdm/api-helper/misc/spawned";
-import { projectConfigurationValue } from "@atomist/sdm/api-helper/project/configuration/projectConfiguration";
-import { ExecuteGoalResult } from "@atomist/sdm/api/goal/ExecuteGoalResult";
 import * as fs from "fs-extra";
 import * as p from "path";
 import { NpmPreparations } from "./npmBuilder";

@@ -14,25 +14,25 @@
  * limitations under the License.
  */
 
-import { RemoteRepoRef } from "@atomist/automation-client/operations/common/RepoId";
-import { GitProject } from "@atomist/automation-client/project/git/GitProject";
-import { Project } from "@atomist/automation-client/project/Project";
 import {
+    GitProject,
+    Project,
+    RemoteRepoRef,
+} from "@atomist/automation-client";
+import {
+    AppInfo,
+    asSpawnCommand,
+    ExecuteGoalResult,
     GoalInvocation,
     SoftwareDeliveryMachine,
-} from "@atomist/sdm";
-import { readSdmVersion } from "@atomist/sdm-core";
-import {
-    SpawnBuilder,
-    SpawnBuilderOptions,
-} from "@atomist/sdm-core/internal/delivery/build/local/SpawnBuilder";
-import {
-    asSpawnCommand,
     spawnAndWatch,
     SpawnCommand,
-} from "@atomist/sdm/api-helper/misc/spawned";
-import { ExecuteGoalResult } from "@atomist/sdm/api/goal/ExecuteGoalResult";
-import { AppInfo } from "@atomist/sdm/spi/deploy/Deployment";
+} from "@atomist/sdm";
+import {
+    readSdmVersion,
+    SpawnBuilder,
+    SpawnBuilderOptions,
+} from "@atomist/sdm-core";
 import { NpmLogInterpreter } from "./npmLogInterpreter";
 
 /**

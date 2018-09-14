@@ -16,14 +16,12 @@
 
 import { logger } from "@atomist/automation-client";
 import {
-    PushTest,
-    pushTest,
-} from "@atomist/sdm";
-import {
     anyFileChangedSuchThat,
     anyFileChangedWithExtension,
     filesChangedSince,
-} from "@atomist/sdm/api-helper/misc/git/filesChangedSince";
+    pushTest,
+    PushTest,
+} from "@atomist/sdm";
 
 const FilesWithExtensionToWatch = ["js", "ts", "json", "yml", "xml", "html", "graphql", "jsx", "tsx", "sh"];
 const FilesToWatch = ["Dockerfile"];
