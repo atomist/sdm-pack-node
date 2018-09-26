@@ -21,10 +21,7 @@ import {
     hasFile,
     spawnedCommandAutofix,
 } from "@atomist/sdm";
-import {
-    DevelopmentEnvOptions,
-    Install,
-} from "../build/npmBuilder";
+import { DevelopmentEnvOptions } from "../build/npmBuilder";
 import { IsNode } from "../pushtest/nodePushTests";
 import { IsTypeScript } from "../pushtest/tsPushTests";
 
@@ -34,5 +31,4 @@ export const tslintFix: AutofixRegistration = spawnedCommandAutofix(
     "tslint",
     allSatisfied(IsTypeScript, IsNode, hasFile("tslint.json")),
     { ignoreFailure: true, considerOnlyChangedFiles: false },
-    Install,
     asSpawnCommand("npm run lint:fix", DevelopmentEnvOptions));

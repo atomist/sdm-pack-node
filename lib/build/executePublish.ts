@@ -54,13 +54,13 @@ export function executePublish(
     options: NpmOptions,
 ): ExecuteGoal {
 
-    return async (goalInvocation: GoalInvocation): Promise<ExecuteGoalResult> => {
+    return async (goalInvocation: GoalInvocation): Promise<void | ExecuteGoalResult> => {
         const { configuration, credentials, id, context } = goalInvocation;
         return configuration.sdm.projectLoader.doWithProject(
             { credentials, id, context, readOnly: false }, async project => {
                 for (const preparation of preparations) {
                     const pResult = await preparation(project, goalInvocation);
-                    if (pResult.code !== 0) {
+                    if (pResult && pResult.code !== 0) {
                         return pResult;
                     }
                 }
