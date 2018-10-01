@@ -16,12 +16,12 @@
 
 import {
     GitHubRepoRef,
+    GitProject,
     HandlerResult,
     spawnAndWatch,
     Success,
     SuccessIsReturn0ErrorFinder,
 } from "@atomist/automation-client";
-import { GitProject } from "@atomist/automation-client";
 import {
     ExecuteGoal,
     ExecuteGoalResult,
@@ -31,9 +31,9 @@ import {
     projectConfigurationValue,
 } from "@atomist/sdm";
 import {
+    github,
     ProjectIdentifier,
 } from "@atomist/sdm-core";
-import { github } from "@atomist/sdm-core";
 import * as fs from "fs-extra";
 import * as p from "path";
 import { NpmPreparations } from "./npmBuilder";
