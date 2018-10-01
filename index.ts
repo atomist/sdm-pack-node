@@ -23,8 +23,6 @@ export {
     NodeProjectCreationParameters,
 } from "./lib/generator/NodeProjectCreationParameters";
 export { PackageLockFingerprinter } from "./lib/fingerprint/PackageLockFingerprinter";
-export { npmCustomBuilder, HasAtomistBuildFile } from "./lib/build/atomistBuildFileCustomBuilder";
-export { nodeBuilder } from "./lib/build/npmBuilder";
 export {
     IsNode,
 } from "./lib/pushtest/nodePushTests";
@@ -40,8 +38,17 @@ export {
 export { IsAtomistAutomationClient } from "./lib/pushtest/nodePushTests";
 export { NodeProjectVersioner } from "./lib/build/nodeProjectVersioner";
 export {
+    nodeBuilder,
     DevelopmentEnvOptions,
     NpmPreparations,
+    npmBuilderOptionsFromFile,
+    npmCompilePreparation,
+    npmInstallPreparation,
+    npmVersionPreparation,
+    Install,
+    NodeModulesProjectListener,
+    NpmCompileProjectListener,
+    NpmVersionProjectListener,
 } from "./lib/build/npmBuilder";
 export {
     NpmProgressReporter,
