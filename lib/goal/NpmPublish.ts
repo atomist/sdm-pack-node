@@ -25,7 +25,6 @@ import {
     NpmOptions,
 } from "../build/executePublish";
 import { NodeProjectIdentifier } from "../build/nodeProjectIdentifier";
-import { NpmPublishGoal } from "../npmGoals";
 
 export interface NpmPublishRegistration extends ImplementationRegistration {
     options: NpmOptions;
@@ -40,7 +39,6 @@ export class NpmPublish extends FulfillableGoalWithRegistrations<NpmPublishRegis
     constructor(private readonly uniqueName: string = DefaultGoalNameGenerator.generateName("npm-publish")) {
 
         super({
-            ...NpmPublishGoal.definition,
             uniqueName,
             orderedName: `2-${uniqueName.toLowerCase()}`,
         });

@@ -28,12 +28,6 @@ export { nodeBuilder } from "./lib/build/npmBuilder";
 export {
     IsNode,
 } from "./lib/pushtest/nodePushTests";
-export {
-    NpmBuildGoals,
-    NpmDeployGoals,
-    NpmDockerGoals,
-    NpmKubernetesDeployGoals,
-} from "./lib/npmGoals";
 export { IsTypeScript } from "./lib/pushtest/tsPushTests";
 export { tslintFix } from "./lib/autofix/tslintFix";
 export { NodeProjectIdentifier } from "./lib/build/nodeProjectIdentifier";
