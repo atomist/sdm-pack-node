@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
-export { NodeSupport } from "./lib/nodeSupport";
-
+export {
+    nodeSupport,
+    NodeSupportOptions,
+} from "./lib/nodeSupport";
 export { UpdatePackageJsonIdentification } from "./lib/transform/updatePackageJsonIdentification";
 export { UpdateReadmeTitle } from "./lib/transform/updateReadmeTitle";
 export {

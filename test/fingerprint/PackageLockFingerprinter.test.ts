@@ -17,9 +17,9 @@
 import * as assert from "power-assert";
 
 import {
-    Fingerprint,
-    InMemoryFile,
+    FingerprintData,
     InMemoryProject,
+    InMemoryProjectFile,
 } from "@atomist/automation-client";
 import { PushImpactListenerInvocation } from "@atomist/sdm";
 
@@ -37,32 +37,32 @@ describe("package-lock.json", () => {
     });
 
     it("should produce fingerprint when package-lock.json found", async () => {
-        const project = InMemoryProject.of(new InMemoryFile("package-lock.json", valid1()));
+        const project = InMemoryProject.of(new InMemoryProjectFile("package-lock.json", valid1()));
         const cri = { project } as any as PushImpactListenerInvocation;
-        const fp = await fingerprinter.action(cri) as Fingerprint;
+        const fp = await fingerprinter.action(cri) as FingerprintData;
         assert.equal(fp.abbreviation, "deps");
         assert(!!fp.sha);
     });
 
     it("should not detect change unless dependencies change", async () => {
-        const project1 = InMemoryProject.of(new InMemoryFile("package-lock.json", valid1({ lockfileVersion: 1 })));
+        const project1 = InMemoryProject.of(new InMemoryProjectFile("package-lock.json", valid1({ lockfileVersion: 1 })));
         const cri1 = { project: project1 } as any as PushImpactListenerInvocation;
-        const fp1 = await fingerprinter.action(cri1) as Fingerprint;
+        const fp1 = await fingerprinter.action(cri1) as FingerprintData;
 
-        const project2 = InMemoryProject.of(new InMemoryFile("package-lock.json", valid1({ lockfileVersion: 2 })));
+        const project2 = InMemoryProject.of(new InMemoryProjectFile("package-lock.json", valid1({ lockfileVersion: 2 })));
         const cri2 = { project: project2 } as any as PushImpactListenerInvocation;
-        const fp2 = await fingerprinter.action(cri2) as Fingerprint;
+        const fp2 = await fingerprinter.action(cri2) as FingerprintData;
         assert.equal(fp1.sha, fp2.sha);
     });
 
     it("should detect change when dependencies change", async () => {
-        const project1 = InMemoryProject.of(new InMemoryFile("package-lock.json", valid1({ antlrVersion: "0.2.0" })));
+        const project1 = InMemoryProject.of(new InMemoryProjectFile("package-lock.json", valid1({ antlrVersion: "0.2.0" })));
         const cri1 = { project: project1 } as any as PushImpactListenerInvocation;
-        const fp1 = await fingerprinter.action(cri1) as Fingerprint;
+        const fp1 = await fingerprinter.action(cri1) as FingerprintData;
 
-        const project2 = InMemoryProject.of(new InMemoryFile("package-lock.json", valid1({ antlrVersion: "0.2.1" })));
+        const project2 = InMemoryProject.of(new InMemoryProjectFile("package-lock.json", valid1({ antlrVersion: "0.2.1" })));
         const cri2 = { project: project2 } as any as PushImpactListenerInvocation;
-        const fp2 = await fingerprinter.action(cri2) as Fingerprint;
+        const fp2 = await fingerprinter.action(cri2) as FingerprintData;
         assert.notEqual(fp1.sha, fp2.sha);
     });
 

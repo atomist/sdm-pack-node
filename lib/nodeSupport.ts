@@ -14,8 +14,12 @@
  * limitations under the License.
  */
 import {
+    AutoCodeInspection,
+    Autofix,
     ExtensionPack,
+    Fingerprint,
     metadata,
+    ReviewListenerRegistration,
     SoftwareDeliveryMachine,
 } from "@atomist/sdm";
 import { AddBuildScript } from "./autofix/addBuildScript";
@@ -25,18 +29,76 @@ import { CommonTypeScriptErrors } from "./reviewer/typescript/commonTypeScriptEr
 import { DontImportOwnIndex } from "./reviewer/typescript/dontImportOwnIndex";
 
 /**
- * This shows how to add a Node generator to your SDM.
- * We recommend that you add your own, with a startingPoint of your choice.
- * @param {SoftwareDeliveryMachine} sdm
- * @param options config options
+ * Categories of functionality to enable
  */
-export const NodeSupport: ExtensionPack = {
-    ...metadata(),
-    configure: (sdm: SoftwareDeliveryMachine) => {
-        sdm.addAutofix(tslintFix)
-            .addAutofix(AddBuildScript)
-            .addAutoInspectRegistration(CommonTypeScriptErrors)
-            .addAutoInspectRegistration(DontImportOwnIndex)
-            .addFingerprinterRegistration(new PackageLockFingerprinter());
-    },
-};
+export interface Categories {
+
+    typescriptErrors?: boolean;
+}
+
+/**
+ * Options determining what Spring functionality is activated.
+ */
+export interface NodeSupportOptions {
+
+    /**
+     * Inspect goal to add inspections to.
+     * Review functionality won't work otherwise.
+     */
+    inspectGoal?: AutoCodeInspection;
+
+    /**
+     * Autofix goal to add autofixes to.
+     * Autofix functionality won't work otherwise.
+     */
+    autofixGoal?: Autofix;
+
+    /**
+     * Fingerprint goal to add fingerprints to.
+     * Fingerprint functionality won't work otherwise.
+     */
+    fingerprintGoal?: Fingerprint;
+
+    review: Categories;
+
+    autofix: Categories;
+
+    /**
+     * Review listeners that let you publish review results.
+     */
+    reviewListeners?: ReviewListenerRegistration | ReviewListenerRegistration[];
+}
+
+/**
+ * Install node support into your SDM.
+ * @param options
+ */
+export function nodeSupport(options: NodeSupportOptions): ExtensionPack {
+    return {
+        ...metadata(),
+        configure: () => {
+            if (!!options.inspectGoal) {
+                if (options.review.typescriptErrors) {
+                    options.inspectGoal
+                        .with(CommonTypeScriptErrors)
+                        .with(DontImportOwnIndex);
+                }
+                if (options.reviewListeners) {
+                    const listeners = Array.isArray(options.reviewListeners) ?
+                        options.reviewListeners : [options.reviewListeners];
+                    listeners.forEach(l => options.inspectGoal.withListener(l));
+                }
+            }
+            if (!!options.autofixGoal) {
+                if (options.autofix.typescriptErrors) {
+                    options.autofixGoal
+                        .with(tslintFix)
+                        .with(AddBuildScript);
+                }
+            }
+            if (!!options.fingerprintGoal) {
+                options.fingerprintGoal.with(new PackageLockFingerprinter());
+            }
+        },
+    };
+}

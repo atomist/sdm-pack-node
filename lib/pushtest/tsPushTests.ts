@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { fileExists } from "@atomist/automation-client";
+import { projectUtils } from "@atomist/automation-client";
 import {
     PushListenerInvocation,
     pushTest,
@@ -23,5 +23,5 @@ import {
 
 export const IsTypeScript: PushTest = pushTest(
     "Is TypeScript",
-    async (pi: PushListenerInvocation) => fileExists(pi.project, "**/*.ts", () => true),
+    async (pi: PushListenerInvocation) => projectUtils.fileExists(pi.project, "**/*.ts", () => true),
 );

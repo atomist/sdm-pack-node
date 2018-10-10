@@ -17,7 +17,7 @@
 import {
     GitCommandGitProject,
     GitHubRepoRef,
-    InMemoryFile,
+    InMemoryProjectFile,
     RemoteRepoRef,
 } from "@atomist/automation-client";
 import {
@@ -45,7 +45,7 @@ describe("tsLintFix", () => {
         p.push = async () => {
             return p;
         };
-        const f = new InMemoryFile("src/bad.ts", "const foo\n\n");
+        const f = new InMemoryProjectFile("src/bad.ts", "const foo\n\n");
         const pl = new SingleProjectLoader(p);
         // Now mess it up with a lint error
         await p.addFile(f.path, f.content);

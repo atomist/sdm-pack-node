@@ -189,7 +189,7 @@ async function cacheNodeModules(p: GitProject, gi: GoalInvocation): Promise<void
     let installed = false;
 
     // Check cache for a previously cached node_modules cache archive
-    const cacheFileName = `${_.get(gi, "configuration.sdm.cache.enable",
+    const cacheFileName = `${_.get(gi, "configuration.sdm.cache.path",
         "/opt/data")}/${gi.sdmGoal.goalSetId}-node_modules.tar.gz`;
     if (_.get(gi, "configuration.sdm.cache.enabled") === true && (await fs.pathExists(cacheFileName))) {
         const result = await extract(cacheFileName, p, gi);
