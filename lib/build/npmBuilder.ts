@@ -35,6 +35,7 @@ import {
     readSdmVersion,
 } from "@atomist/sdm-core";
 import {
+    Builder,
     spawnBuilder,
     SpawnBuilderOptions,
 } from "@atomist/sdm-pack-build";
@@ -55,7 +56,7 @@ export const DevelopmentEnvOptions = {
 
 export const Install: SpawnCommand = asSpawnCommand("npm ci", DevelopmentEnvOptions);
 
-export function nodeBuilder(...commands: string[]) {
+export function nodeBuilder(...commands: string[]): Builder {
     return spawnBuilder(npmBuilderOptions(commands.map(cmd => asSpawnCommand(cmd, DevelopmentEnvOptions))));
 }
 
