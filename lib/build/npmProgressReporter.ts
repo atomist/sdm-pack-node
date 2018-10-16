@@ -28,8 +28,11 @@ export const NpmProgressTests: ProgressTest[] = [{
     test: /Invoking goal hook: pre/i,
     phase: "pre-hook",
 }, {
-    test: /> atomist git/i,
-    phase: "generating",
+    test: /> atm-git-info/i,
+    phase: "git-info",
+}, {
+    test: /> atm-gql-gen/i,
+    phase: "gql-gen",
 }, {
     test: /> tsc --project \./i,
     phase: "tsc",
@@ -52,7 +55,7 @@ export const NpmProgressTests: ProgressTest[] = [{
     test: /Invoking goal hook: post/i,
     phase: "post-hook",
 }, {
-    test: /npm-publish.bash --registry/i,
+    test: /npm-publish.bash/i,
     phase: "npm publish",
 }, {
     test: /> tslint/i,
