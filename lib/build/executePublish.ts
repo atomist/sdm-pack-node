@@ -64,7 +64,7 @@ export function executePublish(
                         code: 0,
                         description: "Publish disabled",
                         state: SdmGoalState.success,
-                    }
+                    };
                 }
 
                 await configure(options, project);
