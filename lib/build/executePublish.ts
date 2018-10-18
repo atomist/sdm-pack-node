@@ -62,7 +62,7 @@ export function executePublish(
                 if (projectConfigurationValue<boolean>("npm.publish.enabled", p, true) !== true) {
                     return {
                         code: 0,
-                        description: "Not published",
+                        description: "Publish disabled",
                         state: SdmGoalState.success,
                     }
                 }
