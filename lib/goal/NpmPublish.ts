@@ -16,9 +16,13 @@
 
 import {
     DefaultGoalNameGenerator,
+    FulfillableGoalDetails,
     FulfillableGoalWithRegistrations,
+    getGoalDefinitionFrom,
+    Goal,
+    GoalDefinition,
     ImplementationRegistration,
-    PrepareForGoalExecution,
+    IndependentOfEnvironment,
 } from "@atomist/sdm";
 import {
     executePublish,
@@ -28,7 +32,6 @@ import { NodeProjectIdentifier } from "../build/nodeProjectIdentifier";
 
 export interface NpmPublishRegistration extends ImplementationRegistration {
     options: NpmOptions;
-    preparations: PrepareForGoalExecution[];
 }
 
 /**
@@ -36,18 +39,19 @@ export interface NpmPublishRegistration extends ImplementationRegistration {
  */
 export class NpmPublish extends FulfillableGoalWithRegistrations<NpmPublishRegistration> {
 
-    constructor(private readonly uniqueName: string = DefaultGoalNameGenerator.generateName("npm-publish")) {
+    constructor(private readonly goalDetailsOrUniqueName: FulfillableGoalDetails | string = DefaultGoalNameGenerator.generateName("npm-publish"),
+                ...dependsOn: Goal[]) {
 
         super({
-            uniqueName,
-            orderedName: `2-${uniqueName.toLowerCase()}`,
-        });
+            ...PublishDefiniton,
+            ...getGoalDefinitionFrom(goalDetailsOrUniqueName, DefaultGoalNameGenerator.generateName("npm-publish")),
+        }, ...dependsOn);
     }
 
     public with(registration: NpmPublishRegistration): this {
         this.addFulfillment({
             name: registration.name,
-            goalExecutor: executePublish(NodeProjectIdentifier, registration.preparations, registration.options),
+            goalExecutor: executePublish(NodeProjectIdentifier, registration.options),
             pushTest: registration.pushTest,
             logInterpreter: registration.logInterpreter,
             progressReporter: registration.progressReporter,
@@ -55,3 +59,13 @@ export class NpmPublish extends FulfillableGoalWithRegistrations<NpmPublishRegis
         return this;
     }
 }
+
+const PublishDefiniton: GoalDefinition = {
+    uniqueName: "publish",
+    environment: IndependentOfEnvironment,
+    displayName: "publish",
+    workingDescription: "Publishing",
+    completedDescription: "Published",
+    failedDescription: "Publish failed",
+    isolated: true,
+};
