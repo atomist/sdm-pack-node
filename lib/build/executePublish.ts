@@ -59,7 +59,7 @@ export function executePublish(
         return configuration.sdm.projectLoader.doWithProject(
             { credentials, id, context, readOnly: false }, async project => {
 
-                if (!await projectConfigurationValue<boolean>("npm.publish.enabled", project, true)) {
+                if (!(await projectConfigurationValue<boolean>("npm.publish.enabled", project, true))) {
                     return {
                         code: 0,
                         description: "Publish disabled",
