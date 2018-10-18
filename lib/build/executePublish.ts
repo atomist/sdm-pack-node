@@ -29,6 +29,7 @@ import {
     LoggingProgressLog,
     PrepareForGoalExecution,
     projectConfigurationValue,
+    SdmGoalState,
 } from "@atomist/sdm";
 import {
     github,
@@ -50,7 +51,6 @@ import { NpmPreparations } from "./npmBuilder";
  */
 export function executePublish(
     projectIdentifier: ProjectIdentifier,
-    preparations: PrepareForGoalExecution[] = NpmPreparations,
     options: NpmOptions,
 ): ExecuteGoal {
 
@@ -58,10 +58,12 @@ export function executePublish(
         const { configuration, credentials, id, context } = goalInvocation;
         return configuration.sdm.projectLoader.doWithProject(
             { credentials, id, context, readOnly: false }, async project => {
-                for (const preparation of preparations) {
-                    const pResult = await preparation(project, goalInvocation);
-                    if (pResult && pResult.code !== 0) {
-                        return pResult;
+
+                if (projectConfigurationValue<boolean>("npm.publish.enabled", p, true) !== true) {
+                    return {
+                        code: 0,
+                        description: "Not published",
+                        state: SdmGoalState.success,
                     }
                 }
 
