@@ -41,7 +41,8 @@
   "peerDependencies": {
     "@atomist/automation-client": "*",
     "@atomist/sdm": "*",
-    "@atomist/sdm-core": "*"
+    "@atomist/sdm-core": "*",
+    "@atomist/sdm-pack-build": "*"
   },
   "devDependencies": {
     "@atomist/automation-client": "1.0.0-RC.1",
