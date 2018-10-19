@@ -9,7 +9,7 @@ Extension pack for an Atomist SDM to work with Node.JS projects.
 1. First install the dependency in your SDM project
 
 ```
-$ npm install @atomist/sdm-pack-spring
+$ npm install @atomist/sdm-pack-node
 ```
 
 2. Install the support
