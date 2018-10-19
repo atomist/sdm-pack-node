@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/atomist/sdm-pack-node/compare/1.0.0-RC.1...HEAD)
 
+### Fixed
+
+-   If build pack is a devDependency, it also needs to be a peer. [#14](https://github.com/atomist/sdm-pack-node/issues/14)
+
 ## [1.0.0-RC.1](https://github.com/atomist/sdm-pack-node/compare/1.0.0-M.5...1.0.0-RC.1) - 2018-10-15
 
 ## [1.0.0-M.5](https://github.com/atomist/sdm-pack-node/compare/1.0.0-M.4...1.0.0-M.5) - 2018-09-26
