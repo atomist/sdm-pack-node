@@ -37,7 +37,6 @@ import {
 } from "@atomist/sdm-core";
 import * as fs from "fs-extra";
 import * as p from "path";
-import { NpmPreparations } from "./npmBuilder";
 
 /**
  * Execute npm publish
