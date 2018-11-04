@@ -93,7 +93,10 @@ export function executePublish(
                 if (result.code === 0) {
                     const pi = await projectIdentifier(project);
                     const url = `${options.registry}/${pi.name}/-/${pi.name}-${pi.version}.tgz`;
-                    result.targetUrl = url;
+                    result.targetUrls = [{
+                        label: "NPM package",
+                        url,
+                    }];
 
                     if (options.status) {
                         await github.createStatus(
