@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/atomist/sdm-pack-node/compare/1.0.0-RC.2...HEAD)
 
+### Fixed
+
+-   Replace _ with - in versioner. [109c561](https://github.com/atomist/sdm-pack-node/commit/109c5618859142cbb2de411b9ecd77cd93b3fc7c)
+
 ## [1.0.0-RC.2](https://github.com/atomist/sdm-pack-node/compare/1.0.0-RC.1...1.0.0-RC.2) - 2018-10-30
 
 ### Fixed
