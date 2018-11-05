@@ -170,6 +170,7 @@ export interface NpmOptions {
 }
 
 export function gitBranchToNpmTag(branchName: string) {
-    const safeName = branchName.replace(/\//g, "-");
+    let safeName = branchName.replace(/\//g, "-");
+    safeName = branchName.replace(/_/g, "-");
     return "branch-" + safeName;
 }
