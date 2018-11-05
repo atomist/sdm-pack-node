@@ -21,6 +21,7 @@ import {
 import { projectConfigurationValue } from "@atomist/sdm";
 import { ProjectVersioner } from "@atomist/sdm-core";
 import * as df from "dateformat";
+import { gitBranchToNpmVersion } from "./executePublish";
 
 const TagDefaultBranchConfigKey = "npm.publish.tag.defaultBranch";
 
@@ -39,7 +40,7 @@ export const NodeProjectVersioner: ProjectVersioner = async (sdmGoal, p, log) =>
         branchSuffix = branch !== sdmGoal.push.repo.defaultBranch ? `${branch}.` : "";
     }
 
-    const version = `${pj.version}-${branchSuffix}${df(new Date(), "yyyymmddHHMMss")}`;
+    const version = `${pj.version}-${gitBranchToNpmVersion(branchSuffix)}${df(new Date(), "yyyymmddHHMMss")}`;
 
     await spawnAndWatch({
             command: "npm",

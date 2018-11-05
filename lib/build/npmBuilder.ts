@@ -42,7 +42,6 @@ import {
 import * as fs from "fs-extra";
 import * as _ from "lodash";
 import { IsNode } from "../pushtest/nodePushTests";
-import { gitBranchToNpmTag } from "./executePublish";
 import { NpmLogInterpreter } from "./npmLogInterpreter";
 
 /**
@@ -122,7 +121,7 @@ export async function npmVersionPreparation(p: GitProject, goalInvocation: GoalI
         goalInvocation.context);
     return spawnAndWatch({
             command: "npm",
-            args: ["--no-git-tag-version", "version", gitBranchToNpmTag(version)],
+            args: ["--no-git-tag-version", "version", version],
         },
         {
             cwd: p.baseDir,
