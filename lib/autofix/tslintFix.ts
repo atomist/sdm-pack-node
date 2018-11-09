@@ -30,5 +30,5 @@ import { IsTypeScript } from "../pushtest/tsPushTests";
 export const tslintFix: AutofixRegistration = spawnedCommandAutofix(
     "tslint",
     allSatisfied(IsTypeScript, IsNode, hasFile("tslint.json")),
-    { ignoreFailure: true, considerOnlyChangedFiles: false },
+    { ignoreFailure: true },
     asSpawnCommand("npm run lint:fix", DevelopmentEnvOptions));
