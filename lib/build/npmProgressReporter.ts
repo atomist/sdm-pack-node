@@ -63,6 +63,9 @@ export const NpmProgressTests: ProgressTest[] = [{
 }, {
     test: /> typedoc/i,
     phase: "typedoc",
+}, {
+    test: /> npm 'run' '([\S]*)'/i,
+    phase: "npm $1",
 }];
 
 /**
