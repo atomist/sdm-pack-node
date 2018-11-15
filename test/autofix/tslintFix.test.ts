@@ -32,7 +32,7 @@ import { tslintFix } from "../../lib/autofix/tslintFix";
 describe("tsLintFix", () => {
 
     it("should lint and make fixes", async () => {
-        const p = await GitCommandGitProject.cloned({ token: null }, GitHubRepoRef.from({
+        const p = await GitCommandGitProject.cloned({ token: undefined }, GitHubRepoRef.from({
             owner: "atomist",
             repo: "tree-path-ts",
             branch: "master",

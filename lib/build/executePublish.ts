@@ -169,10 +169,10 @@ export interface NpmOptions {
     status?: boolean;
 }
 
-export function gitBranchToNpmTag(branchName: string) {
+export function gitBranchToNpmTag(branchName: string): string {
     return `branch-${gitBranchToNpmVersion(branchName)}`;
 }
 
-export function gitBranchToNpmVersion(branchName: string) {
+export function gitBranchToNpmVersion(branchName: string): string {
     return branchName.replace(/\//g, "-").replace(/_/g, "-");
 }

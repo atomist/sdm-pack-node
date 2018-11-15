@@ -104,7 +104,7 @@ export async function npmInstallPreparation(p: GitProject, goalInvocation: GoalI
             ...DevelopmentEnvOptions,
         }, goalInvocation.progressLog,
         {
-            errorFinder: code => code != null,
+            errorFinder: SuccessIsReturn0ErrorFinder,
         });
 }
 
@@ -126,7 +126,7 @@ export async function npmVersionPreparation(p: GitProject, goalInvocation: GoalI
         },
         goalInvocation.progressLog,
         {
-            errorFinder: code => code !== 0,
+            errorFinder: SuccessIsReturn0ErrorFinder,
         });
 }
 
@@ -149,7 +149,7 @@ export async function npmCompilePreparation(p: GitProject, goalInvocation: GoalI
             ...DevelopmentEnvOptions,
         }, goalInvocation.progressLog,
         {
-            errorFinder: code => code != null,
+            errorFinder: SuccessIsReturn0ErrorFinder,
         });
 }
 

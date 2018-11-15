@@ -31,7 +31,7 @@ import { IsNode } from "../pushtest/nodePushTests";
  */
 export class PackageLockFingerprinter implements FingerprinterRegistration {
 
-    public readonly name = "PackageLockFingerprinter";
+    public readonly name: string = "PackageLockFingerprinter";
 
     public readonly pushTest: PushTest = IsNode;
 

@@ -25,7 +25,7 @@ export const NpmLogInterpreter: InterpretLog = log => {
     const lines = removeBlanksFromEnd(
         removeNpmFooter(
             log.split("\n")
-                .map(a => strip_ansi(a))
+                .map(strip_ansi)
                 .map(stripLogPrefix)));
 
     const defaultMessage = lastOccurrenceOf(/^ERROR:/, lines) || "Error";
@@ -84,7 +84,7 @@ function stripLogPrefix(line: string): string {
     return line.replace(LogPrefix, "");
 }
 
-function removeNpmFooter(lines: string[]) {
+function removeNpmFooter(lines: string[]): string[] {
     const npmErr = "npm ERR! This is probably not a problem with npm. There is likely additional logging output above.";
     if (lines.includes(npmErr)) {
         logger.info("Filtering npm error footer");
@@ -93,16 +93,16 @@ function removeNpmFooter(lines: string[]) {
     return lines;
 }
 
-function findTwoBlankLinesIndex(lines: string[]) {
+function findTwoBlankLinesIndex(lines: string[]): number {
     return lines.findIndex((s, i) => s === "" && lines[i + 1] === "");
 }
 
-function lastOccurrenceOf(re: RegExp, lines: string[]) {
+function lastOccurrenceOf(re: RegExp, lines: string[]): string {
     const reversedLines = lines.slice().reverse(); // is there a better way tto make a copy? reverse() is in-place. >:-(
     return reversedLines.find(s => re.test(s));
 }
 
-function removeBlanksFromEnd(lines: string[]) {
+function removeBlanksFromEnd(lines: string[]): string[] {
     let w = lines.length - 1;
     while (lines[w].trim() === "") {
         w--;
