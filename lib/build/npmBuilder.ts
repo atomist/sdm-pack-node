@@ -20,7 +20,6 @@ import {
     GitProject,
     Project,
     RemoteRepoRef,
-    spawnAndWatch,
     SpawnCommand,
     SuccessIsReturn0ErrorFinder,
 } from "@atomist/automation-client";
@@ -30,10 +29,9 @@ import {
     GoalInvocation,
     GoalProjectListenerEvent,
     GoalProjectListenerRegistration,
+    spawnAndWatch,
 } from "@atomist/sdm";
-import {
-    readSdmVersion,
-} from "@atomist/sdm-core";
+import { readSdmVersion } from "@atomist/sdm-core";
 import {
     Builder,
     spawnBuilder,

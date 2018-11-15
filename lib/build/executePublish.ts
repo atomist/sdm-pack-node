@@ -18,7 +18,6 @@ import {
     GitHubRepoRef,
     GitProject,
     HandlerResult,
-    spawnAndWatch,
     Success,
     SuccessIsReturn0ErrorFinder,
 } from "@atomist/automation-client";
@@ -30,6 +29,7 @@ import {
     PrepareForGoalExecution,
     projectConfigurationValue,
     SdmGoalState,
+    spawnAndWatch,
 } from "@atomist/sdm";
 import {
     github,

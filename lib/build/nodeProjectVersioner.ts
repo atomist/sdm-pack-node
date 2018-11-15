@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
+import { configurationValue } from "@atomist/automation-client";
 import {
-    configurationValue,
+    projectConfigurationValue,
     spawnAndWatch,
-} from "@atomist/automation-client";
-import { projectConfigurationValue } from "@atomist/sdm";
+} from "@atomist/sdm";
 import { ProjectVersioner } from "@atomist/sdm-core";
 import * as df from "dateformat";
 import { gitBranchToNpmVersion } from "./executePublish";
