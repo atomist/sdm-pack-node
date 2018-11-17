@@ -20,7 +20,6 @@ import {
     Fingerprint,
     metadata,
     ReviewListenerRegistration,
-    SoftwareDeliveryMachine,
 } from "@atomist/sdm";
 import { AddBuildScript } from "./autofix/addBuildScript";
 import { tslintFix } from "./autofix/tslintFix";
@@ -37,7 +36,7 @@ export interface Categories {
 }
 
 /**
- * Options determining what Spring functionality is activated.
+ * Options determining what Node functionality is activated.
  */
 export interface NodeSupportOptions {
 

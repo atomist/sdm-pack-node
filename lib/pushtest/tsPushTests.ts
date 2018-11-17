@@ -21,6 +21,9 @@ import {
     PushTest,
 } from "@atomist/sdm";
 
+/**
+ * Does the project contain TypeScript code?
+ */
 export const IsTypeScript: PushTest = pushTest(
     "Is TypeScript",
     async (pi: PushListenerInvocation) => projectUtils.fileExists(pi.project, "**/*.ts", () => true),
