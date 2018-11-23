@@ -55,3 +55,4 @@ export {
 export {
     NpmProgressReporter,
 } from "./lib/build/npmProgressReporter";
+export { NodeDefaultOptions } from "./lib/build/nodeOptions";
