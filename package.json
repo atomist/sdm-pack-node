@@ -45,9 +45,9 @@
     "@atomist/sdm-pack-build": ">=1.0.1"
   },
   "devDependencies": {
-    "@atomist/automation-client": "1.1.0-master.20181207124108",
-    "@atomist/sdm": "1.1.0-master.20181207154036",
-    "@atomist/sdm-core": "1.1.0-master.20181207171413",
+    "@atomist/automation-client": "1.1.0",
+    "@atomist/sdm": "1.1.0",
+    "@atomist/sdm-core": "1.1.0",
     "@atomist/sdm-pack-build": "1.0.2-master.20181130152258",
     "@types/mocha": "^5.2.5",
     "@types/node": "^10.12.3",
