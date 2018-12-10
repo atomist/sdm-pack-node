@@ -1,6 +1,7 @@
 # @atomist/sdm-pack-node
 
 [![atomist sdm goals](http://badge.atomist.com/T29E48P34/atomist/sdm-pack-node/61ed77f3-f393-4003-abcb-f871bc79d09a)](https://app.atomist.com/workspace/T29E48P34)
+[![npm version](https://img.shields.io/npm/v/@atomist/sdm-pack-node.svg)](https://www.npmjs.com/package/@atomist/sdm-pack-node)
 
 Extension pack for an Atomist SDM to work with Node.JS projects.
 
