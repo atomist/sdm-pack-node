@@ -37,6 +37,7 @@ import {
     spawnBuilder,
     SpawnBuilderOptions,
 } from "@atomist/sdm-pack-build";
+import { SpawnOptions } from "child_process";
 import * as fs from "fs-extra";
 import * as _ from "lodash";
 import { IsNode } from "../pushtest/nodePushTests";
@@ -54,14 +55,31 @@ export const DevelopmentEnvOptions = {
 
 export const Install: SpawnCommand = asSpawnCommand("npm ci", DevelopmentEnvOptions);
 
+/**
+ * Return a Node builder that will run the following commands using spawn
+ * @param {string} commands
+ * @return {Builder}
+ */
 export function nodeBuilder(...commands: string[]): Builder {
     return spawnBuilder(npmBuilderOptions(commands.map(cmd => asSpawnCommand(cmd, DevelopmentEnvOptions))));
 }
 
-function npmBuilderOptions(commands: SpawnCommand[]): SpawnBuilderOptions {
+/**
+ * Return a Node builder that will run the following commands using spawn,
+ * providing spawn options, for example to allow the provision of environment variables
+ * @param opts options passed to spawn
+ * @param {string} commands
+ * @return {Builder}
+ */
+export function nodeBuilderWithOptions(opts: SpawnOptions, ...commands: string[]): Builder {
+    return spawnBuilder(npmBuilderOptions(commands.map(cmd => asSpawnCommand(cmd, DevelopmentEnvOptions))));
+}
+
+function npmBuilderOptions(commands: SpawnCommand[], options?: SpawnOptions): SpawnBuilderOptions {
     return {
         name: "NpmBuilder",
         commands,
+        options,
         errorFinder: (code, signal, l) => {
             return l.log.startsWith("[error]") || l.log.includes("ERR!");
         },
