@@ -41,7 +41,6 @@ export { IsAtomistAutomationClient } from "./lib/pushtest/nodePushTests";
 export { NodeProjectVersioner } from "./lib/build/nodeProjectVersioner";
 export {
     nodeBuilder,
-    nodeBuilderWithOptions,
     DevelopmentEnvOptions,
     NpmPreparations,
     npmBuilderOptionsFromFile,
