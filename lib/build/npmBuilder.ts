@@ -153,25 +153,22 @@ export async function npmCompilePreparation(p: GitProject, goalInvocation: GoalI
 export const NpmCompileProjectListener: GoalProjectListenerRegistration = {
     name: "npm compile",
     pushTest: IsNode,
-    listener: async (p, r, event): Promise<void | ExecuteGoalResult> => {
-        if (GoalProjectListenerEvent.before === event) {
-            return npmCompilePreparation(p, r);
-        }
+    listener: async (p, r): Promise<void | ExecuteGoalResult> => {
+        return npmCompilePreparation(p, r);
     },
+    events: [GoalProjectListenerEvent.before],
 };
 
 export const NodeModulesProjectListener: GoalProjectListenerRegistration = {
     name: "npm install",
-    listener: async (p, gi, phase) => {
+    listener: async (p, gi) => {
         // Check if project has a package.json
         if (!(await p.hasFile("package.json"))) {
             return;
         }
-
-        if (phase === GoalProjectListenerEvent.before) {
-            return cacheNodeModules(p, gi);
-        }
+        return cacheNodeModules(p, gi);
     },
+    events: [GoalProjectListenerEvent.before],
     pushTest: IsNode,
 };
 
