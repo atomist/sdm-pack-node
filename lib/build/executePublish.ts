@@ -19,17 +19,16 @@ import {
     GitProject,
     HandlerResult,
     Success,
-    SuccessIsReturn0ErrorFinder,
 } from "@atomist/automation-client";
 import {
+    doWithProject,
     ExecuteGoal,
     ExecuteGoalResult,
-    GoalInvocation,
     LoggingProgressLog,
     PrepareForGoalExecution,
     projectConfigurationValue,
     SdmGoalState,
-    spawnAndWatch,
+    spawnLog,
 } from "@atomist/sdm";
 import {
     github,
@@ -53,67 +52,59 @@ export function executePublish(
     options: NpmOptions,
 ): ExecuteGoal {
 
-    return async (goalInvocation: GoalInvocation): Promise<void | ExecuteGoalResult> => {
-        const { configuration, credentials, id, context } = goalInvocation;
-        return configuration.sdm.projectLoader.doWithProject(
-            { credentials, id, context, readOnly: false }, async project => {
+    return doWithProject(async goalInvocation => {
+        const { credentials, id, project } = goalInvocation;
+        if (!(await projectConfigurationValue<boolean>("npm.publish.enabled", project, true))) {
+            return {
+                code: 0,
+                description: "Publish disabled",
+                state: SdmGoalState.success,
+            };
+        }
 
-                if (!(await projectConfigurationValue<boolean>("npm.publish.enabled", project, true))) {
-                    return {
-                        code: 0,
-                        description: "Publish disabled",
-                        state: SdmGoalState.success,
-                    };
-                }
+        await configure(options, project);
 
-                await configure(options, project);
+        const args: string[] = [
+            p.join(__dirname, "..", "..", "assets", "scripts", "npm-publish.bash"),
+        ];
+        if (options.registry) {
+            args.push("--registry", options.registry);
+        }
+        const access = await projectConfigurationValue("npm.publish.access", project, options.access);
+        if (access) {
+            args.push("--access", access);
+        }
+        if (options.tag) {
+            args.push("--tag", options.tag);
+        } else {
+            args.push("--tag", gitBranchToNpmTag(id.branch));
+        }
 
-                const args: string[] = [
-                    p.join(__dirname, "..", "..", "assets", "scripts", "npm-publish.bash"),
-                ];
-                if (options.registry) {
-                    args.push("--registry", options.registry);
-                }
-                const access = await projectConfigurationValue("npm.publish.access", project, options.access);
-                if (access) {
-                    args.push("--access", access);
-                }
-                if (options.tag) {
-                    args.push("--tag", options.tag);
-                } else {
-                    args.push("--tag", gitBranchToNpmTag(id.branch));
-                }
+        const result: ExecuteGoalResult = await goalInvocation.spawn("bash", args);
 
-                const result: ExecuteGoalResult = await spawnAndWatch(
-                    { command: "bash", args },
-                    { cwd: project.baseDir },
-                    goalInvocation.progressLog,
-                );
+        if (result.code === 0) {
+            const pi = await projectIdentifier(project);
+            const url = `${options.registry}/${pi.name}/-/${pi.name}-${pi.version}.tgz`;
+            result.externalUrls = [{
+                label: "NPM package",
+                url,
+            }];
 
-                if (result.code === 0) {
-                    const pi = await projectIdentifier(project);
-                    const url = `${options.registry}/${pi.name}/-/${pi.name}-${pi.version}.tgz`;
-                    result.targetUrls = [{
-                        label: "NPM package",
-                        url,
-                    }];
+            if (options.status) {
+                await github.createStatus(
+                    credentials,
+                    id as GitHubRepoRef,
+                    {
+                        context: "npm/atomist/package",
+                        description: "NPM package",
+                        target_url: url,
+                        state: "success",
+                    });
+            }
+        }
 
-                    if (options.status) {
-                        await github.createStatus(
-                            credentials,
-                            id as GitHubRepoRef,
-                            {
-                                context: "npm/atomist/package",
-                                description: "NPM package",
-                                target_url: url,
-                                state: "success",
-                            });
-                    }
-                }
-
-                return result;
-            });
-    };
+        return result;
+    });
 }
 
 export async function deleteBranchTag(
@@ -128,16 +119,12 @@ export async function deleteBranchTag(
         const name = JSON.parse(await pj.getContent()).name;
 
         await configure(options, project);
-        const result = await spawnAndWatch({
-                command: "npm",
-                args: ["dist-tags", "rm", name, tag],
-            },
+        const result = await spawnLog(
+            "npm",
+            ["dist-tags", "rm", name, tag],
             {
                 cwd: project.baseDir,
-            },
-            new LoggingProgressLog("npm dist-tag rm"),
-            {
-                errorFinder: SuccessIsReturn0ErrorFinder,
+                log: new LoggingProgressLog("npm dist-tag rm"),
             });
 
         return result;

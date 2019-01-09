@@ -17,7 +17,7 @@
 import { configurationValue } from "@atomist/automation-client";
 import {
     projectConfigurationValue,
-    spawnAndWatch,
+    spawnLog,
 } from "@atomist/sdm";
 import { ProjectVersioner } from "@atomist/sdm-core";
 import * as df from "dateformat";
@@ -42,16 +42,12 @@ export const NodeProjectVersioner: ProjectVersioner = async (sdmGoal, p, log) =>
 
     const version = `${pj.version}-${gitBranchToNpmVersion(branchSuffix)}${df(new Date(), "yyyymmddHHMMss")}`;
 
-    await spawnAndWatch({
-            command: "npm",
-            args: ["--no-git-tag-version", "version", version],
-        },
+    await spawnLog(
+        "npm",
+        ["--no-git-tag-version", "version", version],
         {
             cwd: p.baseDir,
-        },
-        log,
-        {
-            errorFinder: code => code !== 0,
+            log,
         });
 
     return version;

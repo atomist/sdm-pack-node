@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-import { asSpawnCommand } from "@atomist/automation-client";
 import {
     allSatisfied,
     AutofixRegistration,
     hasFile,
-    spawnedCommandAutofix,
+    spawnAutofix,
 } from "@atomist/sdm";
 import { DevelopmentEnvOptions } from "../build/npmBuilder";
 import { IsNode } from "../pushtest/nodePushTests";
@@ -27,8 +26,8 @@ import { IsTypeScript } from "../pushtest/tsPushTests";
 
 // TODO: do not expect that everyone has named this task "lint:fix"
 // or at least check whether they have
-export const tslintFix: AutofixRegistration = spawnedCommandAutofix(
+export const tslintFix: AutofixRegistration = spawnAutofix(
     "tslint",
     allSatisfied(IsTypeScript, IsNode, hasFile("tslint.json")),
     { ignoreFailure: true },
-    asSpawnCommand("npm run lint:fix", DevelopmentEnvOptions));
+    { command: "npm", args: ["run", "lint:fix"], options: DevelopmentEnvOptions });

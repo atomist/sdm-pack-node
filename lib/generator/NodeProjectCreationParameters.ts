@@ -36,7 +36,7 @@ export interface NodeProjectCreationParameters extends SeedDrivenGeneratorParame
 /**
  * Corresponding parameter definitions
  */
-export const NodeProjectCreationParametersDefinition: ParametersObject = {
+export const NodeProjectCreationParametersDefinition: ParametersObject<any, any> = {
 
     appName: {
         displayName: "App name",

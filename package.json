@@ -45,10 +45,10 @@
     "@atomist/sdm-pack-build": ">=1.0.3"
   },
   "devDependencies": {
-    "@atomist/automation-client": "^1.2.0",
-    "@atomist/sdm": "^1.2.0",
-    "@atomist/sdm-core": "^1.2.0",
-    "@atomist/sdm-pack-build": "^1.0.3",
+    "@atomist/automation-client": "1.2.1-master.20190108234425",
+    "@atomist/sdm": "1.2.1-master.20190108111305",
+    "@atomist/sdm-core": "1.2.1-master.20190108133926",
+    "@atomist/sdm-pack-build": "1.0.4-master.20181217220011",
     "@types/mocha": "^5.2.5",
     "@types/node": "^10.12.3",
     "@types/power-assert": "^1.5.0",

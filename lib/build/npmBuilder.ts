@@ -1,5 +1,5 @@
 /*
- * Copyright © 2019 Atomist, Inc.
+ * Copyright © 2018 Atomist, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,13 +15,9 @@
  */
 
 import {
-    asSpawnCommand,
-    ChildProcessResult,
     GitProject,
     Project,
     RemoteRepoRef,
-    SpawnCommand,
-    SuccessIsReturn0ErrorFinder,
 } from "@atomist/automation-client";
 import {
     AppInfo,
@@ -29,7 +25,10 @@ import {
     GoalInvocation,
     GoalProjectListenerEvent,
     GoalProjectListenerRegistration,
-    spawnAndWatch,
+    LoggingProgressLog,
+    spawnLog,
+    SpawnLogCommand,
+    SpawnLogResult,
 } from "@atomist/sdm";
 import { readSdmVersion } from "@atomist/sdm-core";
 import {
@@ -37,7 +36,6 @@ import {
     spawnBuilder,
     SpawnBuilderOptions,
 } from "@atomist/sdm-pack-build";
-import { SpawnOptions } from "child_process";
 import * as fs from "fs-extra";
 import * as _ from "lodash";
 import { IsNode } from "../pushtest/nodePushTests";
@@ -51,35 +49,24 @@ export const DevelopmentEnvOptions = {
         ...process.env,
         NODE_ENV: "development",
     },
+    log: new LoggingProgressLog("npm"),
 };
 
-export const Install: SpawnCommand = asSpawnCommand("npm ci", DevelopmentEnvOptions);
+export const Install: SpawnLogCommand = { command: "npm", args: ["ci"], options: DevelopmentEnvOptions };
 
-/**
- * Return a Node builder that will run the following commands using spawn
- * @param {string} commands
- * @return {Builder}
- */
-export function nodeBuilder(...commands: string[]): Builder {
-    return spawnBuilder(npmBuilderOptions(commands.map(cmd => asSpawnCommand(cmd, DevelopmentEnvOptions))));
+export function nodeBuilder(...commands: SpawnLogCommand[]): Builder {
+    return spawnBuilder(npmBuilderOptions(commands.map(cmd => ({
+        command: cmd.command, args: cmd.args, options: {
+            ...DevelopmentEnvOptions,
+            ...cmd.options,
+        },
+    }))));
 }
 
-/**
- * Return a Node builder that will run the following commands using spawn,
- * providing spawn options, for example to allow the provision of environment variables
- * @param opts options passed to spawn
- * @param {string} commands
- * @return {Builder}
- */
-export function nodeBuilderWithOptions(opts: SpawnOptions, ...commands: string[]): Builder {
-    return spawnBuilder(npmBuilderOptions(commands.map(cmd => asSpawnCommand(cmd, DevelopmentEnvOptions))));
-}
-
-function npmBuilderOptions(commands: SpawnCommand[], options?: SpawnOptions): SpawnBuilderOptions {
+function npmBuilderOptions(commands: SpawnLogCommand[]): SpawnBuilderOptions {
     return {
         name: "NpmBuilder",
         commands,
-        options,
         errorFinder: (code, signal, l) => {
             return l.log.startsWith("[error]") || l.log.includes("ERR!");
         },
@@ -114,20 +101,18 @@ export const NpmPreparations = [npmInstallPreparation, npmVersionPreparation, np
 
 export async function npmInstallPreparation(p: GitProject, goalInvocation: GoalInvocation): Promise<ExecuteGoalResult> {
     const hasPackageLock = p.fileExistsSync("package-lock.json");
-    return spawnAndWatch({
-            command: "npm",
-            args: [hasPackageLock ? "ci" : "install"],
-        }, {
+    return spawnLog(
+        "npm",
+        [hasPackageLock ? "ci" : "install"],
+        {
             cwd: p.baseDir,
             ...DevelopmentEnvOptions,
-        }, goalInvocation.progressLog,
-        {
-            errorFinder: SuccessIsReturn0ErrorFinder,
+            log: goalInvocation.progressLog,
         });
 }
 
 export async function npmVersionPreparation(p: GitProject, goalInvocation: GoalInvocation): Promise<ExecuteGoalResult> {
-    const sdmGoal = goalInvocation.sdmGoal;
+    const sdmGoal = goalInvocation.goalEvent;
     const version = await readSdmVersion(
         sdmGoal.repo.owner,
         sdmGoal.repo.name,
@@ -135,16 +120,12 @@ export async function npmVersionPreparation(p: GitProject, goalInvocation: GoalI
         sdmGoal.sha,
         sdmGoal.branch,
         goalInvocation.context);
-    return spawnAndWatch({
-            command: "npm",
-            args: ["--no-git-tag-version", "version", version],
-        },
+    return spawnLog(
+        "npm",
+        ["--no-git-tag-version", "version", version],
         {
             cwd: p.baseDir,
-        },
-        goalInvocation.progressLog,
-        {
-            errorFinder: SuccessIsReturn0ErrorFinder,
+            log: goalInvocation.progressLog,
         });
 }
 
@@ -159,15 +140,13 @@ export const NpmVersionProjectListener: GoalProjectListenerRegistration = {
 };
 
 export async function npmCompilePreparation(p: GitProject, goalInvocation: GoalInvocation): Promise<ExecuteGoalResult> {
-    return spawnAndWatch({
-            command: "npm",
-            args: ["run", "compile"],
-        }, {
+    return spawnLog(
+        "npm",
+        ["run", "compile"],
+        {
             cwd: p.baseDir,
             ...DevelopmentEnvOptions,
-        }, goalInvocation.progressLog,
-        {
-            errorFinder: SuccessIsReturn0ErrorFinder,
+            log: goalInvocation.progressLog,
         });
 }
 
@@ -207,7 +186,7 @@ async function cacheNodeModules(p: GitProject, gi: GoalInvocation): Promise<void
 
     // Check cache for a previously cached node_modules cache archive
     const cacheFileName = `${_.get(gi, "configuration.sdm.cache.path",
-        "/opt/data")}/${gi.sdmGoal.goalSetId}-node_modules.tar.gz`;
+        "/opt/data")}/${gi.goalEvent.goalSetId}-node_modules.tar.gz`;
     if (_.get(gi, "configuration.sdm.cache.enabled") === true && (await fs.pathExists(cacheFileName))) {
         const result = await extract(cacheFileName, p, gi);
         requiresInstall = result.code !== 0;
@@ -235,55 +214,40 @@ async function cacheNodeModules(p: GitProject, gi: GoalInvocation): Promise<void
 
 async function runInstall(cmd: string,
                           p: GitProject,
-                          gi: GoalInvocation): Promise<ChildProcessResult> {
-    return spawnAndWatch(
-        {
-            command: "npm",
-            args: [cmd],
-        },
+                          gi: GoalInvocation): Promise<SpawnLogResult> {
+    return spawnLog(
+        "npm",
+        [cmd],
         {
             cwd: p.baseDir,
             env: {
                 ...process.env,
                 NODE_ENV: "development",
             },
-        },
-        gi.progressLog,
-        {
-            errorFinder: SuccessIsReturn0ErrorFinder,
+            log: gi.progressLog,
         });
 }
 
 async function compress(name: string,
                         p: GitProject,
-                        gi: GoalInvocation): Promise<ChildProcessResult> {
-    return spawnAndWatch(
-        {
-            command: "tar",
-            args: ["-zcf", name, "node_modules"],
-        },
+                        gi: GoalInvocation): Promise<SpawnLogResult> {
+    return spawnLog(
+        "tar",
+        ["-zcf", name, "node_modules"],
         {
             cwd: p.baseDir,
-        },
-        gi.progressLog,
-        {
-            errorFinder: SuccessIsReturn0ErrorFinder,
+            log: gi.progressLog,
         });
 }
 
 async function extract(name: string,
                        p: GitProject,
-                       gi: GoalInvocation): Promise<ChildProcessResult> {
-    return spawnAndWatch(
-        {
-            command: "tar",
-            args: ["-xf", name],
-        },
+                       gi: GoalInvocation): Promise<SpawnLogResult> {
+    return spawnLog(
+        "tar",
+        ["-xf", name],
         {
             cwd: p.baseDir,
-        },
-        gi.progressLog,
-        {
-            errorFinder: SuccessIsReturn0ErrorFinder,
+            log: gi.progressLog,
         });
 }
