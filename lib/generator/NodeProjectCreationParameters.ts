@@ -16,7 +16,6 @@
 
 import {
     MappedParameters,
-    SeedDrivenGeneratorParameters,
 } from "@atomist/automation-client";
 import {
     DeclarationType,
@@ -27,7 +26,7 @@ import {
 /**
  * Parameters for creating Node projects
  */
-export interface NodeProjectCreationParameters extends SeedDrivenGeneratorParameters {
+export interface NodeProjectCreationParameters {
     appName: string;
     screenName: string;
     version: string;
@@ -36,8 +35,7 @@ export interface NodeProjectCreationParameters extends SeedDrivenGeneratorParame
 /**
  * Corresponding parameter definitions
  */
-export const NodeProjectCreationParametersDefinition: ParametersObject<any, any> = {
-
+export const NodeProjectCreationParametersDefinition: ParametersObject<{ appName: string, version: string, screenName: string }> = {
     appName: {
         displayName: "App name",
         description: "Application name",

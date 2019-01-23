@@ -33,21 +33,22 @@
     "@types/fs-extra": "^5.0.4",
     "@types/lodash": "^4.14.118",
     "@types/strip-ansi": "^3.0.0",
+    "aws-sdk": "^2.384.0",
     "dateformat": "^3.0.3",
     "fs-extra": "^7.0.1",
     "lodash": "^4.17.10",
     "strip-ansi": "^5.0.0"
   },
   "peerDependencies": {
-    "@atomist/automation-client": ">=1.1.0",
-    "@atomist/sdm": ">=1.1.0",
-    "@atomist/sdm-core": ">=1.1.0",
+    "@atomist/automation-client": ">=1.3.0",
+    "@atomist/sdm": ">=1.3.0",
+    "@atomist/sdm-core": ">=1.3.0",
     "@atomist/sdm-pack-build": ">=1.0.3"
   },
   "devDependencies": {
     "@atomist/automation-client": "1.2.1-master.20190108234425",
-    "@atomist/sdm": "1.2.1-master.20190108111305",
-    "@atomist/sdm-core": "1.2.1-master.20190108133926",
+    "@atomist/sdm": "1.3.0-master.20190123140058",
+    "@atomist/sdm-core": "1.3.0-master.20190121222307",
     "@atomist/sdm-pack-build": "1.0.4-master.20181217220011",
     "@types/mocha": "^5.2.5",
     "@types/node": "^10.12.3",

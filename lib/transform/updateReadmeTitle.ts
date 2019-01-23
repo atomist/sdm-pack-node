@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-import { logger } from "@atomist/automation-client";
+import {
+    logger,
+    SeedDrivenGeneratorParameters,
+} from "@atomist/automation-client";
 import { CodeTransform } from "@atomist/sdm";
-
 import { NodeProjectCreationParameters } from "../generator/NodeProjectCreationParameters";
 
-export const UpdateReadmeTitle: CodeTransform<NodeProjectCreationParameters> =
-    async (project, ctx, params: NodeProjectCreationParameters) => {
+export const UpdateReadmeTitle: CodeTransform<NodeProjectCreationParameters & SeedDrivenGeneratorParameters> =
+    async (project, ctx, params) => {
         logger.info("UpdateReadmeTitle: params=%j", params);
         try {
             const readmeFile = await project.getFile("README.md");

@@ -17,6 +17,7 @@
 import {
     doWithJson,
     logger,
+    SeedDrivenGeneratorParameters,
 } from "@atomist/automation-client";
 import { CodeTransform } from "@atomist/sdm";
 import { NodeProjectCreationParameters } from "../generator/NodeProjectCreationParameters";
@@ -28,7 +29,7 @@ import { findAuthorName } from "./findAuthorName";
  * @param context
  * @param params
  */
-export const UpdatePackageJsonIdentification: CodeTransform<NodeProjectCreationParameters> =
+export const UpdatePackageJsonIdentification: CodeTransform<NodeProjectCreationParameters & SeedDrivenGeneratorParameters> =
     async (project, context, params) => {
         logger.info("Updating JSON: params=%j", params);
         const author = await findAuthorName(context.context, params.screenName)
