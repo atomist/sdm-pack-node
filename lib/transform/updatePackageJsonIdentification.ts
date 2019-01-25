@@ -24,26 +24,28 @@ import { NodeProjectCreationParameters } from "../generator/NodeProjectCreationP
 import { findAuthorName } from "./findAuthorName";
 
 /**
- * Code transform to update identification fields of package.json
+ * Code transform to update identification fields of package.json and package-lock.json
  * @param project
  * @param context
  * @param params
  */
 export const UpdatePackageJsonIdentification: CodeTransform<NodeProjectCreationParameters & SeedDrivenGeneratorParameters> =
     async (project, context, params) => {
-        logger.info("Updating JSON: params=%j", params);
         const author = await findAuthorName(context.context, params.screenName)
             .then((authorName: string) => authorName || params.screenName,
                 (err: Error) => {
                     logger.warn("Cannot query for author name: %s", err.message);
                     return params.screenName;
                 });
-        return doWithJson(project, "package.json", pkg => {
+
+        let p = await doWithJson(project, "package.json", pkg => {
             const repoUrl = params.target.repoRef.url;
             pkg.name = params.appName;
             pkg.description = params.target.description;
             pkg.version = params.version;
-            pkg.author = author;
+            pkg.author = {
+                name: author,
+            };
             pkg.repository = {
                 type: "git",
                 url: `${repoUrl}.git`,
@@ -52,6 +54,14 @@ export const UpdatePackageJsonIdentification: CodeTransform<NodeProjectCreationP
             pkg.bugs = {
                 url: `${repoUrl}/issues`,
             };
-            logger.info("Updated JSON. Result is %j", pkg);
         });
+
+        if (await p.hasFile("package-lock.json")) {
+            p = await doWithJson(p, "package-lock.json", pkg => {
+                pkg.name = params.appName;
+                pkg.version = params.version;
+            });
+        }
+
+        return p;
     };
