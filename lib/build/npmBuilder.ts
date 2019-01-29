@@ -29,6 +29,7 @@ import {
     spawnLog,
     SpawnLogCommand,
     SpawnLogResult,
+    SuccessIsReturn0ErrorFinder,
 } from "@atomist/sdm";
 import { readSdmVersion } from "@atomist/sdm-core";
 import {
@@ -67,9 +68,7 @@ function npmBuilderOptions(commands: SpawnLogCommand[]): SpawnBuilderOptions {
     return {
         name: "NpmBuilder",
         commands,
-        errorFinder: (code, signal, l) => {
-            return l.log.startsWith("[error]") || l.log.includes("ERR!");
-        },
+        errorFinder: SuccessIsReturn0ErrorFinder,
         logInterpreter: NpmLogInterpreter,
         async projectToAppInfo(p: Project): Promise<AppInfo> {
             const packageJson = await p.findFile("package.json");
