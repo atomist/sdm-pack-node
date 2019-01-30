@@ -40,7 +40,12 @@ export const NodeProjectVersioner: ProjectVersioner = async (sdmGoal, p, log) =>
         branchSuffix = branch !== sdmGoal.push.repo.defaultBranch ? `${branch}.` : "";
     }
 
-    const version = `${pj.version}-${gitBranchToNpmVersion(branchSuffix)}${df(new Date(), "yyyymmddHHMMss")}`;
+    let pjVersion = pj.version;
+    if (!pjVersion || pjVersion.length === 0) {
+        pjVersion = "0.0.1";
+    }
+
+    const version = `${pjVersion}-${gitBranchToNpmVersion(branchSuffix)}${df(new Date(), "yyyymmddHHMMss")}`;
 
     await spawnLog(
         "npm",
