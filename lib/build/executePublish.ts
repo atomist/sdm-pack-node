@@ -62,7 +62,7 @@ export function executePublish(
             };
         }
 
-        await configure(options, project);
+        await configureNpmRc(options, project);
 
         const args: string[] = [
             p.join(__dirname, "..", "..", "assets", "scripts", "npm-publish.bash"),
@@ -118,7 +118,7 @@ export async function deleteBranchTag(
         const tag = gitBranchToNpmTag(branch);
         const name = JSON.parse(await pj.getContent()).name;
 
-        await configure(options, project);
+        await configureNpmRc(options, project);
         const result = await spawnLog(
             "npm",
             ["dist-tags", "rm", name, tag],
@@ -135,7 +135,7 @@ export async function deleteBranchTag(
 /**
  * Create an npmrc file for the package.
  */
-async function configure(options: NpmOptions, project: { baseDir: string }): Promise<NpmOptions> {
+export async function configureNpmRc(options: NpmOptions, project: { baseDir: string }): Promise<NpmOptions> {
     await fs.writeFile(p.join(project.baseDir, ".npmrc"), options.npmrc, { mode: 0o600 });
     return options;
 }

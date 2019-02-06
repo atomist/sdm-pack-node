@@ -36,6 +36,7 @@ export {
     deleteBranchTag,
     executePublish,
     gitBranchToNpmTag,
+    configureNpmRc,
 } from "./lib/build/executePublish";
 export { IsAtomistAutomationClient } from "./lib/pushtest/nodePushTests";
 export { NodeProjectVersioner } from "./lib/build/nodeProjectVersioner";
