@@ -16,6 +16,7 @@
 
 import {
     GitProject,
+    guid,
     Project,
     RemoteRepoRef,
 } from "@atomist/automation-client";
@@ -200,7 +201,7 @@ async function cacheNodeModules(p: GitProject, gi: GoalInvocation): Promise<void
 
     // Cache the node_modules folder
     if (installed && _.get(gi, "configuration.sdm.cache.enabled") === true) {
-        const tempCacheFileName = `${cacheFileName}.${process.pid}`;
+        const tempCacheFileName = `${cacheFileName}.${guid().slice(0, 7)}`;
         const result = await compress(tempCacheFileName, p, gi);
         if (result.code === 0) {
             await fs.move(tempCacheFileName, cacheFileName, { overwrite: true });
