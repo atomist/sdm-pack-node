@@ -26,7 +26,6 @@ import {
     GoalInvocation,
     GoalProjectListenerEvent,
     GoalProjectListenerRegistration,
-    LoggingProgressLog,
     spawnLog,
     SpawnLogCommand,
     SpawnLogResult,
@@ -51,7 +50,7 @@ export const DevelopmentEnvOptions = {
         ...process.env,
         NODE_ENV: "development",
     },
-    log: new LoggingProgressLog("npm"),
+    log: undefined,
 };
 
 export const Install: SpawnLogCommand = { command: "npm", args: ["ci"], options: DevelopmentEnvOptions };
