@@ -28,6 +28,7 @@ import {
     GoalProjectListenerRegistration,
     spawnLog,
     SpawnLogCommand,
+    SpawnLogOptions,
     SpawnLogResult,
     SuccessIsReturn0ErrorFinder,
 } from "@atomist/sdm";
@@ -45,13 +46,12 @@ import { NpmLogInterpreter } from "./npmLogInterpreter";
 /**
  * Options to use when running node commands like npm run compile that require dev dependencies to be installed
  */
-export const DevelopmentEnvOptions = {
+export const DevelopmentEnvOptions: SpawnLogOptions = {
     env: {
         ...process.env,
         NODE_ENV: "development",
     },
-    log: undefined,
-};
+} as any;
 
 export const Install: SpawnLogCommand = { command: "npm", args: ["ci"], options: DevelopmentEnvOptions };
 
