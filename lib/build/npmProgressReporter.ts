@@ -26,46 +26,46 @@ import {
  */
 export const NpmProgressTests: ProgressTest[] = [{
     test: /Invoking goal hook: pre/i,
-    phase: "pre-hook",
+    phase: "Atomist pre-goal hook",
 }, {
     test: /> atm-git-info/i,
-    phase: "git-info",
+    phase: "Gather git info",
 }, {
     test: /> atm-gql-gen/i,
-    phase: "gql-gen",
+    phase: "Generate GraphQL",
 }, {
     test: /> tsc --project \./i,
-    phase: "tsc",
+    phase: "Compile TypeScript",
 }, {
     test: /> nyc mocha/i,
-    phase: "mocha",
+    phase: "Run mocha tests with coverage",
 }, {
     test: /> mocha --exit/i,
-    phase: "mocha",
+    phase: "Run mocha tests",
 }, {
     test: /> mocha --require/i,
-    phase: "mocha",
+    phase: "Run mocha tests",
 }, {
     test: /Sending build context to Docker daemon/i,
-    phase: "docker build",
+    phase: "Build docker image",
 }, {
     test: /The push refers to .* repository/i, // This used to have 'a repository'; now it is without it.
-    phase: "docker push",
+    phase: "Push docker image",
 }, {
     test: /Invoking goal hook: post/i,
-    phase: "post-hook",
+    phase: "Atomist post-goal hook",
 }, {
     test: /npm-publish.bash/i,
     phase: "npm publish",
 }, {
     test: /> tslint/i,
-    phase: "tslint",
+    phase: "Lint TypeScript",
 }, {
     test: /> typedoc/i,
-    phase: "typedoc",
+    phase: "Generate TypeDoc",
 }, {
     test: /> npm 'run' '([\S]*)'/i,
-    phase: "npm $1",
+    phase: "Run npm script: $1",
 }];
 
 /**
