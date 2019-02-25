@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/atomist/sdm-pack-node/compare/1.0.2...HEAD)
 
--   BREAKING: nodeBuilder now accepts an array of SpawnLogCommand instead of strings. Strings were not cross-platform safe.
+### Added
+
+-   Add name for NpmInstallProjectListener. [#32](https://github.com/atomist/sdm-pack-node/issues/32)
 
 ## [1.0.2](https://github.com/atomist/sdm-pack-node/compare/1.0.1...1.0.2) - 2018-12-10
 
@@ -15,7 +17,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 
--   Replace _ with - in versioner. [109c561](https://github.com/atomist/sdm-pack-node/commit/109c5618859142cbb2de411b9ecd77cd93b3fc7c)
+-   Replace \_ with - in versioner. [109c561](https://github.com/atomist/sdm-pack-node/commit/109c5618859142cbb2de411b9ecd77cd93b3fc7c)
 
 ## [1.0.0-RC.2](https://github.com/atomist/sdm-pack-node/compare/1.0.0-RC.1...1.0.0-RC.2) - 2018-10-30
 
