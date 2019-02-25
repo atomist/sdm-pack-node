@@ -50,6 +50,7 @@ export {
     npmVersionPreparation,
     Install,
     NodeModulesProjectListener,
+    NpmInstallProjectListener,
     NpmCompileProjectListener,
     NpmVersionProjectListener,
 } from "./lib/build/npmBuilder";

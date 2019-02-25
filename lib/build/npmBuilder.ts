@@ -170,6 +170,7 @@ export const NodeModulesProjectListener: GoalProjectListenerRegistration = {
     events: [GoalProjectListenerEvent.before],
     pushTest: IsNode,
 };
+export const NpmInstallProjectListener = NodeModulesProjectListener;
 
 async function cacheNodeModules(p: GitProject, gi: GoalInvocation): Promise<void | ExecuteGoalResult> {
     // If project already has a node_modules dir; there is nothing left to do
