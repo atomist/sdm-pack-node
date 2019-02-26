@@ -15,10 +15,7 @@
  */
 
 import { configurationValue } from "@atomist/automation-client";
-import {
-    projectConfigurationValue,
-    spawnLog,
-} from "@atomist/sdm";
+import { projectConfigurationValue } from "@atomist/sdm";
 import { ProjectVersioner } from "@atomist/sdm-core";
 import * as df from "dateformat";
 import { gitBranchToNpmVersion } from "./executePublish";
