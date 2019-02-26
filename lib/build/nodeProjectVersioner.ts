@@ -45,15 +45,5 @@ export const NodeProjectVersioner: ProjectVersioner = async (sdmGoal, p, log) =>
         pjVersion = "0.0.1";
     }
 
-    const version = `${pjVersion}-${gitBranchToNpmVersion(branchSuffix)}${df(new Date(), "yyyymmddHHMMss")}`;
-
-    await spawnLog(
-        "npm",
-        ["--no-git-tag-version", "version", version],
-        {
-            cwd: p.baseDir,
-            log,
-        });
-
-    return version;
+    return `${pjVersion}-${gitBranchToNpmVersion(branchSuffix)}${df(new Date(), "yyyymmddHHMMss")}`;
 };
