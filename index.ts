@@ -58,3 +58,9 @@ export {
     NpmProgressReporter,
 } from "./lib/build/npmProgressReporter";
 export { NodeDefaultOptions } from "./lib/build/nodeOptions";
+export { nodeScanner, NodeStack } from "./lib/stack/nodeScanner";
+export { NodeBuildInterpreter, NodeDeliveryOptions } from "./lib/stack/NodeBuildInterpreter";
+export { nodeStackSupport } from "./lib/stack/nodeStackSupport";
+export * from "./lib/stack/nodeAutofixes";
+export { PackageJsonTransformRecipeContributor } from "./lib/stack/PackageJsonTransformRecipeContributor";
+export { PackageJson } from "./lib/stack/PackageJson";
