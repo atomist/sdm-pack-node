@@ -22,8 +22,8 @@ import {
     ReviewListenerRegistration,
 } from "@atomist/sdm";
 import { AddBuildScript } from "./autofix/addBuildScript";
-import { tslintFix } from "./autofix/tslintFix";
-import { PackageLockFingerprinter } from "./fingerprint/PackageLockFingerprinter";
+import { TslintAutofix } from "./autofix/typescript/tslintAutofix";
+import { PackageLockFingerprint } from "./fingerprint/PackageLockFingerprint";
 import { CommonTypeScriptErrors } from "./reviewer/typescript/commonTypeScriptErrors";
 import { DontImportOwnIndex } from "./reviewer/typescript/dontImportOwnIndex";
 
@@ -91,12 +91,12 @@ export function nodeSupport(options: NodeSupportOptions): ExtensionPack {
             if (!!options.autofixGoal) {
                 if (options.autofix.typescriptErrors) {
                     options.autofixGoal
-                        .with(tslintFix)
+                        .with(TslintAutofix)
                         .with(AddBuildScript);
                 }
             }
             if (!!options.fingerprintGoal) {
-                options.fingerprintGoal.with(new PackageLockFingerprinter());
+                options.fingerprintGoal.with(new PackageLockFingerprint());
             }
         },
     };

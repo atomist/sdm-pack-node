@@ -47,7 +47,7 @@ describe("NpmLogInterpreter", () => {
 
 });
 
-/* tslint:disable */
+/* TslintAutofix:disable */
 const Fail1 = `to /tmp/tmp-5086mapRbHkXFZF6
 2018-04-12T06:00:32.267Z [m:5086] [info ]     ✓ should copy one (790ms)
 2018-04-12T06:00:32.267Z [m:5086] [info ] 

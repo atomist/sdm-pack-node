@@ -25,7 +25,7 @@ import {
     TechnologyStack,
 } from "@atomist/sdm-pack-analysis";
 import * as _ from "lodash";
-import { PackageJson } from "./PackageJson";
+import { PackageJson } from "../util/PackageJson";
 
 export interface TypeScriptInfo {
 

@@ -23,11 +23,11 @@ import {
 } from "@atomist/automation-client";
 import { PushImpactListenerInvocation } from "@atomist/sdm";
 
-import { PackageLockFingerprinter } from "../../lib/fingerprint/PackageLockFingerprinter";
+import { PackageLockFingerprint } from "../../lib/fingerprint/PackageLockFingerprint";
 
 describe("package-lock.json", () => {
 
-    const fingerprinter = new PackageLockFingerprinter();
+    const fingerprinter = new PackageLockFingerprint();
 
     it("should produce no fingerprint when no package-lock.json", async () => {
         const project = InMemoryProject.of();
@@ -68,7 +68,7 @@ describe("package-lock.json", () => {
 
 });
 
-// tslint:disable
+// TslintAutofix:disable
 
 function valid1(params: Partial<{ lockfileVersion: number, antlrVersion: string }> = {}) {
     const paramsToUse = {

@@ -39,18 +39,18 @@ import {
     fingerprintRunner,
     runFingerprints,
 } from "@atomist/sdm-pack-fingerprints";
+import {
+    EslintAutofix,
+} from "../autofix/eslintAutofix";
 import { NodeDefaultOptions } from "../build/nodeOptions";
 import { NodeProjectVersioner } from "../build/nodeProjectVersioner";
 import {
     nodeBuilder,
     NodeModulesProjectListener,
 } from "../build/npmBuilder";
+import { NpmDependencyFingerprint } from "../fingerprint/dependencies";
+import { EslintInspection } from "../inspection/eslint";
 import { IsNode } from "../pushtest/nodePushTests";
-import { RunEslint } from "./eslintCodeInspection";
-import {
-    EslintAutofix,
-} from "./nodeAutofixes";
-import { NpmDependencyFingerprint } from "./nodeFingerprint";
 import { NodeStack } from "./nodeScanner";
 
 export interface NodeDeliveryOptions {
@@ -109,7 +109,7 @@ export class NodeBuildInterpreter implements Interpreter, AutofixRegisteringInte
             const eslint = nodeStack.javaScript.eslint;
             if (eslint.hasDependency && eslint.hasConfig) {
                 interpretation.autofixes.push(EslintAutofix);
-                interpretation.inspections.push(RunEslint);
+                interpretation.inspections.push(EslintInspection);
             }
         }
 
@@ -126,7 +126,7 @@ export class NodeBuildInterpreter implements Interpreter, AutofixRegisteringInte
     }
 
     get codeInspections(): Array<CodeInspectionRegistration<any>> {
-        return [RunEslint];
+        return [EslintInspection];
     }
 
     constructor(opts: Partial<NodeDeliveryOptions> = {}) {

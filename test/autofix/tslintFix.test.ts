@@ -27,12 +27,12 @@ import {
 } from "@atomist/sdm";
 import { DefaultRepoRefResolver } from "@atomist/sdm-core";
 import * as assert from "power-assert";
-import { tslintFix } from "../../lib/autofix/tslintFix";
+import { TslintAutofix } from "../../lib/autofix/typescript/tslintAutofix";
 
 describe("tsLintFix", () => {
 
     it("should lint and make fixes", async () => {
-        // tslint:disable-next-line:no-null-keyword
+        // TslintAutofix:disable-next-line:no-null-keyword
         const p = await GitCommandGitProject.cloned({ token: null }, GitHubRepoRef.from({
             owner: "atomist",
             repo: "tree-path-ts",
@@ -51,7 +51,7 @@ describe("tsLintFix", () => {
         // Now mess it up with a lint error
         await p.addFile(f.path, f.content);
 
-        await executeAutofixes([tslintFix])(fakeGoalInvocation({...p.id as RemoteRepoRef, sha}, {
+        await executeAutofixes([TslintAutofix])(fakeGoalInvocation({...p.id as RemoteRepoRef, sha}, {
             projectLoader: pl,
             repoRefResolver: new DefaultRepoRefResolver(),
         } as any));

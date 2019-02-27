@@ -14,22 +14,41 @@
  * limitations under the License.
  */
 
+export { TypeScriptImportsAutofix } from "./lib/autofix/typescript/tsImports";
+export { TslintAutofix } from "./lib/autofix/typescript/tslintAutofix";
+export { EslintAutofix } from "./lib/autofix/eslintAutofix";
+export { PackageJsonFormatingAutofix } from "./lib/autofix/packageJsonFormat";
+export { PackageLockUrlRewriteAutofix } from "./lib/autofix/packageLockUrlRewriteAutofix";
+export { AddThirdPartyLicenseAutofix } from "./lib/autofix/thirdPartyLicense";
+
+export { NpmDependencyFingerprint } from "./lib/fingerprint/dependencies";
+export { PackageLockFingerprint } from "./lib/fingerprint/PackageLockFingerprint";
+
+export { EslintInspection } from "./lib/inspection/eslint";
+export { TslintInspection } from "./lib/inspection/tslint";
+
 export {
     nodeSupport,
     NodeSupportOptions,
 } from "./lib/nodeSupport";
+
+export { TryToUpdateAtomistDependencies } from "./lib/transform/tryToUpdateAtomistDependencies";
+export { TryToUpdateAtomistPeerDependencies } from "./lib/transform/tryToUpdateAtomistPeerDependencies";
+export { TryToUpdateDependency } from "./lib/transform/tryToUpdateDependency";
 export { UpdatePackageJsonIdentification } from "./lib/transform/updatePackageJsonIdentification";
+export { UpdatePackageVersion } from "./lib/transform/updatePackageVersion";
 export { UpdateReadmeTitle } from "./lib/transform/updateReadmeTitle";
+
+
 export {
     NodeProjectCreationParametersDefinition,
     NodeProjectCreationParameters,
 } from "./lib/generator/NodeProjectCreationParameters";
-export { PackageLockFingerprinter } from "./lib/fingerprint/PackageLockFingerprinter";
+
 export {
     IsNode,
 } from "./lib/pushtest/nodePushTests";
 export { IsTypeScript } from "./lib/pushtest/tsPushTests";
-export { tslintFix } from "./lib/autofix/tslintFix";
 export { NodeProjectIdentifier } from "./lib/build/nodeProjectIdentifier";
 export {
     NpmOptions,
@@ -58,9 +77,15 @@ export {
     NpmProgressReporter,
 } from "./lib/build/npmProgressReporter";
 export { NodeDefaultOptions } from "./lib/build/nodeOptions";
-export { nodeScanner, NodeStack } from "./lib/stack/nodeScanner";
-export { NodeBuildInterpreter, NodeDeliveryOptions } from "./lib/stack/NodeBuildInterpreter";
+export {
+    nodeScanner,
+    NodeStack,
+} from "./lib/stack/nodeScanner";
+export {
+    NodeBuildInterpreter,
+    NodeDeliveryOptions,
+} from "./lib/stack/NodeBuildInterpreter";
 export { nodeStackSupport } from "./lib/stack/nodeStackSupport";
-export * from "./lib/stack/nodeAutofixes";
+export * from "./lib/autofix/eslintAutofix";
 export { PackageJsonTransformRecipeContributor } from "./lib/stack/PackageJsonTransformRecipeContributor";
-export { PackageJson } from "./lib/stack/PackageJson";
+export { PackageJson } from "./lib/util/PackageJson";

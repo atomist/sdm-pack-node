@@ -31,7 +31,7 @@ import {
 } from "@atomist/sdm";
 import * as _ from "lodash";
 import * as path from "path";
-import { PackageJson } from "./PackageJson";
+import { PackageJson } from "../util/PackageJson";
 
 export interface EslintMessage {
     ruleId: string;
@@ -132,8 +132,8 @@ export const RunEslintOnProject: CodeInspection<ProjectReview, NoParameters> = a
  * Provide a code inspection that runs eslint and returns a
  * ProjectReview.
  */
-export const RunEslint: CodeInspectionRegistration<ProjectReview, NoParameters> = {
-    name: "RunEslint",
+export const EslintInspection: CodeInspectionRegistration<ProjectReview, NoParameters> = {
+    name: "EslintInspection",
     description: "Run eslint on project",
     inspection: RunEslintOnProject,
     intent: "eslint",

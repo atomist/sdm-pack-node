@@ -20,14 +20,14 @@ import {
     hasFile,
     spawnAutofix,
 } from "@atomist/sdm";
-import { DevelopmentEnvOptions } from "../build/npmBuilder";
-import { IsNode } from "../pushtest/nodePushTests";
-import { IsTypeScript } from "../pushtest/tsPushTests";
+import { DevelopmentEnvOptions } from "../../build/npmBuilder";
+import { IsNode } from "../../pushtest/nodePushTests";
+import { IsTypeScript } from "../../pushtest/tsPushTests";
 
 // TODO: do not expect that everyone has named this task "lint:fix"
 // or at least check whether they have
-export const tslintFix: AutofixRegistration = spawnAutofix(
-    "tslint",
-    allSatisfied(IsTypeScript, IsNode, hasFile("tslint.json")),
+export const TslintAutofix: AutofixRegistration = spawnAutofix(
+    "TslintAutofix",
+    allSatisfied(IsTypeScript, IsNode, hasFile("TslintAutofix.json")),
     { ignoreFailure: true },
     { command: "npm", args: ["run", "lint:fix"], options: DevelopmentEnvOptions });

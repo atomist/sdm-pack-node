@@ -59,7 +59,7 @@ export const NpmProgressTests: ProgressTest[] = [{
     phase: "npm publish",
 }, {
     test: /> tslint/i,
-    phase: "tslint",
+    phase: "TslintAutofix",
 }, {
     test: /> typedoc/i,
     phase: "typedoc",

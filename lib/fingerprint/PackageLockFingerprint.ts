@@ -29,9 +29,9 @@ import { IsNode } from "../pushtest/nodePushTests";
  * Unlike a Maven POM, we can rely on ordering in a package lock file
  * so do not need to sort the data ourselves before sha-ing.
  */
-export class PackageLockFingerprinter implements FingerprinterRegistration {
+export class PackageLockFingerprint implements FingerprinterRegistration {
 
-    public readonly name: string = "PackageLockFingerprinter";
+    public readonly name: string = "PackageLockFingerprint";
 
     public readonly pushTest: PushTest = IsNode;
 
