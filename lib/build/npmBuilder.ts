@@ -39,6 +39,7 @@ import {
     SpawnBuilderOptions,
 } from "@atomist/sdm-pack-build";
 import * as fs from "fs-extra";
+import * as hash from "hasha";
 import * as _ from "lodash";
 import { IsNode } from "../pushtest/nodePushTests";
 import { NpmLogInterpreter } from "./npmLogInterpreter";
@@ -201,15 +202,30 @@ async function cacheNodeModules(p: GitProject,
         return;
     }
 
+    const hasPackageLock = await p.hasFile("package-lock.json");
+
     let requiresInstall = true;
     let installed = false;
 
     const { goalEvent } = gi;
 
     // Check cache for a previously cached node_modules cache archive
-    const name = options.scope === CacheScope.GoalSet
-        ? goalEvent.goalSetId
-        : `${goalEvent.repo.owner}-${goalEvent.repo.name}`;
+    let name: string;
+    if (options.scope === CacheScope.GoalSet) {
+        name = goalEvent.goalSetId;
+    } else if (options.scope === CacheScope.Repository) {
+        if (hasPackageLock) {
+            name = hash(await (await p.getFile("package-lock.json")).getContent(), {
+                algorithm: "md5",
+                encoding: "base64",
+            });
+        } else {
+            name = hash(await (await p.getFile("package.json")).getContent(), {
+                algorithm: "md5",
+                encoding: "base64",
+            });
+        }
+    }
 
     const cacheFileName = `${_.get(gi, "configuration.sdm.cache.path",
         "/opt/data")}/${name}-node_modules.tar.gz`;
@@ -220,7 +236,7 @@ async function cacheNodeModules(p: GitProject,
 
     if (requiresInstall) {
         let result;
-        if (await p.hasFile("package-lock.json")) {
+        if (hasPackageLock) {
             result = await runInstall("ci", p, gi);
         } else {
             result = await runInstall("i", p, gi);
