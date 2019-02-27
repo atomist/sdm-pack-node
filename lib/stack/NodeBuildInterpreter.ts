@@ -42,7 +42,6 @@ import {
 import {
     EslintAutofix,
 } from "../autofix/eslintAutofix";
-import { PackageLockUrlRewriteAutofix } from "../autofix/packageLockUrlRewriteAutofix";
 import { NodeDefaultOptions } from "../build/nodeOptions";
 import { NodeProjectVersioner } from "../build/nodeProjectVersioner";
 import {
@@ -115,8 +114,6 @@ export class NodeBuildInterpreter implements Interpreter, AutofixRegisteringInte
             }
         }
 
-        interpretation.autofixes.push(PackageLockUrlRewriteAutofix);
-
         interpretation.materialChangePushTests.push(isMaterialChange({
             extensions: ["ts", "js", "jsx", "tsx", "json", "pug", "html", "css"],
             directories: [".atomist"],
@@ -126,7 +123,7 @@ export class NodeBuildInterpreter implements Interpreter, AutofixRegisteringInte
     }
 
     get autofixes(): AutofixRegistration[] {
-        return [EslintAutofix, PackageLockUrlRewriteAutofix];
+        return [EslintAutofix];
     }
 
     get codeInspections(): Array<CodeInspectionRegistration<any>> {
