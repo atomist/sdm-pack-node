@@ -38,6 +38,7 @@ import {
     spawnBuilder,
     SpawnBuilderOptions,
 } from "@atomist/sdm-pack-build";
+import base64url from "base64url";
 import * as fs from "fs-extra";
 import * as hash from "hasha";
 import * as _ from "lodash";
@@ -215,15 +216,15 @@ async function cacheNodeModules(p: GitProject,
         name = goalEvent.goalSetId;
     } else if (options.scope === CacheScope.Repository) {
         if (hasPackageLock) {
-            name = hash(await (await p.getFile("package-lock.json")).getContent(), {
+            name = base64url.fromBase64(hash(await (await p.getFile("package-lock.json")).getContent(), {
                 algorithm: "md5",
                 encoding: "base64",
-            });
+            }));
         } else {
-            name = hash(await (await p.getFile("package.json")).getContent(), {
+            name = base64url.fromBase64(hash(await (await p.getFile("package.json")).getContent(), {
                 algorithm: "md5",
                 encoding: "base64",
-            });
+            }));
         }
     }
 
