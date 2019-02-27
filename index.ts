@@ -24,8 +24,14 @@ export { AddThirdPartyLicenseAutofix } from "./lib/autofix/thirdPartyLicense";
 export { NpmDependencyFingerprint } from "./lib/fingerprint/dependencies";
 export { PackageLockFingerprint } from "./lib/fingerprint/PackageLockFingerprint";
 
-export { EslintInspection } from "./lib/inspection/eslint";
-export { TslintInspection } from "./lib/inspection/tslint";
+export {
+    EslintInspection,
+    esLintReviewCategory,
+} from "./lib/inspection/eslint";
+export {
+    TslintInspection,
+    tsLintReviewCategory,
+} from "./lib/inspection/tslint";
 
 export {
     nodeSupport,
