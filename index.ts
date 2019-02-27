@@ -81,6 +81,7 @@ export {
 } from "./lib/build/npmBuilder";
 export {
     NpmProgressReporter,
+    NpmProgressTests,
 } from "./lib/build/npmProgressReporter";
 export { NodeDefaultOptions } from "./lib/build/nodeOptions";
 export {
