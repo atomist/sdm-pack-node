@@ -165,14 +165,37 @@ export const NodeModulesProjectListener: GoalProjectListenerRegistration = {
         if (!(await p.hasFile("package.json"))) {
             return;
         }
-        return cacheNodeModules(p, gi);
+        return cacheNodeModules(p, gi, { scope: CacheScope.GoalSet });
     },
     events: [GoalProjectListenerEvent.before],
     pushTest: IsNode,
 };
 export const NpmInstallProjectListener = NodeModulesProjectListener;
 
-async function cacheNodeModules(p: GitProject, gi: GoalInvocation): Promise<void | ExecuteGoalResult> {
+export function npmInstallProjectListener(options: { scope: CacheScope } = { scope: CacheScope.GoalSet })
+    : GoalProjectListenerRegistration {
+    return {
+        name: "npm install",
+        listener: async (p, gi) => {
+            // Check if project has a package.json
+            if (!(await p.hasFile("package.json"))) {
+                return;
+            }
+            return cacheNodeModules(p, gi, options);
+        },
+        events: [GoalProjectListenerEvent.before],
+        pushTest: IsNode,
+    };
+}
+
+enum CacheScope {
+    GoalSet,
+    Repository
+}
+
+async function cacheNodeModules(p: GitProject,
+                                gi: GoalInvocation,
+                                options: { scope: CacheScope }): Promise<void | ExecuteGoalResult> {
     // If project already has a node_modules dir; there is nothing left to do
     if (await p.hasDirectory("node_modules")) {
         return;
@@ -181,9 +204,15 @@ async function cacheNodeModules(p: GitProject, gi: GoalInvocation): Promise<void
     let requiresInstall = true;
     let installed = false;
 
+    const { goalEvent } = gi;
+
     // Check cache for a previously cached node_modules cache archive
+    const name = options.scope === CacheScope.GoalSet
+        ? goalEvent.goalSetId
+        : `${goalEvent.repo.owner}-${goalEvent.repo.name}`;
+
     const cacheFileName = `${_.get(gi, "configuration.sdm.cache.path",
-        "/opt/data")}/${gi.goalEvent.goalSetId}-node_modules.tar.gz`;
+        "/opt/data")}/${name}-node_modules.tar.gz`;
     if (_.get(gi, "configuration.sdm.cache.enabled") === true && (await fs.pathExists(cacheFileName))) {
         const result = await extract(cacheFileName, p, gi);
         requiresInstall = result.code !== 0;

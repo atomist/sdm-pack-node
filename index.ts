@@ -39,7 +39,6 @@ export { UpdatePackageJsonIdentification } from "./lib/transform/updatePackageJs
 export { UpdatePackageVersion } from "./lib/transform/updatePackageVersion";
 export { UpdateReadmeTitle } from "./lib/transform/updateReadmeTitle";
 
-
 export {
     NodeProjectCreationParametersDefinition,
     NodeProjectCreationParameters,
@@ -70,6 +69,7 @@ export {
     Install,
     NodeModulesProjectListener,
     NpmInstallProjectListener,
+    npmInstallProjectListener,
     NpmCompileProjectListener,
     NpmVersionProjectListener,
 } from "./lib/build/npmBuilder";
