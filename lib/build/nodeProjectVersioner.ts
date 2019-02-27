@@ -22,7 +22,7 @@ import { gitBranchToNpmVersion } from "./executePublish";
 
 const TagDefaultBranchConfigKey = "npm.publish.tag.defaultBranch";
 
-export const NodeProjectVersioner: ProjectVersioner = async (sdmGoal, p, log) => {
+export const NodeProjectVersioner: ProjectVersioner = async (sdmGoal, p) => {
     const pjFile = await p.getFile("package.json");
     const pj = JSON.parse(await pjFile.getContent());
     const branch = sdmGoal.branch.split("/").join(".");
