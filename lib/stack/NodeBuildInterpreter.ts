@@ -53,6 +53,12 @@ import {
 import { NpmDependencyFingerprint } from "./nodeFingerprint";
 import { NodeStack } from "./nodeScanner";
 
+export interface GoalCustomizer {
+    createBuildGoal: () => Build;
+    createTestGoal: () => GoalWithFulfillment;
+    configureTestGoal?: (testGoal: GoalWithFulfillment) => void;
+}
+
 export class NodeBuildInterpreter implements Interpreter, AutofixRegisteringInterpreter, CodeInspectionRegisteringInterpreter {
 
     private readonly versionGoal: Version = new Version().withVersioner(NodeProjectVersioner);
@@ -64,17 +70,8 @@ export class NodeBuildInterpreter implements Interpreter, AutofixRegisteringInte
             action: runFingerprints(fingerprintRunner([NpmDependencyFingerprint])),
         });
 
-    private readonly buildGoal: Build = new Build({
-        displayName: "npm build",
-        isolate: true,
-    }).with({
-        ...NodeDefaultOptions,
-        name: "npm-run-build",
-        builder: nodeBuilder({ command: "npm", args: ["run", "build"] }),
-    })
-        .withProjectListener(NodeModulesProjectListener);
+    private readonly buildGoal: Build;
 
-    // Configured in constructor
     private readonly testGoal: Goal;
 
     public async enrich(interpretation: Interpretation): Promise<boolean> {
@@ -132,31 +129,52 @@ export class NodeBuildInterpreter implements Interpreter, AutofixRegisteringInte
         return [RunEslint];
     }
 
-    constructor(opts: {
-        configureTestGoal?: (testGoal: GoalWithFulfillment) => void,
-    } = {}) {
-        const testGoal = goal({
-            displayName: "npm test",
-            retry: true,
-            isolate: true,
-            descriptions: {
-                inProcess: "Running NPM test",
-                failed: "Test failures from NPM test",
-                completed: "NPM test passed",
-            },
-        }).with({
-            ...NodeDefaultOptions,
-            name: "npm-run-test",
-            goalExecutor: doWithProject(
-                async gi => {
-                    return gi.spawn("npm", ["run", "test"]);
-                },
-            ),
-        })
-            .withProjectListener(NodeModulesProjectListener);
-        if (!!opts.configureTestGoal) {
-            opts.configureTestGoal(testGoal);
+    constructor(opts: Partial<GoalCustomizer> = {}) {
+        const optsToUse: GoalCustomizer = {
+            createBuildGoal: createDefaultBuildGoal,
+            createTestGoal: createDefaultTestGoal,
+            ...opts,
+        };
+        this.buildGoal = optsToUse.createBuildGoal();
+
+        const testGoal = optsToUse.createTestGoal();
+        if (optsToUse.configureTestGoal) {
+            optsToUse.configureTestGoal(testGoal);
         }
         this.testGoal = testGoal;
     }
+}
+
+function createDefaultBuildGoal(): Build {
+    return new Build({
+        displayName: "npm build",
+        isolate: true,
+    }).with({
+        ...NodeDefaultOptions,
+        name: "npm-run-build",
+        builder: nodeBuilder({ command: "npm", args: ["run", "build"] }),
+    })
+        .withProjectListener(NodeModulesProjectListener);
+}
+
+function createDefaultTestGoal(): GoalWithFulfillment {
+    return goal({
+        displayName: "npm test",
+        retry: true,
+        isolate: true,
+        descriptions: {
+            inProcess: "Running NPM test",
+            failed: "Test failures from NPM test",
+            completed: "NPM test passed",
+        },
+    }).with({
+        ...NodeDefaultOptions,
+        name: "npm-run-test",
+        goalExecutor: doWithProject(
+            async gi => {
+                return gi.spawn("npm", ["run", "test"]);
+            },
+        ),
+    })
+        .withProjectListener(NodeModulesProjectListener);
 }
