@@ -28,6 +28,6 @@ import { IsTypeScript } from "../../pushtest/tsPushTests";
 // or at least check whether they have
 export const TslintAutofix: AutofixRegistration = spawnAutofix(
     "TslintAutofix",
-    allSatisfied(IsTypeScript, IsNode, hasFile("TslintAutofix.json")),
+    allSatisfied(IsTypeScript, IsNode, hasFile("tslint.json")),
     { ignoreFailure: true },
     { command: "npm", args: ["run", "lint:fix"], options: DevelopmentEnvOptions });
