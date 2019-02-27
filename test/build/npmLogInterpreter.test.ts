@@ -50,32 +50,32 @@ describe("NpmLogInterpreter", () => {
 /* tslint:disable */
 const Fail1 = `to /tmp/tmp-5086mapRbHkXFZF6
 2018-04-12T06:00:32.267Z [m:5086] [info ]     ✓ should copy one (790ms)
-2018-04-12T06:00:32.267Z [m:5086] [info ]
-2018-04-12T06:00:32.267Z [m:5086] [info ]
+2018-04-12T06:00:32.267Z [m:5086] [info ] 
+2018-04-12T06:00:32.267Z [m:5086] [info ] 
 2018-04-12T06:00:32.268Z [m:5086] [info ]   116 passing (44s)
 2018-04-12T06:00:32.268Z [m:5086] [info ]   1 pending
 2018-04-12T06:00:32.268Z [m:5086] [info ]   1 failing
-2018-04-12T06:00:32.268Z [m:5086] [info ]
+2018-04-12T06:00:32.268Z [m:5086] [info ] 
 2018-04-12T06:00:32.272Z [m:5086] [info ]   1) addHeaderFix
        should lint and make fixes:
 
       AssertionError [ERR_ASSERTION]:   # addHeaderFixTest.ts:55
-
+  
   assert.equal(r.code, 0)
-         | |    |
-         | 1    false
+         | |    |     
+         | 1    false 
          Object{code:1,message:"Edited"}
-
+  
   [number] 0
   => 0
   [number] r.code
   => 1
-
+  
       + expected - actual
 
       -false
       +true
-
+      
       at Decorator._callFunc (node_modules/empower-core/lib/decorator.js:110:20)
       at Decorator.concreteAssert (node_modules/empower-core/lib/decorator.js:103:17)
       at decoratedAssert (node_modules/empower-core/lib/decorate.js:49:30)
@@ -90,14 +90,14 @@ const Fail1 = `to /tmp/tmp-5086mapRbHkXFZF6
       at <anonymous>
       at process._tickCallback (internal/process/next_tick.js:182:7)
 
-2018-04-12T06:00:32.273Z [m:5086] [info ]
-2018-04-12T06:00:32.273Z [m:5086] [info ]
+2018-04-12T06:00:32.273Z [m:5086] [info ] 
+2018-04-12T06:00:32.273Z [m:5086] [info ] 
 2018-04-12T06:00:32.274Z [m:5086] [info ] Shutdown initiated. Calling shutdown hooks
 npm ERR! code ELIFECYCLE
 npm ERR! errno 1
 npm ERR! @atomist/github-sdm@0.4.0-20180412055619 test: \`mocha --exit --require espower-typescript/guess "test/**/*.ts"\`
 npm ERR! Exit status 1
-npm ERR!
+npm ERR! 
 npm ERR! Failed at the @atomist/github-sdm@0.4.0-20180412055619 test script.
 npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
 
@@ -108,7 +108,7 @@ npm ERR! code ELIFECYCLE
 npm ERR! errno 1
 npm ERR! @atomist/github-sdm@0.4.0-20180412055619 build: \`npm-run-all compile test\`
 npm ERR! Exit status 1
-npm ERR!
+npm ERR! 
 npm ERR! Failed at the @atomist/github-sdm@0.4.0-20180412055619 build script.
 npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
 
@@ -124,22 +124,22 @@ const RelevantPart1 = `\`\`\`
        should lint and make fixes:
 
       AssertionError [ERR_ASSERTION]:   # addHeaderFixTest.ts:55
-
+  
   assert.equal(r.code, 0)
-         | |    |
-         | 1    false
+         | |    |     
+         | 1    false 
          Object{code:1,message:"Edited"}
-
+  
   [number] 0
   => 0
   [number] r.code
   => 1
-
+  
       + expected - actual
 
       -false
       +true
-
+      
 \`\`\``;
 
 const Fail2 = `
@@ -179,8 +179,8 @@ Generated file written to /Users/jessitron/code/atomist/sample-sdm/src/typings/t
 > mocha --exit --require espower-typescript/guess "test/**/*.ts"
 
 2018-05-05T12:48:35.811Z [m:17866] [info ] Created new deployments record
-2018-05-05T12:48:42.687Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]
-2018-05-05T12:48:42.693Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]
+2018-05-05T12:48:42.687Z [[32mm[39m:[32m17866[39m] [[32minfo [39m] 
+2018-05-05T12:48:42.693Z [[32mm[39m:[32m17866[39m] [[32minfo [39m] 
 2018-05-05T12:48:42.698Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]   HardCodePropertyReviewer
 2018-05-05T12:48:42.706Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]     ✓ should not find any problems in empty project
 2018-05-05T12:48:42.719Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]     ✓ pass harmless properties file
@@ -190,7 +190,7 @@ Generated file written to /Users/jessitron/code/atomist/sample-sdm/src/typings/t
 2018-05-05T12:48:42.723Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]     ✓ accept good port property
 2018-05-05T12:48:42.724Z [m:17866] [info ] Value of spring.datasource.password: 'tiger' is hard coded
 2018-05-05T12:48:42.725Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]     ✓ reject hard-coded password
-2018-05-05T12:48:42.725Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]
+2018-05-05T12:48:42.725Z [[32mm[39m:[32m17866[39m] [[32minfo [39m] 
 2018-05-05T12:48:42.726Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]   fileIoImport
 2018-05-05T12:48:42.729Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]     ✓ should not find any problems in empty project
 2018-05-05T12:48:42.731Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]     ✓ pass harmless Java code
@@ -200,7 +200,7 @@ Generated file written to /Users/jessitron/code/atomist/sample-sdm/src/typings/t
 2018-05-05T12:48:42.739Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]     ✓ flag file import in Kotlin
 2018-05-05T12:48:42.740Z [m:17866] [info ] Import java.io.File: Antipattern import java.io.File found in src/main/java/com/atomist/Melb1Application.java
 2018-05-05T12:48:42.741Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]     ✓ flag error in nested package
-2018-05-05T12:48:42.741Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]
+2018-05-05T12:48:42.741Z [[32mm[39m:[32m17866[39m] [[32minfo [39m] 
 2018-05-05T12:48:42.741Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]   importDotStar
 2018-05-05T12:48:42.743Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]     ✓ should not find any problems in empty project
 2018-05-05T12:48:42.744Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]     ✓ pass harmless Java code
@@ -210,22 +210,22 @@ Generated file written to /Users/jessitron/code/atomist/sample-sdm/src/typings/t
 2018-05-05T12:48:42.748Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]     ✓ flag .* import in Kotlin
 2018-05-05T12:48:42.750Z [m:17866] [info ] Lazy import: Antipattern /import .*\\.\\*/ found in src/main/java/com/atomist/Melb1Application.java
 2018-05-05T12:48:42.750Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]     ✓ flag error in nested package
-2018-05-05T12:48:42.750Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]
+2018-05-05T12:48:42.750Z [[32mm[39m:[32m17866[39m] [[32minfo [39m] 
 2018-05-05T12:48:42.750Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]   ProvidedDependencyReviewer
 2018-05-05T12:48:42.753Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]     ✓ should not find any problems in empty project
 2018-05-05T12:48:42.767Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]     ✓ pass harmless POM
 2018-05-05T12:48:42.769Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]     ✓ flag provided pom
-2018-05-05T12:48:42.770Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]
+2018-05-05T12:48:42.770Z [[32mm[39m:[32m17866[39m] [[32minfo [39m] 
 2018-05-05T12:48:42.770Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]   SpringBootSuccessPattern
 2018-05-05T12:48:42.770Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]     ✓ should match
 2018-05-05T12:48:42.771Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]     ✓ should match slow deployment
-2018-05-05T12:48:42.771Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]
+2018-05-05T12:48:42.771Z [[32mm[39m:[32m17866[39m] [[32minfo [39m] 
 2018-05-05T12:48:42.771Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]   commit rendering
 2018-05-05T12:48:42.773Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]     ✓ can render a commit
-2018-05-05T12:48:42.773Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]
+2018-05-05T12:48:42.773Z [[32mm[39m:[32m17866[39m] [[32minfo [39m] 
 2018-05-05T12:48:42.774Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]   addK8SpecEditor
 2018-05-05T12:48:42.776Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]     ✓ should add a file
-2018-05-05T12:48:42.776Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]
+2018-05-05T12:48:42.776Z [[32mm[39m:[32m17866[39m] [[32minfo [39m] 
 2018-05-05T12:48:42.776Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]   addHeaderEditor
 2018-05-05T12:48:42.779Z [m:17866] [info ] Adding header of length 598 to src/main/java/Thing1.java
 2018-05-05T12:48:42.781Z [m:17866] [info ] 2 files matched [**/{*.ts,*.java,*.js,*.scala,*.c,*.cpp,*.kt}]. 1 headers added. 1 files skipped
@@ -270,7 +270,7 @@ Generated file written to /Users/jessitron/code/atomist/sample-sdm/src/typings/t
 2018-05-05T12:48:42.850Z [m:17866] [info ] respond > \`src/main/java/Thing1.java\` already has a different header
 2018-05-05T12:48:42.851Z [m:17866] [info ] 2 files matched [**/{*.ts,*.java,*.js,*.scala,*.c,*.cpp,*.kt}]. 0 headers added. 2 files skipped
 2018-05-05T12:48:42.852Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]     ✓ should not add header when another header is present
-2018-05-05T12:48:42.853Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]
+2018-05-05T12:48:42.853Z [[32mm[39m:[32m17866[39m] [[32minfo [39m] 
 2018-05-05T12:48:42.853Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]   addCloudFoundryManifest
 2018-05-05T12:48:42.861Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]     ✓ should add a manifest to Spring Boot project when none exists
 2018-05-05T12:48:42.863Z [m:17866] [info ] respond > Unable to add Cloud Foundry manifest to project \`owner:repoName\`: Neither Maven nor Node
@@ -279,7 +279,7 @@ Generated file written to /Users/jessitron/code/atomist/sample-sdm/src/typings/t
 2018-05-05T12:48:42.865Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]     ✓ should add a non automation client manifest to Node project when none exists
 2018-05-05T12:48:42.866Z [m:17866] [info ] addCloudFoundryManifestEditor: Node project {"owner":"owner","repo":"repoName"}: automation client=true
 2018-05-05T12:48:42.867Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]     ✓ should add an automation client manifest to Node project when none exists
-2018-05-05T12:48:42.867Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]
+2018-05-05T12:48:42.867Z [[32mm[39m:[32m17866[39m] [[32minfo [39m] 
 2018-05-05T12:48:42.867Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]   javaPatterns
 2018-05-05T12:48:42.867Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]     JavaIdentifierRegExp
 2018-05-05T12:48:42.869Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]       ✓ should match valid identifiers
@@ -290,7 +290,7 @@ Generated file written to /Users/jessitron/code/atomist/sample-sdm/src/typings/t
 2018-05-05T12:48:42.872Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]     MavenGroupIdRegExp
 2018-05-05T12:48:42.873Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]       ✓ should match valid ids
 2018-05-05T12:48:42.875Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]       ✓ should reject invalid ids
-2018-05-05T12:48:42.876Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]
+2018-05-05T12:48:42.876Z [[32mm[39m:[32m17866[39m] [[32minfo [39m] 
 2018-05-05T12:48:42.877Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]   springBootGenerator
 2018-05-05T12:48:42.878Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]     update README
 2018-05-05T12:48:42.883Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]       ✓ should get correct content
@@ -298,21 +298,21 @@ Generated file written to /Users/jessitron/code/atomist/sample-sdm/src/typings/t
 2018-05-05T12:48:42.885Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]       ✓ should put in Atomist team id
 2018-05-05T12:48:42.885Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]     run end to end
 2018-05-05T12:48:44.196Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]       1) should put in Atomist team id and ensure valid Java
-2018-05-05T12:48:44.198Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]
+2018-05-05T12:48:44.198Z [[32mm[39m:[32m17866[39m] [[32minfo [39m] 
 2018-05-05T12:48:44.198Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]   Rendering a goal graph
 2018-05-05T12:48:44.201Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]     ✓ renders the HTTP Service Goals
-2018-05-05T12:48:44.201Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]
+2018-05-05T12:48:44.201Z [[32mm[39m:[32m17866[39m] [[32minfo [39m] 
 2018-05-05T12:48:44.201Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]   springPushTests
 2018-05-05T12:48:44.202Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]     HasSpringBootApplicationClass
 2018-05-05T12:48:44.203Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]       ✓ should not find maven in empty repo
 2018-05-05T12:48:44.204Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]       ✓ should find maven in repo with named pom but no Spring application
 2018-05-05T12:48:44.253Z [[34mm[39m:[34m17866[39m] [[34mdebug[39m] Parsing file [src/main/java/App.java] using ANTLR grammar, looking for production 'compilationUnit'
 2018-05-05T12:48:44.344Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]       ✓ should find in repo with named pom and Spring application class (139ms)
-2018-05-05T12:48:44.344Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]
-2018-05-05T12:48:44.345Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]
+2018-05-05T12:48:44.344Z [[32mm[39m:[32m17866[39m] [[32minfo [39m] 
+2018-05-05T12:48:44.345Z [[32mm[39m:[32m17866[39m] [[32minfo [39m] 
 2018-05-05T12:48:44.345Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]   50 passing (2s)
 2018-05-05T12:48:44.345Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]   1 failing
-2018-05-05T12:48:44.345Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]
+2018-05-05T12:48:44.345Z [[32mm[39m:[32m17866[39m] [[32minfo [39m] 
 2018-05-05T12:48:44.346Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]   1) springBootGenerator
        run end to end
          should put in Atomist team id and ensure valid Java:
@@ -327,8 +327,8 @@ fatal: unable to access 'https://null:x-oauth-basic@github.com/spring-team/sprin
       at Pipe._handle.close (net.js:541:12)
       at Pipe._onclose (node_modules/async-listener/glue.js:188:31)
 
-2018-05-05T12:48:44.346Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]
-2018-05-05T12:48:44.346Z [[32mm[39m:[32m17866[39m] [[32minfo [39m]
+2018-05-05T12:48:44.346Z [[32mm[39m:[32m17866[39m] [[32minfo [39m] 
+2018-05-05T12:48:44.346Z [[32mm[39m:[32m17866[39m] [[32minfo [39m] 
 2018-05-05T12:48:44.349Z [m:17866] [info ] Shutdown initiated. Calling shutdown hooks
 2018-05-05T12:48:44.350Z [m:17866] [info ] Shutdown initiated. Calling shutdown hooks
 `;
