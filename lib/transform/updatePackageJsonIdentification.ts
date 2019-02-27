@@ -14,13 +14,10 @@
  * limitations under the License.
  */
 
-import {
-    doWithJson,
-    logger,
-    SeedDrivenGeneratorParameters,
-} from "@atomist/automation-client";
+import { doWithJson, logger, SeedDrivenGeneratorParameters } from "@atomist/automation-client";
 import { CodeTransform } from "@atomist/sdm";
 import { NodeProjectCreationParameters } from "../generator/NodeProjectCreationParameters";
+import { PackageJson } from "../stack/PackageJson";
 import { findAuthorName } from "./findAuthorName";
 
 /**
@@ -38,7 +35,7 @@ export const UpdatePackageJsonIdentification: CodeTransform<NodeProjectCreationP
                     return params.screenName;
                 });
 
-        let p = await doWithJson(project, "package.json", pkg => {
+        const p = await doWithJson<PackageJson>(project, "package.json", pkg => {
             const repoUrl = params.target.repoRef.url;
             pkg.name = params.appName;
             pkg.description = params.target.description;
@@ -57,11 +54,9 @@ export const UpdatePackageJsonIdentification: CodeTransform<NodeProjectCreationP
         });
 
         if (await p.hasFile("package-lock.json")) {
-            p = await doWithJson(p, "package-lock.json", pkg => {
+            await doWithJson<PackageJson>(p, "package-lock.json", pkg => {
                 pkg.name = params.appName;
                 pkg.version = params.version;
             });
         }
-
-        return p;
     };
