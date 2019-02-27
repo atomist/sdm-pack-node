@@ -38,9 +38,9 @@ export interface NodeConfiguration {
             access?: "public" | "restricted",
             tag?: {
                 defaultBranch?: string,
-            }
-        }
-    }
+            },
+        },
+    };
 }
 
 /**

@@ -17,9 +17,8 @@
 import { projectConfigurationValue } from "@atomist/sdm";
 import { ProjectVersioner } from "@atomist/sdm-core";
 import * as df from "dateformat";
-import { gitBranchToNpmVersion } from "./executePublish";
 import { NodeConfiguration } from "../nodeSupport";
-
+import { gitBranchToNpmVersion } from "./executePublish";
 
 export const NodeProjectVersioner: ProjectVersioner = async (sdmGoal, p) => {
     const pjFile = await p.getFile("package.json");
