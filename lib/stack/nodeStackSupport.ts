@@ -15,18 +15,21 @@
  */
 
 import { StackSupport } from "@atomist/sdm-pack-analysis";
-import { NodeBuildInterpreter } from "./NodeBuildInterpreter";
+import { NodeBuildInterpreter, NodeDeliveryOptions } from "./NodeBuildInterpreter";
 import { nodeScanner } from "./nodeScanner";
 import { PackageJsonTransformRecipeContributor } from "./PackageJsonTransformRecipeContributor";
 
-export const NodeStackSupport: StackSupport = {
-
-    scanners: [nodeScanner],
-    interpreters: [new NodeBuildInterpreter()],
-    transformRecipeContributors: [{
-        originator: "node",
-        optional: false,
-        contributor: new PackageJsonTransformRecipeContributor(),
-    }],
-
-};
+/**
+ * Add Node stack support.
+ */
+export function nodeStackSupport(deliveryOptions: Partial<NodeDeliveryOptions> = {}): StackSupport {
+    return {
+        scanners: [nodeScanner],
+        interpreters: [new NodeBuildInterpreter(deliveryOptions)],
+        transformRecipeContributors: [{
+            originator: "node",
+            optional: false,
+            contributor: new PackageJsonTransformRecipeContributor(),
+        }],
+    };
+}

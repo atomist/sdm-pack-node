@@ -53,7 +53,7 @@ import {
 import { NpmDependencyFingerprint } from "./nodeFingerprint";
 import { NodeStack } from "./nodeScanner";
 
-export interface GoalCustomizer {
+export interface NodeDeliveryOptions {
     createBuildGoal: () => Build;
     createTestGoal: () => GoalWithFulfillment;
     configureTestGoal?: (testGoal: GoalWithFulfillment) => void;
@@ -129,8 +129,8 @@ export class NodeBuildInterpreter implements Interpreter, AutofixRegisteringInte
         return [RunEslint];
     }
 
-    constructor(opts: Partial<GoalCustomizer> = {}) {
-        const optsToUse: GoalCustomizer = {
+    constructor(opts: Partial<NodeDeliveryOptions> = {}) {
+        const optsToUse: NodeDeliveryOptions = {
             createBuildGoal: createDefaultBuildGoal,
             createTestGoal: createDefaultTestGoal,
             ...opts,
