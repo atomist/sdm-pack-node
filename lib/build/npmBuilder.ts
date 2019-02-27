@@ -189,7 +189,7 @@ export function npmInstallProjectListener(options: { scope: CacheScope } = { sco
     };
 }
 
-enum CacheScope {
+export enum CacheScope {
     GoalSet,
     Repository,
 }

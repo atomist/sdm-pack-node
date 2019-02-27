@@ -45,8 +45,9 @@ import {
 import { NodeDefaultOptions } from "../build/nodeOptions";
 import { NodeProjectVersioner } from "../build/nodeProjectVersioner";
 import {
+    CacheScope,
     nodeBuilder,
-    NodeModulesProjectListener,
+    npmInstallProjectListener,
 } from "../build/npmBuilder";
 import { NpmDependencyFingerprint } from "../fingerprint/dependencies";
 import { EslintInspection } from "../inspection/eslint";
@@ -154,7 +155,7 @@ function createDefaultBuildGoal(): Build {
         name: "npm-run-build",
         builder: nodeBuilder({ command: "npm", args: ["run", "build"] }),
     })
-        .withProjectListener(NodeModulesProjectListener);
+        .withProjectListener(npmInstallProjectListener({ scope: CacheScope.Repository }));
 }
 
 function createDefaultTestGoal(): GoalWithFulfillment {
@@ -176,5 +177,5 @@ function createDefaultTestGoal(): GoalWithFulfillment {
             },
         ),
     })
-        .withProjectListener(NodeModulesProjectListener);
+        .withProjectListener(npmInstallProjectListener({ scope: CacheScope.Repository }));
 }

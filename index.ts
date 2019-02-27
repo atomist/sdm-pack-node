@@ -78,6 +78,7 @@ export {
     npmInstallProjectListener,
     NpmCompileProjectListener,
     NpmVersionProjectListener,
+    CacheScope,
 } from "./lib/build/npmBuilder";
 export {
     NpmProgressReporter,
