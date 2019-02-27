@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 -   Add name for NpmInstallProjectListener. [#32](https://github.com/atomist/sdm-pack-node/issues/32)
+-   Add stack support. [#33](https://github.com/atomist/sdm-pack-node/issues/33)
 
 ## [1.0.2](https://github.com/atomist/sdm-pack-node/compare/1.0.1...1.0.2) - 2018-12-10
 
