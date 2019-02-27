@@ -15,7 +15,10 @@
  */
 
 import { StackSupport } from "@atomist/sdm-pack-analysis";
-import { NodeBuildInterpreter, NodeDeliveryOptions } from "./NodeBuildInterpreter";
+import {
+    NodeBuildInterpreter,
+    NodeDeliveryOptions,
+} from "./NodeBuildInterpreter";
 import { nodeScanner } from "./nodeScanner";
 import { PackageJsonTransformRecipeContributor } from "./PackageJsonTransformRecipeContributor";
 
