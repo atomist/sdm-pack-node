@@ -14,7 +14,11 @@
  * limitations under the License.
  */
 
-import { doWithJson, logger, SeedDrivenGeneratorParameters } from "@atomist/automation-client";
+import {
+    doWithJson,
+    logger,
+    SeedDrivenGeneratorParameters,
+} from "@atomist/automation-client";
 import { CodeTransform } from "@atomist/sdm";
 import { NodeProjectCreationParameters } from "../generator/NodeProjectCreationParameters";
 import { PackageJson } from "../stack/PackageJson";

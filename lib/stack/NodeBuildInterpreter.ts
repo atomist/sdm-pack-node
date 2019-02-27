@@ -23,7 +23,8 @@ import {
     Goal,
     goals,
     Goals,
-    GoalsBuilder, GoalWithFulfillment,
+    GoalsBuilder,
+    GoalWithFulfillment,
     isMaterialChange,
 } from "@atomist/sdm";
 import { Version } from "@atomist/sdm-core";
@@ -40,7 +41,10 @@ import {
 } from "@atomist/sdm-pack-fingerprints";
 import { NodeDefaultOptions } from "../build/nodeOptions";
 import { NodeProjectVersioner } from "../build/nodeProjectVersioner";
-import { nodeBuilder, NodeModulesProjectListener } from "../build/npmBuilder";
+import {
+    nodeBuilder,
+    NodeModulesProjectListener,
+} from "../build/npmBuilder";
 import { IsNode } from "../pushtest/nodePushTests";
 import { RunEslint } from "./eslintCodeInspection";
 import {
