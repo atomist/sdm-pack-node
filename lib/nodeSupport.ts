@@ -28,6 +28,21 @@ import { PackageLockFingerprint } from "./fingerprint/PackageLockFingerprint";
 import { CommonTypeScriptErrors } from "./reviewer/typescript/commonTypeScriptErrors";
 import { DontImportOwnIndex } from "./reviewer/typescript/dontImportOwnIndex";
 
+export interface NodeConfiguration {
+    npm?: {
+        publish?: {
+            /**
+             * Defaults to true! Provide false explicitly to disable
+             */
+            enabled?: boolean,
+            access?: "public" | "restricted",
+            tag?: {
+                defaultBranch?: string,
+            }
+        }
+    }
+}
+
 /**
  * Categories of functionality to enable
  */

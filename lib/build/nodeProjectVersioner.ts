@@ -14,21 +14,20 @@
  * limitations under the License.
  */
 
-import { configurationValue } from "@atomist/automation-client";
 import { projectConfigurationValue } from "@atomist/sdm";
 import { ProjectVersioner } from "@atomist/sdm-core";
 import * as df from "dateformat";
 import { gitBranchToNpmVersion } from "./executePublish";
+import { NodeConfiguration } from "../nodeSupport";
 
-const TagDefaultBranchConfigKey = "npm.publish.tag.defaultBranch";
 
 export const NodeProjectVersioner: ProjectVersioner = async (sdmGoal, p) => {
     const pjFile = await p.getFile("package.json");
     const pj = JSON.parse(await pjFile.getContent());
     const branch = sdmGoal.branch.split("/").join(".");
 
-    const tagMaster = await projectConfigurationValue<boolean>(TagDefaultBranchConfigKey, p,
-        configurationValue<boolean>(`sdm.${TagDefaultBranchConfigKey}`, false));
+    const tagMaster = await projectConfigurationValue<NodeConfiguration["npm"]["publish"]["tag"]["defaultBranch"]>(
+        "npm.publish.tag.defaultBranch", p, null);
 
     let branchSuffix = "";
     if (tagMaster) {
