@@ -141,8 +141,8 @@ export function addThirdPartyLicenseTransform(): CodeTransform<NoParameters> {
         }
 
         const details = [];
-        // TslintAutofix:disable-next-line:no-inferred-empty-object-type
-        _.forEach(grouped, (v: any, k) => {
+        // tslint:disable-next-line:no-inferred-empty-object-type
+        _.forEach(grouped, (v: any, k: any) => {
             const deps = v.map(dep => {
                 const ix = dep.name.lastIndexOf("@");
                 const name = dep.name.slice(0, ix);

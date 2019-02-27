@@ -37,7 +37,7 @@ describe("thirdPartyLicense", () => {
             hasDirectory: async () => true,
         } as any as Project, undefined)
             .then(() => {
-                // TslintAutofix:disable:max-line-length
+                // tslint:disable:max-line-length
                 assert(fc.startsWith(`# \`@atomist/sdm-pack-node\`
 
 \`@atomist/sdm-pack-node\` is licensed under Apache License 2.0 - [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0).

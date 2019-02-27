@@ -32,7 +32,7 @@ import { TslintAutofix } from "../../lib/autofix/typescript/tslintAutofix";
 describe("tsLintFix", () => {
 
     it("should lint and make fixes", async () => {
-        // TslintAutofix:disable-next-line:no-null-keyword
+        // tslint:disable-next-line:no-null-keyword
         const p = await GitCommandGitProject.cloned({ token: null }, GitHubRepoRef.from({
             owner: "atomist",
             repo: "tree-path-ts",

@@ -31,7 +31,7 @@ export const TypeScriptImportsAutofix: AutofixRegistration = {
             regexp.lastIndex = 0;
             let file = f.getContentSync();
             let match;
-            // TslintAutofix:disable-next-line:no-conditional-assignment
+            // tslint:disable-next-line:no-conditional-assignment
             while (match = regexp.exec(file)) {
                 const imports = match[1].split(",").map(i => i.trim());
                 const module = match[2];

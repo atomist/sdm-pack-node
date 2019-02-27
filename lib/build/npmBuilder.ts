@@ -191,7 +191,7 @@ export function npmInstallProjectListener(options: { scope: CacheScope } = { sco
 
 enum CacheScope {
     GoalSet,
-    Repository
+    Repository,
 }
 
 async function cacheNodeModules(p: GitProject,

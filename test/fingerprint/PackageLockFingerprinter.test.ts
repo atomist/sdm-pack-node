@@ -68,7 +68,7 @@ describe("package-lock.json", () => {
 
 });
 
-// TslintAutofix:disable
+// tslint:disable
 
 function valid1(params: Partial<{ lockfileVersion: number, antlrVersion: string }> = {}) {
     const paramsToUse = {
@@ -77,21 +77,21 @@ function valid1(params: Partial<{ lockfileVersion: number, antlrVersion: string 
         ...params,
     };
     return JSON.stringify({
-        "name": "@atomist/sdm",
-        "version": "0.0.1",
+        name: "@atomist/sdm",
+        version: "0.0.1",
         lockfileVersion: paramsToUse.lockfileVersion,
-        "requires": true,
-        "dependencies": {
+        requires: true,
+        dependencies: {
             "@atomist/antlr": {
-                "version": paramsToUse.antlrVersion,
-                "resolved": "https://registry.npmjs.org/@atomist/antlr/-/antlr-0.2.0.tgz",
-                "integrity": "sha512-UM76Knaans8ZYn/4aKWx/EVnLqsjsFqnDuaObC08A0o7sr+m7xeBt3LyWfB2jTfIjXFztKG02DA9sHtGspAI/Q==",
-                "requires": {
+                version: paramsToUse.antlrVersion,
+                resolved: "https://registry.npmjs.org/@atomist/antlr/-/antlr-0.2.0.tgz",
+                integrity: "sha512-UM76Knaans8ZYn/4aKWx/EVnLqsjsFqnDuaObC08A0o7sr+m7xeBt3LyWfB2jTfIjXFztKG02DA9sHtGspAI/Q==",
+                requires: {
                     "@atomist/automation-client": "0.6.6",
                     "antlr4ts": "0.4.1-alpha.0",
-                    "lodash": "4.17.5"
-                }
-            }
-        }
+                    "lodash": "4.17.5",
+                },
+            },
+        },
     }, null, 2);
 }
