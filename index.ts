@@ -36,6 +36,7 @@ export {
 export {
     nodeSupport,
     NodeSupportOptions,
+    NodeConfiguration,
 } from "./lib/nodeSupport";
 
 export { TryToUpdateAtomistDependencies } from "./lib/transform/tryToUpdateAtomistDependencies";
