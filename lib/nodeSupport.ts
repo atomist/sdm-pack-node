@@ -37,7 +37,14 @@ export interface NodeConfiguration {
             enabled?: boolean,
             access?: "public" | "restricted",
             tag?: {
-                defaultBranch?: string,
+                /**
+                 * When creating a version name, we usually include the name of the branch unless it's the default branch.
+                 * Should we include the name of the branch even when it's the default branch?
+                 *
+                 * If this is true, the version will look like 1.0.0-master.yyyymmddHHMMss
+                 * If this is false, the version on the default branch will look like 1.0.0-yyyymmddHHMMss
+                 */
+                defaultBranch?: boolean,
             },
         },
     };

@@ -26,8 +26,7 @@ export const NodeProjectVersioner: ProjectVersioner = async (sdmGoal, p) => {
     const branch = sdmGoal.branch.split("/").join(".");
 
     const tagMaster = await projectConfigurationValue<NodeConfiguration["npm"]["publish"]["tag"]["defaultBranch"]>(
-        // tslint:disable-next-line:no-null-keyword
-        "npm.publish.tag.defaultBranch", p, null);
+        "npm.publish.tag.defaultBranch", p, false);
 
     let branchSuffix = "";
     if (tagMaster) {
