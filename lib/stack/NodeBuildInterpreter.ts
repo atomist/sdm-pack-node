@@ -27,7 +27,10 @@ import {
     GoalWithFulfillment,
     isMaterialChange,
 } from "@atomist/sdm";
-import { Version } from "@atomist/sdm-core";
+import {
+    Tag,
+    Version,
+} from "@atomist/sdm-core";
 import {
     AutofixRegisteringInterpreter,
     CodeInspectionRegisteringInterpreter,
@@ -71,6 +74,8 @@ export class NodeBuildInterpreter implements Interpreter, AutofixRegisteringInte
             action: runFingerprints(fingerprintRunner([NpmDependencyFingerprint])),
         });
 
+    private readonly tagGoal: Tag = new Tag();
+
     private readonly buildGoal: Build;
 
     private readonly testGoal: Goal;
@@ -97,6 +102,10 @@ export class NodeBuildInterpreter implements Interpreter, AutofixRegisteringInte
                 interpretation.buildGoals = goals("build")
                     .plan(this.versionGoal);
             }
+        }
+
+        if (hasTest || hasBuild) {
+            interpretation.releaseGoals = goals("release").plan(this.tagGoal);
         }
 
         let checkGoals: Goals & GoalsBuilder = goals("checks");
