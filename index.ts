@@ -32,6 +32,10 @@ export {
     TslintInspection,
     tsLintReviewCategory,
 } from "./lib/inspection/tslint";
+export {
+    NpmAuditInspection,
+    npmAuditReviewCategory,
+} from "./lib/inspection/npmaudit";
 
 export {
     nodeSupport,
