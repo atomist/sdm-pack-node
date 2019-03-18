@@ -49,7 +49,6 @@
     "@atomist/sdm": ">=1.3.0",
     "@atomist/sdm-core": ">=1.3.0",
     "@atomist/sdm-pack-build": ">=1.0.3",
-    "@atomist/sdm-pack-analysis": ">=0.1.0",
     "@atomist/sdm-pack-fingerprints": ">=2.0.0",
     "@atomist/slack-messages": ">=1.1.0"
   },
@@ -57,7 +56,6 @@
     "@atomist/automation-client": "1.3.0-master.20190221221959",
     "@atomist/sdm": "1.3.0-master.20190226090409",
     "@atomist/sdm-core": "1.3.0-master.20190121222307",
-    "@atomist/sdm-pack-analysis": "0.1.0-master.20190303102547",
     "@atomist/sdm-pack-build": "1.0.4-master.20181217220011",
     "@atomist/sdm-pack-fingerprints": "2.0.0-updates.20190208003156",
     "@atomist/slack-messages": "^1.1.0",
