@@ -42,7 +42,7 @@ export const NpmAuditAutofix: AutofixRegistration = {
         try {
             await execPromise(
                 "npm",
-                ["audit", "fix"],
+                ["audit", "fix", "--package-lock-only"],
                 {
                     cwd,
                     ...DevelopmentEnvOptions,
