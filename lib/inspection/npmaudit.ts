@@ -81,11 +81,11 @@ export function mapNpmAuditResultsToReviewComments(npmAuditOutput: string, dir: 
             details = `${details} ${italic(v.recommendation.trim())}`;
         }
         if (!!v.cves && v.cves.length > 0) {
-            details = `${details} - ${v.cves.map(c => `[${c}](https://nvd.nist.gov/vuln/detail/${c})`)}`;
+            details = `${details} - ${v.cves.map(c => `[${c}](https://nvd.nist.gov/vuln/detail/${c})`).join(" ")}`;
         }
         if (!!v.findings && v.findings.length > 0) {
-            const findings = v.findings.map(f => `\n  - ${codeLine(`${v.module_name}:${f.version}`)}: ${(f.paths || []).map(p => `\n    - ${codeLine(p)}`)}`);
-            details = `${details} ${findings}`;
+            const findings = v.findings.map(f => `\n  - ${codeLine(`${v.module_name}:${f.version}`)}: ${(f.paths || []).map(p => `\n    - ${codeLine(p)}`).join("")}`);
+            details = `${details} ${findings.join("")}`;
         }
         let severity: Severity;
         switch (v.severity) {
