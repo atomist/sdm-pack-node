@@ -28,7 +28,10 @@ import {
     CodeInspectionRegistration,
     spawnPromise,
 } from "@atomist/sdm";
-import { codeLine } from "@atomist/slack-messages";
+import {
+    codeLine,
+    italic,
+} from "@atomist/slack-messages";
 import * as _ from "lodash";
 
 export interface NpmAuditAdvisory {
@@ -39,6 +42,7 @@ export interface NpmAuditAdvisory {
     findings: Array<{ version: string, paths: string[] }>;
     cves: string[];
     url: string;
+    recommendation: string;
 }
 
 export interface NpmAuditResult {
@@ -73,11 +77,14 @@ export function mapNpmAuditResultsToReviewComments(npmAuditOutput: string, dir: 
     return _.map(results.advisories, v => {
         const rule = `${v.module_name}:${v.vulnerable_versions}`;
         let details = `[${v.title}](${v.url})`;
+        if (!!v.recommendation) {
+            details = `${details} ${italic(v.recommendation.trim())}`;
+        }
         if (!!v.cves && v.cves.length > 0) {
             details = `${details} - ${v.cves.map(c => `[${c}](https://nvd.nist.gov/vuln/detail/${c})`)}`;
         }
         if (!!v.findings && v.findings.length > 0) {
-            const findings = v.findings.map(f => `\n  - ${codeLine(`${v.module_name}:${f.version}`)}: ${(f.paths || []).map(p => codeLine(p))}`);
+            const findings = v.findings.map(f => `\n  - ${codeLine(`${v.module_name}:${f.version}`)}: ${(f.paths || []).map(p => `\n    - ${codeLine(p)}`)}`);
             details = `${details} ${findings}`;
         }
         let severity: Severity;
@@ -85,11 +92,14 @@ export function mapNpmAuditResultsToReviewComments(npmAuditOutput: string, dir: 
             case "info":
             case "low":
                 severity = "info";
+                break;
             case "moderate":
                 severity = "warn";
+                break;
             case "high":
             case "critical":
                 severity = "error";
+                break;
         }
 
         return npmAuditReviewComment(details, rule, severity);
