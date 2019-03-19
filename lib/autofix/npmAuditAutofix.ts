@@ -23,6 +23,7 @@ import {
     execPromise,
     hasFile,
 } from "@atomist/sdm";
+import { DevelopmentEnvOptions } from "../build/npmBuilder";
 
 const Package = "package.json";
 
@@ -39,7 +40,13 @@ export const NpmAuditAutofix: AutofixRegistration = {
 
         const cwd = p.baseDir;
         try {
-            await execPromise("npm", ["audit", "fix"], { cwd });
+            await execPromise(
+                "npm",
+                ["audit", "fix"],
+                {
+                    cwd,
+                    ...DevelopmentEnvOptions,
+                });
         } catch (e) {
             logger.warn(`Failed to run npm audit fix: ${e.message}`);
         }
