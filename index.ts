@@ -17,6 +17,7 @@
 export { TypeScriptImportsAutofix } from "./lib/autofix/typescript/tsImports";
 export { TslintAutofix } from "./lib/autofix/typescript/tslintAutofix";
 export { EslintAutofix } from "./lib/autofix/eslintAutofix";
+export { NpmAuditAutofix } from "./lib/autofix/npmAuditAutofix";
 export { PackageJsonFormatingAutofix } from "./lib/autofix/packageJsonFormat";
 export { PackageLockUrlRewriteAutofix } from "./lib/autofix/packageLockUrlRewriteAutofix";
 export { AddThirdPartyLicenseAutofix } from "./lib/autofix/thirdPartyLicense";
