@@ -49,7 +49,7 @@ export interface NpmAuditResult {
     advisories: { [id: string]: NpmAuditAdvisory };
 }
 
-export const npmAuditReviewCategory = "npm-audit";
+export const npmAuditReviewCategory = "npm audit";
 
 function npmAuditReviewComment(
     detail: string,
