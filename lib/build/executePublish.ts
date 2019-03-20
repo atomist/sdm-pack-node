@@ -36,6 +36,7 @@ import {
 } from "@atomist/sdm-core";
 import * as fs from "fs-extra";
 import * as p from "path";
+import { NodeConfiguration } from "../nodeSupport";
 
 /**
  * Execute npm publish
@@ -54,7 +55,7 @@ export function executePublish(
 
     return doWithProject(async goalInvocation => {
         const { credentials, id, project } = goalInvocation;
-        if (!(await projectConfigurationValue<boolean>("npm.publish.enabled", project, true))) {
+        if (!(await projectConfigurationValue<NodeConfiguration["npm"]["publish"]["enabled"]>("npm.publish.enabled", project, true))) {
             return {
                 code: 0,
                 description: "Publish disabled",
@@ -70,7 +71,8 @@ export function executePublish(
         if (options.registry) {
             args.push("--registry", options.registry);
         }
-        const access = await projectConfigurationValue("npm.publish.access", project, options.access);
+        const access = await projectConfigurationValue<NodeConfiguration["npm"]["publish"]["access"]>("npm.publish.access",
+            project, options.access);
         if (access) {
             args.push("--access", access);
         }
