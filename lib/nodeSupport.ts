@@ -24,7 +24,6 @@ import {
 } from "@atomist/sdm";
 import { AddBuildScript } from "./autofix/addBuildScript";
 import { TslintAutofix } from "./autofix/typescript/tslintAutofix";
-import { PackageLockFingerprint } from "./fingerprint/PackageLockFingerprint";
 import { CommonTypeScriptErrors } from "./reviewer/typescript/commonTypeScriptErrors";
 import { DontImportOwnIndex } from "./reviewer/typescript/dontImportOwnIndex";
 
@@ -117,9 +116,6 @@ export function nodeSupport(options: NodeSupportOptions): ExtensionPack {
                         .with(TslintAutofix)
                         .with(AddBuildScript);
                 }
-            }
-            if (!!options.fingerprintGoal) {
-                options.fingerprintGoal.with(new PackageLockFingerprint());
             }
         },
     };

@@ -22,9 +22,6 @@ export { PackageJsonFormatingAutofix } from "./lib/autofix/packageJsonFormat";
 export { PackageLockUrlRewriteAutofix } from "./lib/autofix/packageLockUrlRewriteAutofix";
 export { AddThirdPartyLicenseAutofix } from "./lib/autofix/thirdPartyLicense";
 
-export { NpmDependencyFingerprint } from "./lib/fingerprint/dependencies";
-export { PackageLockFingerprint } from "./lib/fingerprint/PackageLockFingerprint";
-
 export {
     EslintInspection,
     esLintReviewCategory,
