@@ -54,7 +54,7 @@ export const DefaultNpmAuditOptions = {
  */
 export function npmAuditAutofix(options: NpmAuditOptions = DefaultNpmAuditOptions): AutofixRegistration {
     return {
-        name: "NPM audit",
+        name: "npm audit",
         pushTest: hasFile(Package),
         transform: async p => {
             if (!isLocalProject(p)) {
