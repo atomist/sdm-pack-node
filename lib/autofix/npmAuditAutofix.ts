@@ -36,7 +36,12 @@ export interface NpmAuditFixResult {
     moved: [];
 }
 
+/**
+ * Options to configure the npm audit support
+ */
 export interface NpmAuditOptions {
+
+    /** Only process the package lock file */
     packageLockOnly?: boolean;
 }
 
