@@ -34,8 +34,6 @@ export interface NpmAuditFixResult {
     removed: [];
     updated: [];
     moved: [];
-    failed: [];
-    warnings: [];
 }
 
 /**
@@ -62,8 +60,8 @@ export const NpmAuditAutofix: AutofixRegistration = {
 
             const npmAudit = JSON.parse(npmAuditResult.stdout) as NpmAuditFixResult;
 
-            if (_.isEmpty(npmAudit.added) && _.isEmpty(npmAudit.failed) && _.isEmpty(npmAudit.moved)
-                && _.isEmpty(npmAudit.removed) && _.isEmpty(npmAudit.updated) && _.isEmpty(npmAudit.warnings)) {
+            if (_.isEmpty(npmAudit.added) && _.isEmpty(npmAudit.moved)
+                && _.isEmpty(npmAudit.removed) && _.isEmpty(npmAudit.updated)) {
                 await (p as GitProject).revert();
             }
 
