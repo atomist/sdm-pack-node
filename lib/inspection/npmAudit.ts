@@ -33,6 +33,10 @@ import {
     italic,
 } from "@atomist/slack-messages";
 import * as _ from "lodash";
+import {
+    DefaultNpmAuditOptions,
+    NpmAuditOptions,
+} from "../autofix/npmAuditAutofix";
 
 export interface NpmAuditAdvisory {
     module_name: string;
@@ -108,33 +112,42 @@ export function mapNpmAuditResultsToReviewComments(npmAuditOutput: string): Revi
     });
 }
 
-export const RunNpmAuditOnProject: CodeInspection<ProjectReview, NoParameters> = async (p: Project) => {
-    const review: ProjectReview = { repoId: p.id, comments: [] };
+export function runNpmAuditOnProject(options: NpmAuditOptions = DefaultNpmAuditOptions): CodeInspection<ProjectReview, NoParameters> {
+    return async (p: Project) => {
+        const review: ProjectReview = { repoId: p.id, comments: [] };
 
-    if (!isLocalProject(p)) {
-        logger.error(`Project ${p.name} is not a local project`);
-        return review;
-    }
-
-    const cwd = p.baseDir;
-
-    try {
-        const npmAuditResult = await spawnPromise("npm", ["audit", "--json"], { cwd });
-        if (npmAuditResult.stderr) {
-            logger.debug(`npm audit standard error from ${p.name}: ${npmAuditResult.stderr}`);
+        if (!isLocalProject(p)) {
+            logger.error(`Project ${p.name} is not a local project`);
+            return review;
         }
-        const comments = mapNpmAuditResultsToReviewComments(npmAuditResult.stdout);
-        review.comments.push(...comments);
-    } catch (e) {
-        logger.error(`Failed to run npm audit: ${e.message}`);
-    }
 
-    return review;
-};
+        const cwd = p.baseDir;
 
-export const NpmAuditInspection: CodeInspectionRegistration<ProjectReview, NoParameters> = {
-    name: "NpmAuditInspection",
-    description: "Run npm audit on project",
-    inspection: RunNpmAuditOnProject,
-    intent: "npm audit",
-};
+        const args = ["audit", "--json"];
+        if (options.packageLockOnly === true) {
+            args.push("--package-lock-only");
+        }
+
+        try {
+            const npmAuditResult = await spawnPromise("npm", args, { cwd });
+            if (npmAuditResult.stderr) {
+                logger.debug(`npm audit standard error from ${p.name}: ${npmAuditResult.stderr}`);
+            }
+            const comments = mapNpmAuditResultsToReviewComments(npmAuditResult.stdout);
+            review.comments.push(...comments);
+        } catch (e) {
+            logger.error(`Failed to run npm audit: ${e.message}`);
+        }
+
+        return review;
+    };
+}
+
+export function npmAuditInspection(options: NpmAuditOptions = DefaultNpmAuditOptions): CodeInspectionRegistration<ProjectReview, NoParameters> {
+    return {
+        name: "NpmAuditInspection",
+        description: "Run npm audit on project",
+        inspection: runNpmAuditOnProject(options),
+        intent: "npm audit",
+    };
+}

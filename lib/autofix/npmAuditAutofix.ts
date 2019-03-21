@@ -36,39 +36,54 @@ export interface NpmAuditFixResult {
     moved: [];
 }
 
+export interface NpmAuditOptions {
+    packageLockOnly?: boolean;
+}
+
+export const DefaultNpmAuditOptions = {
+    packageLockOnly: true,
+}
+
 /**
  * Autofix to run npm audit fix on a project.
  */
-export const NpmAuditAutofix: AutofixRegistration = {
-    name: "NPM audit",
-    pushTest: hasFile(Package),
-    transform: async p => {
-        if (!isLocalProject(p)) {
-            return p;
-        }
-
-        const cwd = p.baseDir;
-        try {
-
-            const npmAuditResult = await execPromise(
-                "npm",
-                ["audit", "fix", "--package-lock-only", "--json"],
-                {
-                    cwd,
-                    ...DevelopmentEnvOptions,
-                });
-
-            const npmAudit = JSON.parse(npmAuditResult.stdout) as NpmAuditFixResult;
-
-            if (_.isEmpty(npmAudit.added) && _.isEmpty(npmAudit.moved)
-                && _.isEmpty(npmAudit.removed) && _.isEmpty(npmAudit.updated)) {
-                await (p as GitProject).revert();
+export function npmAuditAutofix(options: NpmAuditOptions = DefaultNpmAuditOptions): AutofixRegistration {
+    return {
+        name: "NPM audit",
+        pushTest: hasFile(Package),
+        transform: async p => {
+            if (!isLocalProject(p)) {
+                return p;
             }
 
-        } catch (e) {
-            logger.warn(`Failed to run npm audit fix: ${e.message}`);
-        }
+            const cwd = p.baseDir;
+            try {
 
-        return p;
-    },
-};
+                const args = ["audit", "fix", "--json"];
+                if (options.packageLockOnly === true) {
+                    args.push("--package-lock-only");
+                }
+
+                const npmAuditResult = await execPromise(
+                    "npm",
+                    args,
+                    {
+                        cwd,
+                        ...DevelopmentEnvOptions,
+                    });
+
+                const npmAudit = JSON.parse(npmAuditResult.stdout) as NpmAuditFixResult;
+
+                if (_.isEmpty(npmAudit.added) && _.isEmpty(npmAudit.moved)
+                    && _.isEmpty(npmAudit.removed) && _.isEmpty(npmAudit.updated)) {
+                    await (p as GitProject).revert();
+                }
+
+            } catch (e) {
+                logger.warn(`Failed to run npm audit fix: ${e.message}`);
+            }
+
+            return p;
+        },
+    };
+}
