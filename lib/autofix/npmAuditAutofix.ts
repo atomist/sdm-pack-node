@@ -15,6 +15,7 @@
  */
 
 import {
+    GitProject,
     isLocalProject,
     logger,
 } from "@atomist/automation-client";
@@ -23,9 +24,19 @@ import {
     execPromise,
     hasFile,
 } from "@atomist/sdm";
+import * as _ from "lodash";
 import { DevelopmentEnvOptions } from "../build/npmBuilder";
 
 const Package = "package.json";
+
+export interface NpmAuditFixResult {
+    added: [];
+    removed: [];
+    updated: [];
+    moved: [];
+    failed: [];
+    warnings: [];
+}
 
 /**
  * Autofix to run npm audit fix on a project.
@@ -40,13 +51,22 @@ export const NpmAuditAutofix: AutofixRegistration = {
 
         const cwd = p.baseDir;
         try {
-            await execPromise(
+
+            const npmAuditResult = await execPromise(
                 "npm",
-                ["audit", "fix", "--package-lock-only"],
+                ["audit", "fix", "--package-lock-only", "--json"],
                 {
                     cwd,
                     ...DevelopmentEnvOptions,
                 });
+
+            const npmAudit = JSON.parse(npmAuditResult.stdout) as NpmAuditFixResult;
+
+            if (_.isEmpty(npmAudit.added) && _.isEmpty(npmAudit.failed) && _.isEmpty(npmAudit.moved)
+                && _.isEmpty(npmAudit.removed) && _.isEmpty(npmAudit.updated) && _.isEmpty(npmAudit.warnings)) {
+                await (p as GitProject).revert();
+            }
+
         } catch (e) {
             logger.warn(`Failed to run npm audit fix: ${e.message}`);
         }

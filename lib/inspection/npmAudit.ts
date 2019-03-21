@@ -46,6 +46,7 @@ export interface NpmAuditAdvisory {
 }
 
 export interface NpmAuditResult {
+    actions: any[];
     advisories: { [id: string]: NpmAuditAdvisory };
 }
 
@@ -65,7 +66,7 @@ function npmAuditReviewComment(
     };
 }
 
-export function mapNpmAuditResultsToReviewComments(npmAuditOutput: string, dir: string): ReviewComment[] {
+export function mapNpmAuditResultsToReviewComments(npmAuditOutput: string): ReviewComment[] {
     let results: NpmAuditResult;
     try {
         results = JSON.parse(npmAuditOutput);
@@ -84,7 +85,8 @@ export function mapNpmAuditResultsToReviewComments(npmAuditOutput: string, dir: 
             details = `${details} - ${v.cves.map(c => `[${c}](https://nvd.nist.gov/vuln/detail/${c})`).join(" ")}`;
         }
         if (!!v.findings && v.findings.length > 0) {
-            const findings = v.findings.map(f => `\n  - ${codeLine(`${v.module_name}:${f.version}`)}: ${(f.paths || []).map(p => `\n    - ${codeLine(p)}`).join("")}`);
+            const findings = v.findings.map(f => `\n  - ${
+                codeLine(`${v.module_name}:${f.version}`)}: ${(f.paths || []).map(p => `\n    - ${codeLine(p)}`).join("")}`);
             details = `${details} ${findings.join("")}`;
         }
         let severity: Severity;
@@ -121,7 +123,7 @@ export const RunNpmAuditOnProject: CodeInspection<ProjectReview, NoParameters> =
         if (npmAuditResult.stderr) {
             logger.debug(`npm audit standard error from ${p.name}: ${npmAuditResult.stderr}`);
         }
-        const comments = mapNpmAuditResultsToReviewComments(npmAuditResult.stdout, p.baseDir);
+        const comments = mapNpmAuditResultsToReviewComments(npmAuditResult.stdout);
         review.comments.push(...comments);
     } catch (e) {
         logger.error(`Failed to run npm audit: ${e.message}`);

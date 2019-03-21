@@ -33,7 +33,7 @@ export {
 export {
     NpmAuditInspection,
     npmAuditReviewCategory,
-} from "./lib/inspection/npmaudit";
+} from "./lib/inspection/npmAudit";
 
 export {
     nodeSupport,
