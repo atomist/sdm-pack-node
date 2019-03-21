@@ -47,7 +47,7 @@ export interface NpmAuditOptions {
 
 export const DefaultNpmAuditOptions = {
     packageLockOnly: true,
-}
+};
 
 /**
  * Autofix to run npm audit fix on a project.
