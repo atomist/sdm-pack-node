@@ -46,7 +46,7 @@ export interface TslintFix {
 
 /**
  * Manually created interface representing the JSON output of the
- * TslintAutofix command-line utility.
+ * tslint command-line utility.
  */
 export interface TslintResult {
     endPosition: TslintPosition;
@@ -60,7 +60,7 @@ export interface TslintResult {
 
 export type TslintResults = TslintResult[];
 
-export const tsLintReviewCategory = "TslintAutofix";
+export const tsLintReviewCategory = "Tslint";
 
 /**
  * Return a review comment for a TSLint violation.
@@ -85,7 +85,7 @@ function tslintReviewComment(
  * Convert the JSON output of TSLint to proper ReviewComments.  If any
  * part of the process fails, an empty array is returned.
  *
- * @param tslintOutput string output from running `TslintAutofix` that will be parsed and converted.
+ * @param tslintOutput string output from running `tslint` that will be parsed and converted.
  * @return TSLint errors and warnings as ReviewComments
  */
 export function mapTslintResultsToReviewComments(tslintOutput: string, dir: string): ReviewComment[] {
@@ -111,7 +111,7 @@ export function mapTslintResultsToReviewComments(tslintOutput: string, dir: stri
 }
 
 /**
- * Run TSLint on a project with a TslintAutofix.json file, using the standard
+ * Run TSLint on a project with a tslint.json file, using the standard
  * version of TSLint and its configuration, i.e., the ones in this
  * project.  At most 20 TSLint violations are returned, since they are
  * used to create a GitHub issue and if the body of that POST is too
@@ -119,13 +119,13 @@ export function mapTslintResultsToReviewComments(tslintOutput: string, dir: stri
  */
 export const RunTslintOnProject: CodeInspection<ProjectReview, NoParameters> = async (p: Project) => {
     const review: ProjectReview = { repoId: p.id, comments: [] };
-    const tslintJson = "TslintAutofix.json";
+    const tslintJson = "tslint.json";
     const tslintConfigFile = await p.getFile(tslintJson);
     if (!tslintConfigFile) {
         return review;
     }
     const baseDir = appRoot.path;
-    const tslintExe = path.join(baseDir, "node_modules", ".bin", "TslintAutofix");
+    const tslintExe = path.join(baseDir, "node_modules", ".bin", "tslint");
     const tslintConfig = path.join(baseDir, tslintJson);
 
     if (!isLocalProject(p)) {
@@ -162,5 +162,5 @@ export const TslintInspection: CodeInspectionRegistration<ProjectReview, NoParam
     name: "RunTSLint",
     description: "Run TSLint on project",
     inspection: RunTslintOnProject,
-    intent: "TslintAutofix",
+    intent: "ts lint",
 };
