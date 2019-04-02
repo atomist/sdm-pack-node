@@ -17,6 +17,7 @@
 import {
     GitProject,
     guid,
+    LocalProject,
     Project,
     RemoteRepoRef,
 } from "@atomist/automation-client";
@@ -43,6 +44,7 @@ import * as fs from "fs-extra";
 import * as hash from "hasha";
 import * as _ from "lodash";
 import { IsNode } from "../pushtest/nodePushTests";
+import { PackageJson } from "../util/PackageJson";
 import { NpmLogInterpreter } from "./npmLogInterpreter";
 
 /**
@@ -141,14 +143,24 @@ export const NpmVersionProjectListener: GoalProjectListenerRegistration = {
 };
 
 export async function npmCompilePreparation(p: GitProject, goalInvocation: GoalInvocation): Promise<ExecuteGoalResult> {
-    return spawnLog(
-        "npm",
-        ["run", "compile"],
-        {
-            cwd: p.baseDir,
-            ...DevelopmentEnvOptions,
-            log: goalInvocation.progressLog,
-        });
+    if (await hasCompileScriptInPackageJson(p)) {
+        return spawnLog(
+            "npm",
+            ["run", "compile"],
+            {
+                cwd: p.baseDir,
+                ...DevelopmentEnvOptions,
+                log: goalInvocation.progressLog,
+            });
+    } else {
+        return { code: 0 };
+    }
+}
+
+async function hasCompileScriptInPackageJson(p: LocalProject): Promise<boolean> {
+    const rawPj = await p.getFile("package.json");
+    const pj: PackageJson = JSON.parse(await rawPj.getContent()) as PackageJson;
+    return pj.scripts.compile !== undefined;
 }
 
 export const NpmCompileProjectListener: GoalProjectListenerRegistration = {
