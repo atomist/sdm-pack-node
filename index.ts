@@ -17,12 +17,10 @@
 export { TypeScriptImportsAutofix } from "./lib/autofix/typescript/tsImports";
 export { TslintAutofix } from "./lib/autofix/typescript/tslintAutofix";
 export { EslintAutofix } from "./lib/autofix/eslintAutofix";
+export { npmAuditAutofix } from "./lib/autofix/npmAuditAutofix";
 export { PackageJsonFormatingAutofix } from "./lib/autofix/packageJsonFormat";
 export { PackageLockUrlRewriteAutofix } from "./lib/autofix/packageLockUrlRewriteAutofix";
 export { AddThirdPartyLicenseAutofix } from "./lib/autofix/thirdPartyLicense";
-
-export { NpmDependencyFingerprint } from "./lib/fingerprint/dependencies";
-export { PackageLockFingerprint } from "./lib/fingerprint/PackageLockFingerprint";
 
 export {
     EslintInspection,
@@ -32,10 +30,15 @@ export {
     TslintInspection,
     tsLintReviewCategory,
 } from "./lib/inspection/tslint";
+export {
+    npmAuditInspection,
+    npmAuditReviewCategory,
+} from "./lib/inspection/npmAudit";
 
 export {
     nodeSupport,
     NodeSupportOptions,
+    NodeConfiguration,
 } from "./lib/nodeSupport";
 
 export { TryToUpdateAtomistDependencies } from "./lib/transform/tryToUpdateAtomistDependencies";
