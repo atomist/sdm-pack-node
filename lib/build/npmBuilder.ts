@@ -160,7 +160,7 @@ export async function npmCompilePreparation(p: GitProject, goalInvocation: GoalI
 async function hasCompileScriptInPackageJson(p: LocalProject): Promise<boolean> {
     const rawPj = await p.getFile("package.json");
     const pj: PackageJson = JSON.parse(await rawPj.getContent()) as PackageJson;
-    return pj.scripts.compile !== undefined;
+    return !!pj.scripts && !!pj.scripts.compile;
 }
 
 export const NpmCompileProjectListener: GoalProjectListenerRegistration = {
