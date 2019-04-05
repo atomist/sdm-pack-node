@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/atomist/sdm-pack-node/compare/1.0.3...HEAD)
 
+### Changed
+
+-   Check existence of compile script before trying goal preparation. [#38](https://github.com/atomist/sdm-pack-node/issues/38)
+
 ### Fixed
 
 -   Fix accidential replace of tslint. [f2dfac0](https://github.com/atomist/sdm-pack-node/commit/f2dfac0a199d7cf7cab2fb7054685335fab23a71)
