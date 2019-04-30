@@ -18,11 +18,8 @@ import {
     GitProject,
     guid,
     LocalProject,
-    Project,
-    RemoteRepoRef,
 } from "@atomist/automation-client";
 import {
-    AppInfo,
     ExecuteGoalResult,
     GoalInvocation,
     GoalProjectListenerEvent,
@@ -74,12 +71,6 @@ function npmBuilderOptions(commands: SpawnLogCommand[]): SpawnBuilderOptions {
         commands,
         errorFinder: SuccessIsReturn0ErrorFinder,
         logInterpreter: NpmLogInterpreter,
-        async projectToAppInfo(p: Project): Promise<AppInfo> {
-            const packageJson = await p.findFile("package.json");
-            const content = await packageJson.getContent();
-            const pkg = JSON.parse(content);
-            return { id: p.id as RemoteRepoRef, name: pkg.name, version: pkg.version };
-        },
     };
 }
 
@@ -91,12 +82,6 @@ export function npmBuilderOptionsFromFile(commandFile: string): SpawnBuilderOpti
             return l.log.startsWith("[error]") || l.log.includes("ERR!");
         },
         logInterpreter: NpmLogInterpreter,
-        async projectToAppInfo(p: Project): Promise<AppInfo> {
-            const packageJson = await p.findFile("package.json");
-            const content = await packageJson.getContent();
-            const pkg = JSON.parse(content);
-            return { id: p.id as RemoteRepoRef, name: pkg.name, version: pkg.version };
-        },
     };
 }
 

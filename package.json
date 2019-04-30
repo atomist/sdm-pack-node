@@ -53,9 +53,9 @@
   },
   "devDependencies": {
     "@atomist/automation-client": "^1.3.0",
-    "@atomist/sdm": "1.3.0",
-    "@atomist/sdm-core": "1.3.0",
-    "@atomist/sdm-pack-build": "1.0.4",
+    "@atomist/sdm": "^1.5.0-remove-deployer.20190430085219",
+    "@atomist/sdm-core": "^1.5.0-remove-deployer.20190430091923",
+    "@atomist/sdm-pack-build": "^1.0.5-remove-deployer.20190430103430",
     "@atomist/slack-messages": "^1.1.0",
     "@types/mocha": "^5.2.5",
     "@types/node": "^10.12.3",
