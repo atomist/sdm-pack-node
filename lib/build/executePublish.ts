@@ -35,7 +35,6 @@ import {
     ProjectIdentifier,
 } from "@atomist/sdm-core";
 import * as fs from "fs-extra";
-import * as _ from "lodash";
 import * as p from "path";
 import { NodeConfiguration } from "../nodeSupport";
 
@@ -81,14 +80,28 @@ export function executePublish(
         if (!!options.tag) {
             args.push("--tag", options.tag);
         } else {
-            args.push(..._.flatten(
-                gitBranchToNpmTag(id.branch, goalEvent.push.repo.defaultBranch).map(t => ["--tag", t])));
+            args.push("--tag", gitBranchToNpmTag(id.branch));
         }
 
-        const result: ExecuteGoalResult = await goalInvocation.spawn("bash", args);
+        let result: ExecuteGoalResult = await goalInvocation.spawn("bash", args);
 
         if (result.code === 0) {
+
             const pi = await projectIdentifier(project);
+
+            // Additionally publish the next tag
+            if (goalEvent.push.repo.defaultBranch === goalEvent.branch && options.nextTag !== false) {
+                const nextArgs = ["dist-tag", "add", `${pi.name}@${pi.version}`, "next"];
+                if (!!options.registry) {
+                    nextArgs.push("--registry", options.registry);
+                }
+                result = await goalInvocation.spawn("npm", nextArgs);
+
+                if (result.code !== 0) {
+                    return result;
+                }
+            }
+
             const url = `${options.registry}/${pi.name}/-/${pi.name}-${pi.version}.tgz`;
             result.externalUrls = [{
                 label: "NPM package",
@@ -157,16 +170,14 @@ export interface NpmOptions {
     access?: "public" | "restricted";
     /** Optional publication tag, use NPM default if not present, currently "latest" */
     tag?: string;
+    /** Optionally tag default branch builds with the next dist-tag */
+    nextTag?: boolean;
     /** Optional flag, to indicate if a status should be created on the SCM containing a link to the package */
     status?: boolean;
 }
 
-export function gitBranchToNpmTag(branchName: string, defaultBranchName: string = "master"): string[] {
-    const tags = [`branch-${gitBranchToNpmVersion(branchName)}`];
-    if (branchName === defaultBranchName) {
-        tags.push("next");
-    }
-    return tags;
+export function gitBranchToNpmTag(branchName: string): string {
+    return `branch-${gitBranchToNpmVersion(branchName)}`;
 }
 
 export function gitBranchToNpmVersion(branchName: string): string {
