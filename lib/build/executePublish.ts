@@ -163,5 +163,7 @@ export function gitBranchToNpmTag(branchName: string): string {
 }
 
 export function gitBranchToNpmVersion(branchName: string): string {
-    return branchName.replace(/\//g, "-").replace(/_/g, "-");
+    return branchName.replace(/\//g, "-")
+        .replace(/_/g, "-")
+        .replace(/@/g, "");
 }
