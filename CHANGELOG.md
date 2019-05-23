@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/atomist/sdm-pack-node/compare/1.0.3...HEAD)
 
+### Added
+
+-   Add next dist tag on publish from default branch. [a94e785](https://github.com/atomist/sdm-pack-node/commit/a94e785122c69f857ed272ca613c988537e5950f)
+
 ### Changed
 
 -   Check existence of compile script before trying goal preparation. [#38](https://github.com/atomist/sdm-pack-node/issues/38)
