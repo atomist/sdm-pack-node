@@ -161,7 +161,7 @@ export interface NpmOptions {
     status?: boolean;
 }
 
-export function gitBranchToNpmTag(branchName: string, defaultBranchName = "master"): string[] {
+export function gitBranchToNpmTag(branchName: string, defaultBranchName: string = "master"): string[] {
     const tags = [`branch-${gitBranchToNpmVersion(branchName)}`];
     if (branchName === defaultBranchName) {
         tags.push("next");
