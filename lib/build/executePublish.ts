@@ -35,13 +35,15 @@ import {
     ProjectIdentifier,
 } from "@atomist/sdm-core";
 import * as fs from "fs-extra";
+import * as _ from "lodash";
 import * as p from "path";
 import { NodeConfiguration } from "../nodeSupport";
 
 /**
  * Execute npm publish
  *
- * Tags with branch-name unless the `tag` option is specified
+ * Tags with branch-name unless the `tag` option is specified. If the branch === the repo's default branch
+ * also the next tags is being set
  *
  * @param {ProjectLoader} projectLoader
  * @param {ProjectIdentifier} projectIdentifier
@@ -54,7 +56,7 @@ export function executePublish(
 ): ExecuteGoal {
 
     return doWithProject(async goalInvocation => {
-        const { credentials, id, project } = goalInvocation;
+        const { credentials, id, project, goalEvent } = goalInvocation;
         if (!(await projectConfigurationValue<NodeConfiguration["npm"]["publish"]["enabled"]>("npm.publish.enabled", project, true))) {
             return {
                 code: 0,
@@ -68,7 +70,7 @@ export function executePublish(
         const args: string[] = [
             p.join(__dirname, "..", "..", "assets", "scripts", "npm-publish.bash"),
         ];
-        if (options.registry) {
+        if (!!options.registry) {
             args.push("--registry", options.registry);
         }
         const access = await projectConfigurationValue<NodeConfiguration["npm"]["publish"]["access"]>("npm.publish.access",
@@ -76,10 +78,11 @@ export function executePublish(
         if (access) {
             args.push("--access", access);
         }
-        if (options.tag) {
+        if (!!options.tag) {
             args.push("--tag", options.tag);
         } else {
-            args.push("--tag", gitBranchToNpmTag(id.branch));
+            args.push(..._.flatten(
+                gitBranchToNpmTag(id.branch, goalEvent.push.repo.defaultBranch).map(t => ["--tag", t])));
         }
 
         const result: ExecuteGoalResult = await goalInvocation.spawn("bash", args);
@@ -158,8 +161,12 @@ export interface NpmOptions {
     status?: boolean;
 }
 
-export function gitBranchToNpmTag(branchName: string): string {
-    return `branch-${gitBranchToNpmVersion(branchName)}`;
+export function gitBranchToNpmTag(branchName: string, defaultBranchName = "master"): string[] {
+    const tags = [`branch-${gitBranchToNpmVersion(branchName)}`];
+    if (branchName === defaultBranchName) {
+        tags.push("next");
+    }
+    return tags;
 }
 
 export function gitBranchToNpmVersion(branchName: string): string {

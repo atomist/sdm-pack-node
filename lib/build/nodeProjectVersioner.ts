@@ -14,9 +14,11 @@
  * limitations under the License.
  */
 
-import { projectConfigurationValue } from "@atomist/sdm";
+import {
+    formatDate,
+    projectConfigurationValue,
+} from "@atomist/sdm";
 import { ProjectVersioner } from "@atomist/sdm-core";
-import * as df from "dateformat";
 import { NodeConfiguration } from "../nodeSupport";
 import { gitBranchToNpmVersion } from "./executePublish";
 
@@ -40,5 +42,5 @@ export const NodeProjectVersioner: ProjectVersioner = async (sdmGoal, p) => {
         pjVersion = "0.0.1";
     }
 
-    return `${pjVersion}-${gitBranchToNpmVersion(branchSuffix)}${df(new Date(), "yyyymmddHHMMss")}`;
+    return `${pjVersion}-${gitBranchToNpmVersion(branchSuffix)}${formatDate()}`;
 };
