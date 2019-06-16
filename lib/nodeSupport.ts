@@ -18,7 +18,6 @@ import {
     AutoCodeInspection,
     Autofix,
     ExtensionPack,
-    Fingerprint,
     metadata,
     ReviewListenerRegistration,
 } from "@atomist/sdm";
@@ -73,12 +72,6 @@ export interface NodeSupportOptions {
      * Autofix functionality won't work otherwise.
      */
     autofixGoal?: Autofix;
-
-    /**
-     * Fingerprint goal to add fingerprints to.
-     * Fingerprint functionality won't work otherwise.
-     */
-    fingerprintGoal?: Fingerprint;
 
     review: Categories;
 
