@@ -30,4 +30,5 @@ export const TslintAutofix: AutofixRegistration = spawnAutofix(
     "tslint",
     allSatisfied(IsTypeScript, IsNode, hasFile("tslint.json")),
     { ignoreFailure: true },
-    { command: "npm", args: ["run", "lint:fix"], options: DevelopmentEnvOptions });
+    // Run this with --force to force return code 0 to commit made lint fixes
+    { command: "npm", args: ["run", "lint:fix", "--force"], options: DevelopmentEnvOptions });
