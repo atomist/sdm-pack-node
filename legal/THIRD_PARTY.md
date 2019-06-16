@@ -14,9 +14,9 @@ This page details all runtime OSS dependencies of `@atomist/sdm-pack-node`.
 |[BSD-2-Clause](#bsd-2-clause)|1|
 |[BSD-3-Clause](#bsd-3-clause)|1|
 |[CC-BY-3.0](#cc-by-30)|2|
-|[CC0-1.0](#cc0-10)|2|
+|[CC0-1.0](#cc0-10)|3|
 |[ISC](#isc)|18|
-|[MIT](#mit)|44|
+|[MIT](#mit)|45|
 
 #### Apache-2.0
 Apache License 2.0 - [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
@@ -54,7 +54,8 @@ Creative Commons Zero v1.0 Universal - [http://creativecommons.org/publicdomain/
 | Name | Version | Publisher | Repository |
 |------|---------|-----------|------------|
 |`spdx-license-ids`|`3.0.2`|Shinnosuke Watanabe|[https://github.com/shinnn/spdx-license-ids](https://github.com/shinnn/spdx-license-ids)|
-|`spdx-license-list`|`5.0.0`|Sindre Sorhus|[https://github.com/sindresorhus/spdx-license-list](https://github.com/sindresorhus/spdx-license-list)|
+|`spdx-license-list`|`6.0.0`|Sindre Sorhus|[https://github.com/sindresorhus/spdx-license-list](https://github.com/sindresorhus/spdx-license-list)|
+|`type-fest`|`0.3.1`|Sindre Sorhus|[https://github.com/sindresorhus/type-fest](https://github.com/sindresorhus/type-fest)|
 
 #### ISC
 ISC License - [https://www.isc.org/downloads/software-support-policy/isc-license/](https://www.isc.org/downloads/software-support-policy/isc-license/)
@@ -85,14 +86,14 @@ MIT License - [http://www.opensource.org/licenses/MIT](http://www.opensource.org
 
 | Name | Version | Publisher | Repository |
 |------|---------|-----------|------------|
-|`@types/fs-extra`|`5.0.4`||[https://github.com/DefinitelyTyped/DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped)|
-|`@types/hasha`|`3.0.0`||[https://github.com/DefinitelyTyped/DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped)|
-|`@types/lodash`|`4.14.119`||[https://github.com/DefinitelyTyped/DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped)|
-|`@types/node`|`10.12.15`||[https://github.com/DefinitelyTyped/DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped)|
-|`@types/strip-ansi`|`3.0.0`|Mohamed Hegazy|[https://github.com/DefinitelyTyped/DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped)|
-|`ansi-regex`|`4.0.0`|Sindre Sorhus|[https://github.com/chalk/ansi-regex](https://github.com/chalk/ansi-regex)|
+|`@types/fs-extra`|`7.0.0`||[https://github.com/DefinitelyTyped/DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped)|
+|`@types/hasha`|`3.0.1`||[https://github.com/sindresorhus/hasha](https://github.com/sindresorhus/hasha)|
+|`@types/lodash`|`4.14.134`||[https://github.com/DefinitelyTyped/DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped)|
+|`@types/node`|`12.0.8`||[https://github.com/DefinitelyTyped/DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped)|
+|`@types/strip-ansi`|`5.2.1`||[https://github.com/chalk/strip-ansi](https://github.com/chalk/strip-ansi)|
+|`ansi-regex`|`4.1.0`|Sindre Sorhus|[https://github.com/chalk/ansi-regex](https://github.com/chalk/ansi-regex)|
 |`ansi-styles`|`3.2.1`|Sindre Sorhus|[https://github.com/chalk/ansi-styles](https://github.com/chalk/ansi-styles)|
-|`app-root-path`|`2.1.0`|Chris Morrell|[https://github.com/inxilpro/node-app-root-path](https://github.com/inxilpro/node-app-root-path)|
+|`app-root-path`|`2.2.1`|Chris Morrell|[https://github.com/inxilpro/node-app-root-path](https://github.com/inxilpro/node-app-root-path)|
 |`array-find-index`|`1.0.2`|Sindre Sorhus|[https://github.com/sindresorhus/array-find-index](https://github.com/sindresorhus/array-find-index)|
 |`asap`|`2.0.6`||[https://github.com/kriskowal/asap](https://github.com/kriskowal/asap)|
 |`balanced-match`|`1.0.0`|Julian Gruber|[https://github.com/juliangruber/balanced-match](https://github.com/juliangruber/balanced-match)|
@@ -106,9 +107,9 @@ MIT License - [http://www.opensource.org/licenses/MIT](http://www.opensource.org
 |`debug`|`3.2.6`|TJ Holowaychuk|[https://github.com/visionmedia/debug](https://github.com/visionmedia/debug)|
 |`debuglog`|`1.0.1`|Sam Roberts|[https://github.com/sam-github/node-debuglog](https://github.com/sam-github/node-debuglog)|
 |`escape-string-regexp`|`1.0.5`|Sindre Sorhus|[https://github.com/sindresorhus/escape-string-regexp](https://github.com/sindresorhus/escape-string-regexp)|
-|`fs-extra`|`7.0.1`|JP Richardson|[https://github.com/jprichardson/node-fs-extra](https://github.com/jprichardson/node-fs-extra)|
+|`fs-extra`|`8.0.1`|JP Richardson|[https://github.com/jprichardson/node-fs-extra](https://github.com/jprichardson/node-fs-extra)|
 |`has-flag`|`3.0.0`|Sindre Sorhus|[https://github.com/sindresorhus/has-flag](https://github.com/sindresorhus/has-flag)|
-|`hasha`|`3.0.0`|Sindre Sorhus|[https://github.com/sindresorhus/hasha](https://github.com/sindresorhus/hasha)|
+|`hasha`|`5.0.0`|Sindre Sorhus|[https://github.com/sindresorhus/hasha](https://github.com/sindresorhus/hasha)|
 |`is-builtin-module`|`1.0.0`|Sindre Sorhus|[https://github.com/sindresorhus/is-builtin-module](https://github.com/sindresorhus/is-builtin-module)|
 |`is-stream`|`1.1.0`|Sindre Sorhus|[https://github.com/sindresorhus/is-stream](https://github.com/sindresorhus/is-stream)|
 |`json-parse-better-errors`|`1.0.2`|Kat Marchán|[https://github.com/zkat/json-parse-better-errors](https://github.com/zkat/json-parse-better-errors)|
@@ -124,9 +125,10 @@ MIT License - [http://www.opensource.org/licenses/MIT](http://www.opensource.org
 |`spdx-compare`|`1.0.0`|Kyle E. Mitchell|[https://github.com/kemitchell/spdx-compare.js](https://github.com/kemitchell/spdx-compare.js)|
 |`spdx-expression-parse`|`3.0.0`|Kyle E. Mitchell|[https://github.com/jslicense/spdx-expression-parse.js](https://github.com/jslicense/spdx-expression-parse.js)|
 |`spdx-satisfies`|`4.0.1`|Kyle E. Mitchell|[https://github.com/kemitchell/spdx-satisfies.js](https://github.com/kemitchell/spdx-satisfies.js)|
-|`strip-ansi`|`5.0.0`|Sindre Sorhus|[https://github.com/chalk/strip-ansi](https://github.com/chalk/strip-ansi)|
+|`strip-ansi`|`5.2.0`|Sindre Sorhus|[https://github.com/chalk/strip-ansi](https://github.com/chalk/strip-ansi)|
 |`supports-color`|`5.5.0`|Sindre Sorhus|[https://github.com/chalk/supports-color](https://github.com/chalk/supports-color)|
 |`treeify`|`1.1.0`|Luke Plaster|[https://github.com/notatestuser/treeify](https://github.com/notatestuser/treeify)|
+|`type-fest`|`0.3.1`|Sindre Sorhus|[https://github.com/sindresorhus/type-fest](https://github.com/sindresorhus/type-fest)|
 |`universalify`|`0.1.2`|Ryan Zimmerman|[https://github.com/RyanZim/universalify](https://github.com/RyanZim/universalify)|
 |`util-extend`|`1.0.3`||[https://github.com/isaacs/util-extend](https://github.com/isaacs/util-extend)|
 
