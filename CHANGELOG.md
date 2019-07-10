@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [1.1.1](https://github.com/atomist/sdm-pack-node/compare/1.1.0...1.1.1) - 2019-07-10
 
+### Changed
+
+-   Updated dependencies.
+
 ## [1.1.0](https://github.com/atomist/sdm-pack-node/compare/1.0.3...1.1.0) - 2019-05-23
 
 ### Added
