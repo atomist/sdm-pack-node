@@ -74,6 +74,7 @@ function npmBuilderOptions(commands: SpawnLogCommand[]): SpawnBuilderOptions {
         commands,
         errorFinder: SuccessIsReturn0ErrorFinder,
         logInterpreter: NpmLogInterpreter,
+        // tslint:disable-next-line:deprecation
         async projectToAppInfo(p: Project): Promise<AppInfo> {
             const packageJson = await p.findFile("package.json");
             const content = await packageJson.getContent();
@@ -91,6 +92,7 @@ export function npmBuilderOptionsFromFile(commandFile: string): SpawnBuilderOpti
             return l.log.startsWith("[error]") || l.log.includes("ERR!");
         },
         logInterpreter: NpmLogInterpreter,
+        // tslint:disable-next-line:deprecation
         async projectToAppInfo(p: Project): Promise<AppInfo> {
             const packageJson = await p.findFile("package.json");
             const content = await packageJson.getContent();
