@@ -19,10 +19,12 @@ import * as _ from "lodash";
 
 export const NodeEngineType = "nodeEngine";
 
-export interface NodeEngineData {
+export interface Engine {
   name: string;
   version: string;
 }
+
+export declare type NodeEngineData = Engine[];
 /**
  * Construct an engine fingerprint from the given engine and its version
  * @param {string} name
@@ -32,7 +34,7 @@ export interface NodeEngineData {
 export function createEngineFingerprint(
   name: string,
   version: string,
-): FP<NodeEngineData> {
+): FP<Engine> {
   const data = { name, version };
   return {
     type: NodeEngineType,
@@ -45,22 +47,20 @@ export function createEngineFingerprint(
 }
 
 export const nodeEngineFingerprint: ExtractFingerprint<
-  NodeEngineData
+  FP<NodeEngineData>
 > = async p => {
-  const file = await p.getFile("package.json");
-
-  if (file) {
-    const jsonData = JSON.parse(await file.getContent());
-    const engines = _.merge(jsonData.engines || {});
-
-    const fingerprints: FP[] = [];
-
-    for (const [name, version] of Object.entries(engines)) {
-      fingerprints.push(createEngineFingerprint(name, version as string));
-    }
-
-    return fingerprints;
-  } else {
+  const pkg = await p.getFile("package.json");
+  if (!pkg) {
     return undefined;
   }
+
+  const jsonData = JSON.parse(await pkg.getContent());
+  const engines = _.merge(jsonData.engines || {});
+  const fingerprints: FP[] = [];
+
+  for (const [name, version] of Object.entries(engines)) {
+    fingerprints.push(createEngineFingerprint(name, version as string));
+  }
+
+  return fingerprints;
 };
