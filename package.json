@@ -47,6 +47,7 @@
     "@atomist/sdm": ">=1.6.0",
     "@atomist/sdm-core": ">=1.6.0",
     "@atomist/sdm-pack-build": ">=1.0.4",
+    "@atomist/sdm-pack-fingerprints": "*",
     "@atomist/slack-messages": ">=1.1.1"
   },
   "devDependencies": {
@@ -54,6 +55,7 @@
     "@atomist/sdm": "^1.6.0",
     "@atomist/sdm-core": "^1.6.0",
     "@atomist/sdm-pack-build": "^1.0.4",
+    "@atomist/sdm-pack-fingerprints": "^4.0.4",
     "@atomist/slack-messages": "^1.1.1",
     "@types/mocha": "^5.2.7",
     "@types/node": "^12.6.2",
@@ -66,7 +68,7 @@
     "supervisor": "^0.12.0",
     "ts-node": "^8.3.0",
     "tslint": "^5.18.0",
-    "typedoc": "^0.14.2",
+    "typedoc": "^0.15.0",
     "typescript": "^3.5.3"
   },
   "directories": {
