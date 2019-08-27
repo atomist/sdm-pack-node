@@ -48,6 +48,9 @@ export { UpdatePackageJsonIdentification } from "./lib/transform/updatePackageJs
 export { UpdatePackageVersion } from "./lib/transform/updatePackageVersion";
 export { UpdateReadmeTitle } from "./lib/transform/updateReadmeTitle";
 
+
+export { NodeEngineFingerprint } from "./lib/build/nodeEngineFingerprint";
+
 export {
     NodeProjectCreationParametersDefinition,
     NodeProjectCreationParameters,
