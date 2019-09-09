@@ -43,16 +43,16 @@
     "strip-ansi": "^5.2.0"
   },
   "peerDependencies": {
-    "@atomist/automation-client": ">=1.6.1",
-    "@atomist/sdm": ">=1.6.0",
-    "@atomist/sdm-core": ">=1.6.0",
+    "@atomist/automation-client": "^1.7.0",
+    "@atomist/sdm": "^1.7.0",
+    "@atomist/sdm-core": "^1.7.0",
     "@atomist/sdm-pack-build": ">=1.0.4",
     "@atomist/slack-messages": ">=1.1.1"
   },
   "devDependencies": {
-    "@atomist/automation-client": "^1.6.1",
-    "@atomist/sdm": "^1.6.0",
-    "@atomist/sdm-core": "^1.6.0",
+    "@atomist/automation-client": "^1.7.0",
+    "@atomist/sdm": "^1.7.0",
+    "@atomist/sdm-core": "^1.7.0",
     "@atomist/sdm-pack-build": "^1.0.4",
     "@atomist/slack-messages": "^1.1.1",
     "@types/mocha": "^5.2.7",
@@ -65,9 +65,9 @@
     "rimraf": "^2.6.3",
     "supervisor": "^0.12.0",
     "ts-node": "^8.3.0",
-    "tslint": "^5.18.0",
-    "typedoc": "^0.14.2",
-    "typescript": "^3.5.3"
+    "tslint": "^5.19.0",
+    "typedoc": "^0.15.0",
+    "typescript": "^3.6.2"
   },
   "directories": {
     "test": "test"
