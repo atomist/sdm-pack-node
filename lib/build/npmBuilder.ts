@@ -22,7 +22,6 @@ import {
     RemoteRepoRef,
 } from "@atomist/automation-client";
 import {
-    AppInfo,
     ExecuteGoalResult,
     GoalInvocation,
     GoalProjectListenerEvent,
@@ -39,6 +38,7 @@ import {
     spawnBuilder,
     SpawnBuilderOptions,
 } from "@atomist/sdm-pack-build";
+import { AppInfo } from "@atomist/sdm/lib/spi/deploy/Deployment";
 import base64url from "base64url";
 import * as fs from "fs-extra";
 import * as hash from "hasha";

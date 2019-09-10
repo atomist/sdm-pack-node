@@ -38,7 +38,7 @@
     "fs-extra": "^8.1.0",
     "hasha": "^5.0.0",
     "license-checker": "^25.0.1",
-    "lodash": "^4.17.13",
+    "lodash": "^4.17.15",
     "spdx-license-list": "^6.0.0",
     "strip-ansi": "^5.2.0"
   },
