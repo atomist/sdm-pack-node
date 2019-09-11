@@ -25,7 +25,7 @@ import {
     hasFile,
 } from "@atomist/sdm";
 import * as _ from "lodash";
-import { DevelopmentEnvOptions } from "../build/npmBuilder";
+import { DevelopmentEnvOptions } from "../npm/spawn";
 
 const Package = "package.json";
 
@@ -56,11 +56,11 @@ export function npmAuditAutofix(options: NpmAuditOptions = DefaultNpmAuditOption
     return {
         name: "npm audit",
         pushTest: hasFile(Package),
-        transform: async p => {
+        transform: async (p, papi) => {
             if (!isLocalProject(p)) {
                 return p;
             }
-
+            const log = papi.progressLog;
             const cwd = p.baseDir;
             try {
 
@@ -68,7 +68,7 @@ export function npmAuditAutofix(options: NpmAuditOptions = DefaultNpmAuditOption
                 if (options.packageLockOnly === true) {
                     args.push("--package-lock-only");
                 }
-
+                log.write(`Running 'npm audit --fix' in '${cwd}'`);
                 const npmAuditResult = await execPromise(
                     "npm",
                     args,
@@ -76,6 +76,7 @@ export function npmAuditAutofix(options: NpmAuditOptions = DefaultNpmAuditOption
                         cwd,
                         ...DevelopmentEnvOptions,
                     });
+                log.write(`Completed 'npm audit': ${npmAuditResult.stdout}`);
 
                 const npmAudit = JSON.parse(npmAuditResult.stdout) as NpmAuditFixResult;
 
