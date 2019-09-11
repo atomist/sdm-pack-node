@@ -30,11 +30,10 @@ export const AddBuildScript: AutofixRegistration = {
 
 export async function addBuildScriptTransform(p: Project): Promise<Project> {
     return doWithJson(p, "package.json", (packageJson => {
-            if (_.get(packageJson, "scripts.build")) {
-                return;
-            }
-            // todo: what would work on both linuxy and windows?
-            return _.merge(packageJson, { scripts: { build: "echo 'The build goes here'" } });
+        if (_.get(packageJson, "scripts.build")) {
+            return packageJson;
         }
-    ));
+        // todo: what would work on both linuxy and windows?
+        return _.merge(packageJson, { scripts: { build: "echo 'The build goes here'" } });
+    }));
 }

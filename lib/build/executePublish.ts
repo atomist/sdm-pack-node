@@ -25,7 +25,6 @@ import {
     ExecuteGoal,
     ExecuteGoalResult,
     LoggingProgressLog,
-    PrepareForGoalExecution,
     projectConfigurationValue,
     SdmGoalState,
     spawnLog,

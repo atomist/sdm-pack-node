@@ -39,12 +39,12 @@ export interface NpmPublishRegistration extends ImplementationRegistration {
  */
 export class NpmPublish extends FulfillableGoalWithRegistrations<NpmPublishRegistration> {
 
-    constructor(private readonly goalDetailsOrUniqueName: FulfillableGoalDetails | string = DefaultGoalNameGenerator.generateName("npm-publish"),
-                ...dependsOn: Goal[]) {
+    private static readonly defaultGoalName: string = DefaultGoalNameGenerator.generateName("npm-publish");
 
+    constructor(goalDetailsOrUniqueName: FulfillableGoalDetails | string = NpmPublish.defaultGoalName, ...dependsOn: Goal[]) {
         super({
             ...PublishDefiniton,
-            ...getGoalDefinitionFrom(goalDetailsOrUniqueName, DefaultGoalNameGenerator.generateName("npm-publish")),
+            ...getGoalDefinitionFrom(goalDetailsOrUniqueName, NpmPublish.defaultGoalName),
         }, ...dependsOn);
     }
 
