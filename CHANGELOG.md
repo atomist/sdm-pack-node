@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/atomist/sdm-pack-node/compare/1.1.1...HEAD)
 
+### Changed
+
+-   Use sdm-core cache capabilities. [#54](https://github.com/atomist/sdm-pack-node/issues/54)
+
 ## [1.1.1](https://github.com/atomist/sdm-pack-node/compare/1.1.0...1.1.1) - 2019-07-10
 
 ### Changed
