@@ -51,7 +51,7 @@
   },
   "devDependencies": {
     "@atomist/automation-client": "^1.7.0",
-    "@atomist/sdm": "^1.7.0",
+    "@atomist/sdm": "^1.7.1-master.20190915225602",
     "@atomist/sdm-core": "^1.7.0",
     "@atomist/sdm-pack-build": "^1.0.6",
     "@atomist/slack-messages": "^1.1.1",

@@ -14,19 +14,30 @@
  * limitations under the License.
  */
 
+import { GitProject } from "@atomist/automation-client";
 import {
-    allSatisfied,
-    AutofixRegistration,
-    hasFile,
-    spawnAutofix,
+    ProgressLog,
+    SpawnLogOptions,
 } from "@atomist/sdm";
-import { DevelopmentEnvOptions } from "../../npm/spawn";
-import { IsNode } from "../../pushtest/nodePushTests";
-import { IsTypeScript } from "../../pushtest/tsPushTests";
 
-export const TslintAutofix: AutofixRegistration = spawnAutofix(
-    "tslint",
-    allSatisfied(IsTypeScript, IsNode, hasFile("tslint.json")),
-    { ignoreFailure: true },
-    { command: "npm", args: ["run", "--if-present", "lint:fix", "--", "--force"], options: DevelopmentEnvOptions },
-);
+/**
+ * Options to use when running node commands like npm run compile that
+ * require dev dependencies to be installed
+ */
+export const DevelopmentEnvOptions: Partial<SpawnLogOptions> = {
+    env: {
+        ...process.env,
+        NODE_ENV: "development",
+    },
+};
+
+/**
+ * Generate appropriate options for [[spawnLog]] for project and progress log.
+ */
+export function npmSpawnLogOptions(p: GitProject, log: ProgressLog): SpawnLogOptions {
+    return {
+        cwd: p.baseDir,
+        ...DevelopmentEnvOptions,
+        log,
+    };
+}

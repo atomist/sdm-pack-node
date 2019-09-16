@@ -69,18 +69,11 @@ export { IsAtomistAutomationClient } from "./lib/pushtest/nodePushTests";
 export { NodeProjectVersioner } from "./lib/build/nodeProjectVersioner";
 export {
     nodeBuilder,
-    DevelopmentEnvOptions,
     NpmPreparations,
     npmBuilderOptionsFromFile,
-    npmCompilePreparation,
-    npmInstallPreparation,
-    npmVersionPreparation,
     Install,
     NodeModulesProjectListener,
-    NpmInstallProjectListener,
     npmInstallProjectListener,
-    NpmCompileProjectListener,
-    NpmVersionProjectListener,
     CacheScope,
 } from "./lib/build/npmBuilder";
 export {
@@ -89,4 +82,15 @@ export {
 } from "./lib/build/npmProgressReporter";
 export { NodeDefaultOptions } from "./lib/build/nodeOptions";
 export * from "./lib/autofix/eslintAutofix";
+export {
+    npmCompilePreparation,
+    npmInstallPreparation,
+    npmVersionPreparation,
+    NpmInstallProjectListener,
+    NpmCompileProjectListener,
+    NpmVersionProjectListener,
+} from "./lib/listener/npm";
+export {
+    DevelopmentEnvOptions,
+} from "./lib/npm/spawn";
 export { PackageJson } from "./lib/util/PackageJson";
