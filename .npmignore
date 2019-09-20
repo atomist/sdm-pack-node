@@ -12,11 +12,9 @@
 /config/
 /log/
 /scripts/
-/src/
+/src/test/
 /test/
 /CO*.md
 /Dockerfile
 *.log
 *.txt
-*.ts
-!*.d.ts
