@@ -116,14 +116,38 @@ export const NpmNodeModulesCachePut = cachePut({
 });
 
 /**
+ * Install Node.js dependencies using NPM and cache the results.  If
+ * install the dependencies fails, nothing is cached.
+ *
+ * @param p Project to install dependencies for
+ * @param gi SDM goal invocation triggering this preparation
+ * @param event SDM goal event triggering this preparation
+ * @return Success or failure
+ */
+async function cachingNpmInstallPreparation(p: GitProject, gi: GoalInvocation, event: GoalProjectListenerEvent): Promise<ExecuteGoalResult> {
+    const log = gi.progressLog;
+    const prepResult = await npmInstallPreparation(p, gi);
+    if (prepResult.code !== 0) {
+        log.write(`Failed to install dependencies using npm: ${prepResult.message}`);
+        return prepResult;
+    }
+    try {
+        await NpmNodeModulesCachePut.listener(p, gi, event);
+    } catch (e) {
+        log.write(`Failed to cache node_modules: ${e.message}`);
+    }
+    return prepResult;
+}
+
+/**
  * Listener that restores the `node_modules` directory from the
  * configured cache before a goal invocation.
  */
-export const NpmNodeModuledCacheRestore = cacheRestore({
+export const NpmNodeModulesCacheRestore = cacheRestore({
     entries: [{ classifier: npmNodeModulesCacheClassifier }],
     onCacheMiss: {
         name: "cache-miss-npm-install",
-        listener: npmInstallPreparation,
+        listener: cachingNpmInstallPreparation,
     },
     pushTest: IsNode,
 });
@@ -140,8 +164,8 @@ export const TypeScriptCompileCachePut = cachePut({
             classifier: typescriptCompileCacheClassifier,
             pattern: {
                 globPattern: [
-                    "index.{d.ts,js}{,.map}",
-                    "{bin,lib,test}/**/*.{d.ts,js}{,.map}",
+                    "*.{d.ts,js}{,.map}",
+                    "!(node_modules)/**/*.{d.ts,js}{,.map}",
                     "lib/typings/types.ts",
                 ],
             },
@@ -151,6 +175,30 @@ export const TypeScriptCompileCachePut = cachePut({
 });
 
 /**
+ * Use NPM to compile sources and cache the results.  If compilation
+ * fails, nothing is cached.
+ *
+ * @param p Project to run compile in
+ * @param gi SDM goal invocation triggering this preparation
+ * @param event SDM goal event triggering this preparation
+ * @return Success or failure
+ */
+async function cachingNpmCompilePreparation(p: GitProject, gi: GoalInvocation, event: GoalProjectListenerEvent): Promise<ExecuteGoalResult> {
+    const log = gi.progressLog;
+    const prepResult = await npmCompilePreparation(p, gi);
+    if (prepResult.code !== 0) {
+        log.write(`Failed to compile using npm: ${prepResult.message}`);
+        return prepResult;
+    }
+    try {
+        await TypeScriptCompileCachePut.listener(p, gi, event);
+    } catch (e) {
+        log.write(`Failed to cache compiled files: ${e.message}`);
+    }
+    return prepResult;
+}
+
+/**
  * Listener that restores the output from TypeScript compilation from
  * the configured cache before a goal invocation.
  */
@@ -158,7 +206,7 @@ export const TypeScriptCompileCacheRestore = cacheRestore({
     entries: [{ classifier: typescriptCompileCacheClassifier }],
     onCacheMiss: {
         name: "cache-miss-typescript-compile",
-        listener: npmCompilePreparation,
+        listener: cachingNpmCompilePreparation,
     },
     pushTest: IsNode,
 });

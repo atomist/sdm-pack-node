@@ -34,7 +34,7 @@ import {
     npmCompilePreparation,
     npmInstallPreparation,
     NpmInstallProjectListener,
-    NpmNodeModuledCacheRestore,
+    NpmNodeModulesCacheRestore,
     npmVersionPreparation,
 } from "../listener/npm";
 import { DevelopmentEnvOptions } from "../npm/spawn";
@@ -122,7 +122,7 @@ export const NodeModulesProjectListener = NpmInstallProjectListener;
 
 /** @deprecated use NpmNodeModuledCacheRestore */
 export function npmInstallProjectListener(options: { scope: CacheScope } = { scope: CacheScope.GoalSet }): GoalProjectListenerRegistration {
-    return NpmNodeModuledCacheRestore;
+    return NpmNodeModulesCacheRestore;
 }
 
 /** @deprecated */
