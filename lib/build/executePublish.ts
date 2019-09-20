@@ -65,14 +65,11 @@ export function executePublish(
 
         await configureNpmRc(options, project);
 
-        const args: string[] = [
-            p.join(__dirname, "..", "..", "assets", "scripts", "npm-publish.bash"),
-        ];
+        const args: string[] = ["publish"];
         if (!!options.registry) {
             args.push("--registry", options.registry);
         }
-        const access = await projectConfigurationValue<NodeConfiguration["npm"]["publish"]["access"]>("npm.publish.access",
-            project, options.access);
+        const access = await projectConfigurationValue<NodeConfiguration["npm"]["publish"]["access"]>("npm.publish.access", project, options.access);
         if (access) {
             args.push("--access", access);
         }
@@ -82,7 +79,7 @@ export function executePublish(
             args.push("--tag", gitBranchToNpmTag(id.branch));
         }
 
-        let result: ExecuteGoalResult = await goalInvocation.spawn("bash", args);
+        let result: ExecuteGoalResult = await goalInvocation.spawn("node", args);
 
         if (result.code === 0) {
 

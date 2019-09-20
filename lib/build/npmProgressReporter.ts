@@ -55,7 +55,7 @@ export const NpmProgressTests: ProgressTest[] = [{
     test: /Invoking goal hook: post/i,
     phase: "post-hook",
 }, {
-    test: /npm-publish.bash/i,
+    test: /> npm 'publish'/i,
     phase: "npm publish",
 }, {
     test: /> tslint/i,
