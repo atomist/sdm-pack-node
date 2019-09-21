@@ -167,6 +167,7 @@ export const TypeScriptCompileCachePut = cachePut({
                     "*.{d.ts,js}{,.map}",
                     "!(node_modules)/**/*.{d.ts,js}{,.map}",
                     "lib/typings/types.ts",
+                    "git-info.json"
                 ],
             },
         },
