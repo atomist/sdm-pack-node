@@ -89,6 +89,10 @@ export {
     NpmInstallProjectListener,
     NpmCompileProjectListener,
     NpmVersionProjectListener,
+    NpmNodeModulesCachePut,
+    NpmNodeModulesCacheRestore,
+    TypeScriptCompileCachePut,
+    TypeScriptCompileCacheRestore,
 } from "./lib/listener/npm";
 export {
     DevelopmentEnvOptions,

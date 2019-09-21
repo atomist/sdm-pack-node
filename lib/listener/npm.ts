@@ -48,7 +48,7 @@ export async function npmVersionPreparation(p: GitProject, gi: GoalInvocation): 
 }
 
 /**
- * Install Node.js dependencies using NPM, runnning `npm install` or
+ * Install Node.js dependencies using NPM, running `npm install` or
  * `npm ci`, as appropriate.
  *
  * @param p Project to install dependencies for
