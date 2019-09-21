@@ -102,7 +102,7 @@ export const NpmCompileProjectListener: GoalProjectListenerRegistration = {
     pushTest: IsNode,
 };
 
-const npmNodeModulesCacheClassifier = "npm-node_modules-cache";
+const npmNodeModulesCacheClassifier = "node_modules";
 
 /**
  * Listener that stores the `node_modules` directory in the configured
@@ -152,7 +152,7 @@ export const NpmNodeModulesCacheRestore = cacheRestore({
     pushTest: IsNode,
 });
 
-const typescriptCompileCacheClassifier = "ts-compile-cache";
+const typescriptCompileCacheClassifier = "ts-compile";
 
 /**
  * Listener that stores the output from TypeScript compilation in the
