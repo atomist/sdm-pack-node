@@ -79,7 +79,7 @@ export function executePublish(
             args.push("--tag", gitBranchToNpmTag(id.branch));
         }
 
-        let result: ExecuteGoalResult = await goalInvocation.spawn("node", args);
+        let result: ExecuteGoalResult = await goalInvocation.spawn("npm", args);
 
         if (result.code === 0) {
 
