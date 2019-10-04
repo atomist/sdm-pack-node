@@ -30,9 +30,7 @@
   "types": "./index.d.ts",
   "dependencies": {
     "@types/fs-extra": "^8.0.0",
-    "@types/hasha": "^3.0.1",
     "@types/lodash": "^4.14.136",
-    "@types/strip-ansi": "^5.2.1",
     "app-root-path": "^2.2.1",
     "base64url": "^3.0.1",
     "fs-extra": "^8.1.0",
