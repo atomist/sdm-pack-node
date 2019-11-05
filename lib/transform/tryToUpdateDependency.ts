@@ -68,7 +68,7 @@ export const UpdateDependencyTransform: CodeTransform<UpdateDependencyParameters
         const range = (tag === "latest" ? "^" : "");
         const pjFile = await p.getFile("package.json");
         const pj = JSON.parse(await pjFile.getContent());
-        const versions = [];
+        const versions: string[] = [];
 
         const message: SlackMessage = {
             text: `Updating ${codeLine(params.package)} NPM dependency of ${codeLine(pj.name)}`,

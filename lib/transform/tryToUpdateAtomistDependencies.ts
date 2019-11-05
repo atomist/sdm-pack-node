@@ -60,7 +60,7 @@ export const UpdateAtomistDependenciesTransform: CodeTransform<UpdateAtomistDepe
         const range = (tag === "latest" ? "^" : "");
         const pjFile = await p.getFile("package.json");
         const pj = JSON.parse(await pjFile.getContent());
-        const versions = [];
+        const versions: string[] = [];
 
         const message: SlackMessage = {
             text: `Updating @atomist NPM dependencies of ${codeLine(pj.name)}`,

@@ -15,7 +15,7 @@
       "ScriptHost",
       "esnext.asynciterable"
     ],
-    "strict": false,
+    "strict": true,
     "strictNullChecks": false,
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,

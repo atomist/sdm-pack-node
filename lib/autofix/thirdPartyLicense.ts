@@ -38,7 +38,7 @@ import * as spdx from "spdx-license-list";
 import { promisify } from "util";
 import { IsNode } from "../pushtest/nodePushTests";
 
-const LicenseMapping = {
+const LicenseMapping: Record<string, string> = {
     "Apache 2.0": "Apache-2.0",
 };
 
@@ -81,13 +81,12 @@ export function addThirdPartyLicenseTransform(): CodeTransform<NoParameters> {
             }
         }
 
-        const json = await
-            promisify(lc.init)({
-                start: cwd,
-                production: true,
-            });
+        const json = await promisify(lc.init)({
+            start: cwd,
+            production: true,
+        });
 
-        const grouped = {};
+        const grouped: Record<string, lc.ModuleInfo[]> = {};
         _.forEach(json, (v, k) => {
             if (k === ownModule) {
                 return;
@@ -140,9 +139,9 @@ export function addThirdPartyLicenseTransform(): CodeTransform<NoParameters> {
             }
         }
 
-        const details = [];
+        const details: string[] = [];
         // tslint:disable-next-line:no-inferred-empty-object-type
-        _.forEach(grouped, (v: any, k: any) => {
+        _.forEach(grouped, (v, k) => {
             const deps = v.map(dep => {
                 const ix = dep.name.lastIndexOf("@");
                 const name = dep.name.slice(0, ix);
