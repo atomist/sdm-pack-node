@@ -102,7 +102,7 @@ export function addThirdPartyLicenseTransform(): CodeTransform<NoParameters> {
                 if (licenses.startsWith("(") && licenses.endsWith(")")) {
                     licenses = licenses.slice(1, -1);
                 }
-                licenses = [...(licenses as string).split(" OR ")];
+                licenses = [...licenses.split(" OR ")];
             }
 
             licenses.forEach(l => {
