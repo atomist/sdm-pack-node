@@ -66,7 +66,11 @@ export {
     configureNpmRc,
 } from "./lib/build/executePublish";
 export { IsAtomistAutomationClient } from "./lib/pushtest/nodePushTests";
-export { NodeProjectVersioner } from "./lib/build/nodeProjectVersioner";
+export {
+    NodeProjectVersioner,
+    NpmVersioner,
+    NpmVersionerRegistration,
+} from "./lib/build/npmVersioner";
 export {
     nodeBuilder,
     NpmPreparations,
