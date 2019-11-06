@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 -   Add NpmVersionerRegistration to ease use. [#55](https://github.com/atomist/sdm-pack-node/issues/55)
+-   Add NpmVersionIncrementer. [8b3c18a](https://github.com/atomist/sdm-pack-node/commit/8b3c18a2ab032c8174122c9159bbf4c0ca897425)
 
 ### Changed
 
