@@ -25,12 +25,14 @@ import {
     SourceLocation,
 } from "@atomist/automation-client";
 import {
+    AutoInspectRegistration,
     CodeInspection,
     CodeInspectionRegistration,
     execPromise,
 } from "@atomist/sdm";
 import * as appRoot from "app-root-path";
 import * as path from "path";
+import { IsTypeScript } from "../pushtest/tsPushTests";
 
 export interface TslintPosition {
     character: number;
@@ -163,4 +165,14 @@ export const TslintInspection: CodeInspectionRegistration<ProjectReview, NoParam
     description: "Run TSLint on project",
     inspection: RunTslintOnProject,
     intent: "ts lint",
+};
+
+/**
+ * Provide an auto inspect registration that runs TSLint and returns a
+ * ProjectReview.
+ */
+export const TslintAutoInspectionRegistration: AutoInspectRegistration<ProjectReview, NoParameters> = {
+    name: "TSLintAutoInspection",
+    inspection: RunTslintOnProject,
+    pushTest: IsTypeScript,
 };

@@ -27,6 +27,7 @@ export {
     esLintReviewCategory,
 } from "./lib/inspection/eslint";
 export {
+    TslintAutoInspectionRegistration,
     TslintInspection,
     tsLintReviewCategory,
 } from "./lib/inspection/tslint";
