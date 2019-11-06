@@ -14,12 +14,45 @@
  * limitations under the License.
  */
 
-import { InMemoryProject } from "@atomist/automation-client";
+import {
+    guid,
+    InMemoryProject,
+    NodeFsLocalProject,
+} from "@atomist/automation-client";
 import { formatDate } from "@atomist/sdm";
+import * as fs from "fs-extra";
+import * as os from "os";
+import * as path from "path";
 import * as assert from "power-assert";
-import { NpmVersioner } from "../../lib/build/npmVersioner";
+import {
+    NpmVersioner,
+    NpmVersionIncrementer,
+    readPackageVersion,
+} from "../../lib/build/npmVersioner";
 
 describe("build/npmVersioner", () => {
+
+    describe("readPackageVersion", () => {
+
+        it("reads version from package.json", async () => {
+            const p = InMemoryProject.of({ path: "package.json", content: `{"version":"1.2.3"}` });
+            const l: any = {
+                write: () => { },
+            };
+            const v = await readPackageVersion(p, l);
+            assert(v === "1.2.3");
+        });
+
+        it("returns default when no package.json", async () => {
+            const p = InMemoryProject.of();
+            const l: any = {
+                write: () => { },
+            };
+            const v = await readPackageVersion(p, l);
+            assert(v === "0.0.0");
+        });
+
+    });
 
     describe("NpmVersioner", () => {
 
@@ -67,6 +100,79 @@ describe("build/npmVersioner", () => {
             } else {
                 assert(v === `1.2.3-not-master.${da}` || v === `1.2.3-not-master.${db}`);
             }
+        });
+
+    });
+
+    describe("NpmVersionIncrementer", () => {
+
+        const tmpDirPrefix = path.join(os.tmpdir(), "atm-npm-version-incrementer-test");
+        const toDelete: string[] = [];
+        after(async () => {
+            await Promise.all(toDelete.map(d => fs.remove(d)));
+        });
+
+        it("increments the patch version", async () => {
+            const t = `${tmpDirPrefix}-${guid()}`;
+            await fs.ensureDir(t);
+            toDelete.push(t);
+            const pj = path.join(t, "package.json");
+            await fs.writeJson(pj, { name: "@doc/watson", version: "1.2.3" });
+            const i: any = {
+                owner: "doc",
+                repo: "watson",
+                url: "https://github.com/doc/watson",
+            };
+            const p = await NodeFsLocalProject.fromExistingDirectory(i, t);
+            const l: any = {
+                write: () => { },
+            };
+            const a: any = {
+                currentVersion: "1.2.3",
+                id: i,
+                increment: "patch",
+                log: l,
+                project: p,
+            };
+            const r = await NpmVersionIncrementer(a);
+            const e = {
+                code: 0,
+                message: "Incremented patch version in doc/watson: 1.2.3 => 1.2.4",
+            };
+            assert.deepStrictEqual(r, e);
+            const n = await fs.readJson(pj);
+            assert(n.version === "1.2.4");
+        });
+
+        it("creates the package.json and increments the major version", async () => {
+            const t = `${tmpDirPrefix}-${guid()}`;
+            await fs.ensureDir(t);
+            toDelete.push(t);
+            const i: any = {
+                owner: "doc",
+                repo: "watson",
+                url: "https://github.com/doc/watson",
+            };
+            const p = await NodeFsLocalProject.fromExistingDirectory(i, t);
+            const l: any = {
+                write: () => { },
+            };
+            const a: any = {
+                currentVersion: "1.2.3",
+                id: i,
+                increment: "major",
+                log: l,
+                project: p,
+            };
+            const r = await NpmVersionIncrementer(a);
+            const e = {
+                code: 0,
+                message: "Incremented major version in doc/watson: 1.2.3 => 2.0.0",
+            };
+            assert.deepStrictEqual(r, e);
+            const pj = path.join(t, "package.json");
+            const n = await fs.readJson(pj);
+            assert(n.version === "2.0.0");
         });
 
     });

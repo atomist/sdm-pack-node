@@ -70,6 +70,8 @@ export {
     NodeProjectVersioner,
     NpmVersioner,
     NpmVersionerRegistration,
+    NpmVersionIncrementer,
+    NpmVersionIncrementerRegistration,
 } from "./lib/build/npmVersioner";
 export {
     nodeBuilder,
