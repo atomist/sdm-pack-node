@@ -171,7 +171,7 @@ export const TslintInspection: CodeInspectionRegistration<ProjectReview, NoParam
  * Provide an auto inspect registration that runs TSLint and returns a
  * ProjectReview.
  */
-export const TslintAutoInspectionRegistration: AutoInspectRegistration<ProjectReview, NoParameters> = {
+export const TslintAutoInspectRegistration: AutoInspectRegistration<ProjectReview, NoParameters> = {
     name: "TSLintAutoInspection",
     inspection: RunTslintOnProject,
     pushTest: IsTypeScript,

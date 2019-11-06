@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 -   Add NpmVersionerRegistration to ease use. [#55](https://github.com/atomist/sdm-pack-node/issues/55)
 -   Add NpmVersionIncrementer. [8b3c18a](https://github.com/atomist/sdm-pack-node/commit/8b3c18a2ab032c8174122c9159bbf4c0ca897425)
--   Add TslintAutoInspectionRegistration. [5d65ae0](https://github.com/atomist/sdm-pack-node/commit/5d65ae0bdefe1507413474e3c9d1e2e60ad34a92)
+-   Add TslintAutoInspectRegistration. [5d65ae0](https://github.com/atomist/sdm-pack-node/commit/5d65ae0bdefe1507413474e3c9d1e2e60ad34a92)
 
 ### Changed
 
