@@ -24,6 +24,7 @@ import {
     Severity,
 } from "@atomist/automation-client";
 import {
+    AutoInspectRegistration,
     CodeInspection,
     CodeInspectionRegistration,
     spawnPromise,
@@ -37,6 +38,7 @@ import {
     DefaultNpmAuditOptions,
     NpmAuditOptions,
 } from "../autofix/npmAuditAutofix";
+import { IsNode } from "../pushtest/nodePushTests";
 
 export interface NpmAuditAdvisory {
     module_name: string;
@@ -86,7 +88,7 @@ export function mapNpmAuditResultsToReviewComments(npmAuditOutput: string): Revi
             details = `${details} ${italic(v.recommendation.trim())}`;
         }
         if (!!v.cves && v.cves.length > 0) {
-            details = `${details} - ${v.cves.map(c => `[${c}](https://nvd.nist.gov/vuln/detail/${c})`).join(" ")}`;
+            details = `${details} - ` + v.cves.map(c => `[${c}](https://nvd.nist.gov/vuln/detail/${c})`).join(" ");
         }
         if (!!v.findings && v.findings.length > 0) {
             const findings = v.findings.map(f => `\n  - ${
@@ -143,6 +145,10 @@ export function runNpmAuditOnProject(options: NpmAuditOptions = DefaultNpmAuditO
     };
 }
 
+/**
+ * Provide a code inspection that runs `npm audit` and returns a
+ * ProjectReview.
+ */
 export function npmAuditInspection(options: NpmAuditOptions = DefaultNpmAuditOptions): CodeInspectionRegistration<ProjectReview, NoParameters> {
     return {
         name: "NpmAuditInspection",
@@ -151,3 +157,13 @@ export function npmAuditInspection(options: NpmAuditOptions = DefaultNpmAuditOpt
         intent: "npm audit",
     };
 }
+
+/**
+ * Provide an auto inspect registration that runs `npm audit` and
+ * returns a ProjectReview.
+ */
+export const NpmAuditAutoInspectRegistration: AutoInspectRegistration<ProjectReview, NoParameters> = {
+    name: "NpmAuditAutoInspection",
+    inspection: runNpmAuditOnProject(),
+    pushTest: IsNode,
+};
